@@ -48,11 +48,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="routes\tasks.json.js" />
-    <Content Include="views\shared\footer.html" />
     <None Include="package.json" />
     <None Include="public\css\style.styl" />
-    <Content Include="views\shared\header.html" />
     <None Include="views\index.jade" />
+    <None Include="views\layout.jade" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="app.js" />
@@ -64,7 +63,6 @@
     <Content Include="routes\index.js" />
     <Content Include="routes\people.js" />
     <Content Include="routes\user.js" />
-    <Content Include="views\index.html" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="public\images\" />

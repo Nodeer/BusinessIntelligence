@@ -1,3 +1,6 @@
-﻿head
-  title Jade Example
-  link(rel="stylesheet", href="/stylesheets/style.css")
+﻿extends layout
+
+block content
+    ul(ng-controller="TaskCtrl")
+        li(ng-repeat="task in tasks")
+            span {{task.Name}}
