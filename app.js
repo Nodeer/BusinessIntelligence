@@ -14,7 +14,8 @@ var app = express();
 // all environments
 app.set('port', process.env.PORT || 3000);
 app.set('views', path.join(__dirname, 'views'));
-app.engine('html', require('ejs').renderFile);
+app.engine('html', require('ejs').__express);
+app.set('view engine', 'html');
 app.use(express.favicon());
 app.use(express.logger('dev'));
 app.use(express.json());
@@ -24,7 +25,10 @@ app.use(express.cookieParser('your secret here'));
 app.use(express.session());
 app.use(app.router);
 app.use(require('stylus').middleware(path.join(__dirname, 'public')));
-app.use(express.static(path.join(__dirname, 'public')));
+app.use('/public', express.static(path.join(__dirname, 'public')));
+app.use('/public/js', express.static(path.join(__dirname, 'public/js')));
+app.use('/public/js/angular', express.static(path.join(__dirname, 'public/js/angular')));
+app.use('/public/css', express.static(path.join(__dirname, 'public/css')));
 
 // development only
 if ('development' == app.get('env')) {
@@ -32,6 +36,10 @@ if ('development' == app.get('env')) {
 }
 
 app.get('/', routes.index);
+
+app.get('/tasks.json', require('./routes/tasks.json').tasks);
+app.get('/tasks.json/:taskId', require('./routes/tasks.json').task);
+
 app.get('/users', user.list);
 app.get('/people', require('./routes/people').list);
 

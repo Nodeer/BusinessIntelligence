@@ -1,5 +1,5 @@
 exports.list = function (req, res) {
-    var db = require('../public/javascripts/db');
+    var db = require('../public/js/db');
     db.procedure('usp_SelectTasks', [
         {
             name: 'name',

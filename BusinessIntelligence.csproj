@@ -47,20 +47,50 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="public\js\angular\angular-animate.js" />
+    <Content Include="public\js\angular\angular-animate.min.js" />
+    <Content Include="public\js\angular\angular-cookies.js" />
+    <Content Include="public\js\angular\angular-cookies.min.js" />
+    <Content Include="public\js\angular\angular-csp.css" />
+    <Content Include="public\js\angular\angular-loader.js" />
+    <Content Include="public\js\angular\angular-loader.min.js" />
+    <Content Include="public\js\angular\angular-mocks.js" />
+    <Content Include="public\js\angular\angular-resource.js" />
+    <Content Include="public\js\angular\angular-resource.min.js" />
+    <Content Include="public\js\angular\angular-route.js" />
+    <Content Include="public\js\angular\angular-route.min.js" />
+    <Content Include="public\js\angular\angular-sanitize.js" />
+    <Content Include="public\js\angular\angular-sanitize.min.js" />
+    <Content Include="public\js\angular\angular-scenario.js" />
+    <Content Include="public\js\angular\angular-touch.js" />
+    <Content Include="public\js\angular\angular-touch.min.js" />
+    <Content Include="public\js\angular\angular.js" />
+    <Content Include="public\js\angular\angular.min.js" />
+    <Content Include="routes\tasks.json.js" />
+    <Content Include="views\shared\footer.html" />
     <None Include="package.json" />
-    <None Include="public\stylesheets\style.styl" />
-    <None Include="views\index.jshtml" />
-    <None Include="views\layout.jshtml" />
+    <None Include="public\css\style.styl" />
+    <None Include="public\js\angular\angular-animate.min.js.map" />
+    <None Include="public\js\angular\angular-cookies.min.js.map" />
+    <None Include="public\js\angular\angular-loader.min.js.map" />
+    <None Include="public\js\angular\angular-resource.min.js.map" />
+    <None Include="public\js\angular\angular-route.min.js.map" />
+    <None Include="public\js\angular\angular-sanitize.min.js.map" />
+    <None Include="public\js\angular\angular-touch.min.js.map" />
+    <None Include="public\js\angular\angular.min.js.map" />
+    <Content Include="views\shared\header.html" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="app.js" />
-    <Content Include="public\javascripts\settings.js" />
-    <Content Include="public\javascripts\db.js" />
+    <Content Include="public\js\app.js" />
+    <Content Include="public\js\controllers.js" />
+    <Content Include="public\js\services.js" />
+    <Content Include="public\js\settings.js" />
+    <Content Include="public\js\db.js" />
     <Content Include="routes\index.js" />
     <Content Include="routes\people.js" />
     <Content Include="routes\user.js" />
     <Content Include="views\index.html" />
-    <Content Include="views\people.html" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="public\images\" />

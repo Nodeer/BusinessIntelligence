@@ -1,1 +1,10 @@
-<h1>Test</h1>
+<% include shared/header.html %>
+
+<h1><%= title %></h1>
+<ul ng-controller="TaskCtrl">
+    <li ng-repeat="task in tasks">
+        {{task.Name}}
+    </li>
+</ul>
+
+<% include shared/footer.html %>
