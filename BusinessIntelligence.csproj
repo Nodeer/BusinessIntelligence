@@ -47,10 +47,15 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="routes\tasks.json.js" />
+    <Content Include="services\auth.js" />
+    <Content Include="models\user.js" />
+    <Content Include="services\hash.js" />
+    <Content Include="routes\routes.js" />
+    <Content Include="routes\tasks.js" />
+    <Content Include="services\users.js" />
     <None Include="package.json" />
     <None Include="public\css\style.styl" />
-    <None Include="views\index.jade" />
+    <None Include="views\home\index.jade" />
     <None Include="views\layout.jade" />
   </ItemGroup>
   <ItemGroup>
@@ -58,11 +63,9 @@
     <Content Include="public\js\app.js" />
     <Content Include="public\js\controllers.js" />
     <Content Include="public\js\services.js" />
-    <Content Include="public\js\settings.js" />
-    <Content Include="public\js\db.js" />
+    <Content Include="services\settings.js" />
+    <Content Include="services\db.js" />
     <Content Include="routes\index.js" />
-    <Content Include="routes\people.js" />
-    <Content Include="routes\user.js" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="public\images\" />

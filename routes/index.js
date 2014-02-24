@@ -1,8 +1,7 @@
+exports.register = function (app, passport) {
+    app.get('/', this.index);
+};
 
-/*
- * GET home page.
- */
-
-exports.index = function(req, res){
-    res.render('index', { title: 'Business Intelligence' });
+exports.index = function (req, res) {
+    res.render('home/index');
 };

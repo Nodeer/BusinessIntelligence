@@ -2,7 +2,7 @@
 
 biServices.factory('TaskFactory', ['$resource',
     function ($resource) {
-        return $resource('tasks.json/:taskId', {}, {
+        return $resource('tasks/:taskId.json', {}, {
             query: { method: 'GET', params: { taskId: '' }, isArray: true }
         });
     }]);

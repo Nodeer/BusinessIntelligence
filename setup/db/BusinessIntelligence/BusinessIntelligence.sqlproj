@@ -69,8 +69,16 @@
     <PostDeploy Include="Scripts\Post-Deployment\1.0.0001.sql" />
     <Build Include="Schema Objects\Tables\TaskSnapshot.sql" />
     <Build Include="Schema Objects\Srored Procedures\usp_GetTasks.sql" />
+    <Build Include="Schema Objects\Srored Procedures\usp_FindTaskByName.sql" />
+    <Build Include="Schema Objects\Srored Procedures\usp_FindTaskByExternalId.sql" />
+    <Build Include="Schema Objects\Srored Procedures\usp_GetTask.sql" />
+    <Build Include="Schema Objects\Tables\User.sql" />
+    <Build Include="Schema Objects\Tables\Person.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="BusinessIntelligence.refactorlog" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="BusinessIntelligence.publish.xml" />
   </ItemGroup>
 </Project>

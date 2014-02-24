@@ -3,7 +3,6 @@
     [TaskId] INT NOT NULL IDENTITY(1, 1) NOT FOR REPLICATION, 
     [ExternalId] NVARCHAR(50) NOT NULL DEFAULT '', 
     [Name] NVARCHAR(200) NULL, 
-    [Active] BIT NOT NULL DEFAULT 1, 
     [UpdatedBy] NVARCHAR(50) NOT NULL DEFAULT SUSER_SNAME(), 
     [UpdatedDate] DATETIME2 NOT NULL DEFAULT SYSDATETIME()
 )
@@ -16,7 +15,7 @@ ALTER TABLE [dbo].[Task]
 
 GO
 
-CREATE INDEX [IX_Task_ExternalId_Active] ON [dbo].[Task] ([ExternalId], [Active])
+CREATE INDEX [IX_Task_ExternalId] ON [dbo].[Task] ([ExternalId])
 
 GO
 
@@ -33,7 +32,6 @@ CREATE TRIGGER [dbo].[Trigger_Task_TaskSnapshot]
             TaskId,
             ExternalId,
             Name,
-            Active,
             UpdatedBy,
             UpdatedDate
         )
@@ -41,7 +39,6 @@ CREATE TRIGGER [dbo].[Trigger_Task_TaskSnapshot]
             i.TaskId,
             i.ExternalId,
             i.Name,
-            i.Active,
             i.UpdatedBy,
             i.UpdatedDate
         FROM INSERTED i;
