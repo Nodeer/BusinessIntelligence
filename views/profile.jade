@@ -1,0 +1,11 @@
+﻿#nav-bar-profile
+    if user
+        #user
+    else
+        form#signin.navbar-form(method="post", action="/signin")
+            .form-group
+                input.form-control(placeholder="Username", name="username")
+            .form-group
+                input.form-control(type="password", placeholder="Password", name="password")
+            button#btn-signin.btn.btn-success Sign in
+            button#btn-signup.btn.btn-default Sign up

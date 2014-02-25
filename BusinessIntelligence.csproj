@@ -47,6 +47,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="public\css\body.css" />
+    <Content Include="public\css\docs.css" />
+    <Content Include="routes\login.js" />
+    <Content Include="services\view.js" />
     <Content Include="services\auth.js" />
     <Content Include="models\user.js" />
     <Content Include="services\hash.js" />
@@ -57,6 +61,8 @@
     <None Include="public\css\style.styl" />
     <None Include="views\home\index.jade" />
     <None Include="views\layout.jade" />
+    <None Include="views\navbar.jade" />
+    <None Include="views\profile.jade" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="app.js" />

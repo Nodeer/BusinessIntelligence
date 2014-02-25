@@ -1,0 +1,8 @@
+﻿.bs-sidebar .nav .nav {
+    display: block;
+}
+
+#nav-bar-profile #signin .form-group,
+#nav-bar-profile #signin button {
+    margin-right: 3px;
+}

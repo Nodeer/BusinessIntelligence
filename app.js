@@ -23,6 +23,7 @@ app.use(express.json());
 app.use(express.urlencoded());
 app.use(express.methodOverride());
 app.use(express.cookieParser('dsaklkdl;sak90ui4op3jkl30io9p43l;kasd'));
+app.use(express.session());
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(app.router);
@@ -38,10 +39,10 @@ if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
-var users = require('./services/users');
-passport.use(new PassportLocalStrategy(users.authenticate));
-passport.serializeUser(users.serializeUser);
-passport.deserializeUser(users.deserializeUser);
+var auth = require('./services/auth');
+passport.use(new PassportLocalStrategy(auth.authenticateUser));
+passport.serializeUser(auth.serializeUser);
+passport.deserializeUser(auth.deserializeUser);
 
 require('./routes/routes')(app, passport);
 
