@@ -9,4 +9,4 @@
 
 GO
 
-CREATE INDEX [IX_User_Username] ON [dbo].[User] ([Username])
+CREATE UNIQUE INDEX [IX_User_Username] ON [dbo].[User] ([Username])

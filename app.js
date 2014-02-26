@@ -6,6 +6,7 @@ var express = require('express');
 var routes = require('./routes');
 var http = require('http');
 var path = require('path');
+var flash = require('connect-flash');
 
 var passport = require('passport');
 var PassportLocalStrategy = require('passport-local').Strategy;
@@ -26,6 +27,7 @@ app.use(express.cookieParser('dsaklkdl;sak90ui4op3jkl30io9p43l;kasd'));
 app.use(express.session());
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(flash());
 app.use(app.router);
 
 app.use(require('stylus').middleware(path.join(__dirname, 'public')));
@@ -39,10 +41,10 @@ if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
-var auth = require('./services/auth');
-passport.use(new PassportLocalStrategy(auth.authenticateUser));
-passport.serializeUser(auth.serializeUser);
-passport.deserializeUser(auth.deserializeUser);
+var user = require('./services/user');
+passport.use(new PassportLocalStrategy(user.authenticateUser));
+passport.serializeUser(user.serializeUser);
+passport.deserializeUser(user.deserializeUser);
 
 require('./routes/routes')(app, passport);
 

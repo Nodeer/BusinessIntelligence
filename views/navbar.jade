@@ -6,13 +6,15 @@
                 span.icon-bar
                 span.icon-bar
                 span.icon-bar
-            a.navbar-brand(href="/")
-                span.glyphicon.glyphicon-home
+            if user
+                a.navbar-brand(href="/")
+                    span.glyphicon.glyphicon-home
         .navbar-collapse.collapse
-            ul.nav.navbar-nav
-                li
-                    a(href="/")
-                        span.glyphicon.glyphicon-book
-                        |  Bla bla
+            if user
+                ul.nav.navbar-nav
+                    li
+                        a(href="/")
+                            span.glyphicon.glyphicon-book
+                            |  Tasks
             ul.nav.navbar-nav.navbar-right
                 include profile

@@ -2,7 +2,12 @@
     display: block;
 }
 
-#nav-bar-profile #signin .form-group,
-#nav-bar-profile #signin button {
+#nav-bar-profile #loginform .form-group,
+#nav-bar-profile #loginform input {
     margin-right: 3px;
+}
+
+.alert {
+    margin-bottom: 0px;
+    text-align: center;
 }

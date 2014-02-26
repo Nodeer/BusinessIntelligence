@@ -2,10 +2,20 @@
     if user
         #user
     else
-        form#signin.navbar-form(method="post", action="/signin")
+        form#loginform.navbar-form(method="post", action="/")
             .form-group
                 input.form-control(placeholder="Username", name="username")
             .form-group
                 input.form-control(type="password", placeholder="Password", name="password")
-            button#btn-signin.btn.btn-success Sign in
-            button#btn-signup.btn.btn-default Sign up
+            input(type="submit", value="Sign in")#btn-signin.btn.btn-success
+            input(type="submit", value="Sign up")#btn-signup.btn.btn-default
+            script.
+                $(function () {
+                    $('#btn-signin').click(function () {
+                        $('#loginform').attr('action', '/signin');
+                    });
+
+                    $('#btn-signup').click(function () {
+                        $('#loginform').attr('action', '/signup');
+                    });
+                });

@@ -1,4 +1,5 @@
-﻿exports.hash = function (password, salt) {
-    var SHA256 = require("crypto-js/sha256");
-    return SHA256(password + salt);
+﻿var crypto = require("crypto-js");
+
+module.exports = function (password, salt) {
+    return crypto.SHA256(password + salt).toString(crypto.enc.Hex);
 };

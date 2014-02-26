@@ -74,6 +74,10 @@
     <Build Include="Schema Objects\Srored Procedures\usp_GetTask.sql" />
     <Build Include="Schema Objects\Tables\User.sql" />
     <Build Include="Schema Objects\Tables\Person.sql" />
+    <Build Include="Schema Objects\Srored Procedures\usp_InsertUser.sql" />
+    <Build Include="Schema Objects\Srored Procedures\usp_FindUserByUsernamePassword.sql" />
+    <Build Include="Schema Objects\Srored Procedures\usp_GetUser.sql" />
+    <Build Include="Schema Objects\Srored Procedures\usp_findUserByUsername.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="BusinessIntelligence.refactorlog" />
