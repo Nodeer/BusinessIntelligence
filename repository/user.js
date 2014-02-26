@@ -9,7 +9,7 @@ exports.getUser = function (userId, got) {
         type: 'Int',
         value: userId
     }], function (recordset) {
-        var user = new User(recordset[0][0]);
+        var user = new User(recordset[0]);
         got(user);
     });
 };
@@ -24,8 +24,8 @@ exports.findUserByUsernamePassword = function (username, password, done) {
         value: password
     }], function (recordset) {
         var user = null;
-        if (recordset[0][0]) {
-            user = new User(recordset[0][0]);
+        if (recordset[0]) {
+            user = new User(recordset[0]);
         }
 
         done(user);
@@ -33,34 +33,30 @@ exports.findUserByUsernamePassword = function (username, password, done) {
 };
 
 exports.findUserByUsername = function (username, done) {
-    console.log('findUserByUsername');
-    console.log('username=' + username);
     $db.procedure('dbo.usp_FindUserByUsername', [
     {
         name: 'username',
         value: username
     }], function (recordset) {
         var user = null;
-        if (recordset[0][0]) {
-            user = new User(recordset[0][0]);
+        if (recordset[0]) {
+            user = new User(recordset[0]);
         }
 
         done(user);
     });
 };
 
-exports.insertUser = function (user, inserted) {
-    console.log('insertUser');
+exports.insertUser = function (username, password, inserted) {
     $db.procedure('dbo.usp_InsertUser', [
     {
         name: 'username',
-        value: user.Username
+        value: username
     }, {
         name: 'password',
-        value: user.Password
+        value: password
     }], function (recordset) {
-        user.UserId = recordset[0][0].UserId;
-
-        inserted(user);
+        var userId = recordset[0].UserId;
+        exports.getUser(userId, inserted);
     });
 };

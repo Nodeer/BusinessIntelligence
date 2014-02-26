@@ -2,8 +2,9 @@
     display: block;
 }
 
-#nav-bar-profile #loginform .form-group,
-#nav-bar-profile #loginform input {
+#nav-bar-profile #profileform .form-group,
+#nav-bar-profile #profileform input,
+#nav-bar-profile #profileform a {
     margin-right: 3px;
 }
 

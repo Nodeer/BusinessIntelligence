@@ -26,7 +26,7 @@ exports.procedure = function (name, params, onSuccess, onError) {
                         console.dir(recordset);
                     }
 
-                    onSuccess(recordset);
+                    onSuccess(recordset[0], recordset);
                 } else {
                     console.error(err);
 

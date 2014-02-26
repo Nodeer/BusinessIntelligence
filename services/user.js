@@ -1,28 +1,28 @@
 ﻿var $userRepository = require('../repository/user');
+var $hash = require('../services/hash');
+var $settings = require('../settings');
 
-exports.createUser = function (user, created, error) {
-    $userRepository.findUserByUsername(user.Username, function (persistedUser) {
+exports.createUser = function (username, password, created, error) {
+    $userRepository.findUserByUsername(username, function (persistedUser) {
         if (persistedUser) {
-            error({
-                message: 'The user with same is already exists.'
-            });
+            return error();
         } else {
-            $userRepository.insertUser(user, created);
+            return $userRepository.insertUser(username, $hash(password, $settings.hash.salt), created);
         }
     });
 };
 
 exports.findUser = function (username, password, done) {
-    $userRepository.findUserByUsernamePassword(username, password, done);
+    return $userRepository.findUserByUsernamePassword(username, password, done);
 };
 
 exports.authenticateUser = function (username, password, done) {
-    exports.findUser(username, password, function (user) {
+    return exports.findUser(username, $hash(password, $settings.hash.salt), function (user) {
         console.log('authenticateUser=' + user);
         if (user) {
-            done(null, user);
+            return done(null, user);
         } else {
-            done(null, false);
+            return done(null, false);
         }
     });
 };
@@ -30,7 +30,7 @@ exports.authenticateUser = function (username, password, done) {
 exports.serializeUser = function (user, done) {
     console.log('serializeUser');
     console.log('user.UserId=' + user.UserId);
-    done(null, user.UserId);
+    return done(null, user.UserId);
 };
 
 exports.deserializeUser = function (id, done) {

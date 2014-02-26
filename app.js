@@ -25,10 +25,6 @@ app.use(express.urlencoded());
 app.use(express.methodOverride());
 app.use(express.cookieParser('dsaklkdl;sak90ui4op3jkl30io9p43l;kasd'));
 app.use(express.session());
-app.use(passport.initialize());
-app.use(passport.session());
-app.use(flash());
-app.use(app.router);
 
 app.use(require('stylus').middleware(path.join(__dirname, 'public')));
 app.use('/public', express.static(path.join(__dirname, 'public')));
@@ -36,17 +32,22 @@ app.use('/public/js', express.static(path.join(__dirname, 'public/js')));
 app.use('/public/js/angular', express.static(path.join(__dirname, 'public/js/angular')));
 app.use('/public/css', express.static(path.join(__dirname, 'public/css')));
 
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(flash());
+app.use(app.router);
+
 // development only
 if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
+require('./routes/routes')(app, passport);
+
 var user = require('./services/user');
 passport.use(new PassportLocalStrategy(user.authenticateUser));
 passport.serializeUser(user.serializeUser);
 passport.deserializeUser(user.deserializeUser);
-
-require('./routes/routes')(app, passport);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));

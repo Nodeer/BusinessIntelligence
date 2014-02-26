@@ -1,21 +1,27 @@
 ﻿#nav-bar-profile
     if user
-        #user
+        #userprofileform
+            form#profileform.navbar-form.navbar-right(method="post", action="/signout")
+                a.btn.btn-success(href="#")
+                    span.glyphicon.glyphicon-user
+                    span #{user.getDisplayName()}'s profile
+                input(type="submit", value="Sign out").btn.btn-default
     else
-        form#loginform.navbar-form(method="post", action="/")
-            .form-group
-                input.form-control(placeholder="Username", name="username")
-            .form-group
-                input.form-control(type="password", placeholder="Password", name="password")
-            input(type="submit", value="Sign in")#btn-signin.btn.btn-success
-            input(type="submit", value="Sign up")#btn-signup.btn.btn-default
-            script.
-                $(function () {
-                    $('#btn-signin').click(function () {
-                        $('#loginform').attr('action', '/signin');
-                    });
+        #unknownprofileform
+            form#profileform.navbar-form(method="post", action="/")
+                .form-group
+                    input.form-control(placeholder="Username", name="username")
+                .form-group
+                    input.form-control(type="password", placeholder="Password", name="password")
+                input(type="submit", value="Sign in")#btn-signin.btn.btn-success
+                input(type="submit", value="Sign up")#btn-signup.btn.btn-default
+                script.
+                    $(function () {
+                        $('#btn-signin').click(function () {
+                            $('#profileform').attr('action', '/signin');
+                        });
 
-                    $('#btn-signup').click(function () {
-                        $('#loginform').attr('action', '/signup');
+                        $('#btn-signup').click(function () {
+                            $('#profileform').attr('action', '/signup');
+                        });
                     });
-                });
