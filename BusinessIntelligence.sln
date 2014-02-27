@@ -1,13 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BusinessIntelligence", "BusinessIntelligence.csproj", "{9BB2CBBD-6FFB-43A7-AA69-4367999AB2B1}"
+Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "BusinessIntelligence", "BusinessIntelligence.njsproj", "{58F753DD-8C2E-4CB7-BCFD-90511AFED7AE}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Setup", "Setup", "{AD6E1FBC-23F4-4A5E-AA53-6FF8D4BEC9B8}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "db", "db", "{F0EE3A86-C4B1-4CCD-8DBE-00D1FCF4398E}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "db", "db", "{6666C3A4-DA84-4AB0-8A2D-B5D50541B900}"
-EndProject
-Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "BusinessIntelligence", "setup\db\BusinessIntelligence\BusinessIntelligence.sqlproj", "{9DD2EC0C-FA37-44B3-9A6F-913C68E53D37}"
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "BusinessIntelligence", "db\BusinessIntelligence\BusinessIntelligence.sqlproj", "{9DD2EC0C-FA37-44B3-9A6F-913C68E53D37}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,9 +13,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{9BB2CBBD-6FFB-43A7-AA69-4367999AB2B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9BB2CBBD-6FFB-43A7-AA69-4367999AB2B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9BB2CBBD-6FFB-43A7-AA69-4367999AB2B1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{58F753DD-8C2E-4CB7-BCFD-90511AFED7AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{58F753DD-8C2E-4CB7-BCFD-90511AFED7AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{58F753DD-8C2E-4CB7-BCFD-90511AFED7AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{58F753DD-8C2E-4CB7-BCFD-90511AFED7AE}.Release|Any CPU.Build.0 = Release|Any CPU
 		{9DD2EC0C-FA37-44B3-9A6F-913C68E53D37}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{9DD2EC0C-FA37-44B3-9A6F-913C68E53D37}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9DD2EC0C-FA37-44B3-9A6F-913C68E53D37}.Release|Any CPU.Build.0 = Release|Any CPU
@@ -27,7 +26,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{6666C3A4-DA84-4AB0-8A2D-B5D50541B900} = {AD6E1FBC-23F4-4A5E-AA53-6FF8D4BEC9B8}
-		{9DD2EC0C-FA37-44B3-9A6F-913C68E53D37} = {6666C3A4-DA84-4AB0-8A2D-B5D50541B900}
+		{9DD2EC0C-FA37-44B3-9A6F-913C68E53D37} = {F0EE3A86-C4B1-4CCD-8DBE-00D1FCF4398E}
 	EndGlobalSection
 EndGlobal

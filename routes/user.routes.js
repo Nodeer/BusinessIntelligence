@@ -1,10 +1,10 @@
 ﻿var User = require('../models/user');
-var $user = require('../services/user');
+var user_service = require('../services/user.service');
 
 exports.register = function (app, passport) {
 
     app.post('/signin', function (req, res, next) {
-        passport.authenticate('local', function (err, user, info) {
+        passport.authenticate('local', function (err, user) {
             if (err) {
                 return next(err);
             }
@@ -34,7 +34,7 @@ exports.signin = function (req, res) {
 };
 
 exports.signup = function (req, res) {;
-    $user.createUser(req.body.username, req.body.password, function (user) {
+    user_service.createUser(req.body.username, req.body.password, function (user) {
         req.logIn(user, function () {
             res.redirect('/');
         });

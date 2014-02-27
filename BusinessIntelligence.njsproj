@@ -1,0 +1,138 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{58f753dd-8c2e-4cb7-bcfd-90511afed7ae}</ProjectGuid>
+    <ProjectHome />
+    <ProjectView>ProjectFiles</ProjectView>
+    <StartupFile>app.js</StartupFile>
+    <WorkingDirectory>.</WorkingDirectory>
+    <OutputPath>.</OutputPath>
+    <ProjectTypeGuids>{3AF33F2E-1136-4D97-BBB7-1795711AC8B8};{349c5851-65df-11da-9384-00065b846f21};{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}</ProjectTypeGuids>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">11.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+    <NodeExePath />
+    <NodeExeArguments />
+    <ScriptArguments />
+    <NodejsPort>3000</NodejsPort>
+    <StartWebBrowser>True</StartWebBrowser>
+    <LaunchUrl />
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
+  <ItemGroup>
+    <Content Include="info.txt" />
+    <Content Include="package.json" />
+    <Compile Include="app.js" />
+    <Compile Include="config.js" />
+    <Content Include=".git\ms-persist.xml" />
+    <Compile Include="models\user.js" />
+    <Compile Include="repository\db.js" />
+    <Compile Include="repository\user.repository.js" />
+    <Compile Include="routes\index.routes.js" />
+    <Compile Include="routes\routes.js" />
+    <Compile Include="routes\task.routes.js" />
+    <Compile Include="routes\user.routes.js" />
+    <Compile Include="services\auth.service.js" />
+    <Compile Include="services\user.service.js" />
+    <Content Include="views\alert.jade" />
+    <Content Include="views\head.jade" />
+    <Content Include="views\layout.jade" />
+    <Content Include="views\navbar.jade" />
+    <Content Include="views\profile.jade" />
+    <Compile Include="views\view.js" />
+    <Content Include="public\css\body.css" />
+    <Content Include="public\css\docs.css" />
+    <Content Include="public\images\error.jpg" />
+    <Compile Include="public\js\app.js" />
+    <Compile Include="public\js\controllers.js" />
+    <Compile Include="public\js\services.js" />
+    <Content Include="setup\db\BusinessIntelligence\BusinessIntelligence.publish.xml" />
+    <Content Include="setup\db\BusinessIntelligence\bin\Debug\DeploymentReport.txt" />
+    <Content Include="setup\db\BusinessIntelligence\bin\Debug\DeploymentReport_1.txt" />
+    <Content Include="setup\db\BusinessIntelligence\bin\Debug\DeploymentReport_10.txt" />
+    <Content Include="setup\db\BusinessIntelligence\bin\Debug\DeploymentReport_11.txt" />
+    <Content Include="setup\db\BusinessIntelligence\bin\Debug\DeploymentReport_12.txt" />
+    <Content Include="setup\db\BusinessIntelligence\bin\Debug\DeploymentReport_13.txt" />
+    <Content Include="setup\db\BusinessIntelligence\bin\Debug\DeploymentReport_14.txt" />
+    <Content Include="setup\db\BusinessIntelligence\bin\Debug\DeploymentReport_15.txt" />
+    <Content Include="setup\db\BusinessIntelligence\bin\Debug\DeploymentReport_16.txt" />
+    <Content Include="setup\db\BusinessIntelligence\bin\Debug\DeploymentReport_2.txt" />
+    <Content Include="setup\db\BusinessIntelligence\bin\Debug\DeploymentReport_3.txt" />
+    <Content Include="setup\db\BusinessIntelligence\bin\Debug\DeploymentReport_4.txt" />
+    <Content Include="setup\db\BusinessIntelligence\bin\Debug\DeploymentReport_5.txt" />
+    <Content Include="setup\db\BusinessIntelligence\bin\Debug\DeploymentReport_6.txt" />
+    <Content Include="setup\db\BusinessIntelligence\bin\Debug\DeploymentReport_7.txt" />
+    <Content Include="setup\db\BusinessIntelligence\bin\Debug\DeploymentReport_8.txt" />
+    <Content Include="setup\db\BusinessIntelligence\bin\Debug\DeploymentReport_9.txt" />
+    <Content Include="setup\db\BusinessIntelligence\obj\Debug\BusinessIntelligence.sqlproj.FileListAbsolute.txt" />
+    <Content Include="setup\db\BusinessIntelligence\obj\Debug\Model.xml" />
+    <Content Include="setup\db\BusinessIntelligence\obj\Debug\refactor.xml" />
+    <Content Include="views\error\404.jade" />
+    <Content Include="views\error\500.jade" />
+    <Content Include="views\error\error.jade" />
+    <Content Include="views\home\index.jade" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include=".git" />
+    <Folder Include="models" />
+    <Folder Include="public\" />
+    <Folder Include="public\css" />
+    <Folder Include="public\images" />
+    <Folder Include="public\js" />
+    <Folder Include="repository" />
+    <Folder Include="routes" />
+    <Folder Include="services" />
+    <Folder Include="setup\" />
+    <Folder Include="setup\db\" />
+    <Folder Include="setup\db\BusinessIntelligence" />
+    <Folder Include="setup\db\BusinessIntelligence\bin\" />
+    <Folder Include="setup\db\BusinessIntelligence\bin\Debug" />
+    <Folder Include="setup\db\BusinessIntelligence\obj\" />
+    <Folder Include="setup\db\BusinessIntelligence\obj\Debug" />
+    <Folder Include="views" />
+    <Folder Include="views\error" />
+    <Folder Include="views\home" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <Import Project="$(VSToolsPath)\Node.js Tools\Microsoft.NodejsTools.targets" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>0</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:48022/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>True</UseCustomServer>
+          <CustomServerUrl>http://localhost:1337</CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}" User="">
+        <WebProjectProperties>
+          <StartPageUrl>
+          </StartPageUrl>
+          <StartAction>CurrentPage</StartAction>
+          <AspNetDebugging>True</AspNetDebugging>
+          <SilverlightDebugging>False</SilverlightDebugging>
+          <NativeDebugging>False</NativeDebugging>
+          <SQLDebugging>False</SQLDebugging>
+          <ExternalProgram>
+          </ExternalProgram>
+          <StartExternalURL>
+          </StartExternalURL>
+          <StartCmdLineArguments>
+          </StartCmdLineArguments>
+          <StartWorkingDirectory>
+          </StartWorkingDirectory>
+          <EnableENC>False</EnableENC>
+          <AlwaysStartWebServerOnDebug>False</AlwaysStartWebServerOnDebug>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>

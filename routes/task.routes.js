@@ -1,9 +1,8 @@
-﻿exports.register = function (app, passport) {
+﻿var auth_service = require('../services/auth.service');
 
-    var auth = require('../services/auth');
-
-    app.get('/tasks.json', auth.authenticate, this.tasksJson);
-    app.get('/tasks/:taskId.json', auth.authenticate, this.tasksJson);
+exports.register = function (app, passport) {
+    app.get('/tasks.json', auth_service.authenticate, this.tasksJson);
+    app.get('/tasks/:taskId.json', auth_service.authenticate, this.tasksJson);
 };
 
 exports.tasksJson = function (req, res, next) {

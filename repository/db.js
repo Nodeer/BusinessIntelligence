@@ -1,12 +1,12 @@
 ﻿var sql = require('mssql');
-var settings = require('../settings');
+var config = require('../config');
 
 exports.procedure = function (name, params, onSuccess, onError) {
-    if (settings.db.log) {
+    if (config.db.log) {
         console.log('procedure=' + name);
     }
 
-    var connection = new sql.Connection(settings.db.config);
+    var connection = new sql.Connection(config.db.config);
 
     connection.connect(function (err) {
         if (!err) {
@@ -14,15 +14,19 @@ exports.procedure = function (name, params, onSuccess, onError) {
             for (var i = 0; i < params.length; i++) {
                 var param = params[i];
 
-                if (settings.db.log) {
+                if (config.db.log) {
                     console.log(param);
                 }
 
-                request.input(param.name, sql[param.type], param.value);
+                for (paramName in param) {
+                    request.input(paramName, sql[param.type], param[paramName]);
+                    break;
+                }
             }
+
             request.execute(name, function (err, recordset) {
                 if (!err) {
-                    if (settings.db.log) {
+                    if (config.db.log) {
                         console.dir(recordset);
                     }
 

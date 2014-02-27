@@ -3,7 +3,6 @@
  * Module dependencies.
  */
 var express = require('express');
-var routes = require('./routes');
 var http = require('http');
 var path = require('path');
 var flash = require('connect-flash');
@@ -44,10 +43,10 @@ if ('development' == app.get('env')) {
 
 require('./routes/routes')(app, passport);
 
-var user = require('./services/user');
-passport.use(new PassportLocalStrategy(user.authenticateUser));
-passport.serializeUser(user.serializeUser);
-passport.deserializeUser(user.deserializeUser);
+var user_service = require('./services/user.service');
+passport.use(new PassportLocalStrategy(user_service.authenticateUser));
+passport.serializeUser(user_service.serializeUser);
+passport.deserializeUser(user_service.deserializeUser);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));

@@ -1,13 +1,13 @@
-﻿var $userRepository = require('../repository/user');
-var $hash = require('../services/hash');
-var $settings = require('../settings');
+﻿var $userRepository = require('../repository/user.repository');
+var config = require('../config');
+var crypto = require("crypto-js");
 
 exports.createUser = function (username, password, created, error) {
     $userRepository.findUserByUsername(username, function (persistedUser) {
         if (persistedUser) {
             return error();
         } else {
-            return $userRepository.insertUser(username, $hash(password, $settings.hash.salt), created);
+            return $userRepository.insertUser(username, exports.hash(password), created);
         }
     });
 };
@@ -17,7 +17,7 @@ exports.findUser = function (username, password, done) {
 };
 
 exports.authenticateUser = function (username, password, done) {
-    return exports.findUser(username, $hash(password, $settings.hash.salt), function (user) {
+    return exports.findUser(username, exports.hash(password), function (user) {
         console.log('authenticateUser=' + user);
         if (user) {
             return done(null, user);
@@ -39,4 +39,8 @@ exports.deserializeUser = function (id, done) {
     $userRepository.getUser(id, function (user) {
         done(null, user);
     });
+};
+
+exports.hash = function (password) {
+    return crypto.SHA256(password + config.hash.salt).toString(crypto.enc.Hex);
 };

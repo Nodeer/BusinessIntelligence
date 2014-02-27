@@ -4,28 +4,25 @@ var $extend = require('node.extend');
 
 exports.getUser = function (userId, got) {
     $db.procedure('dbo.usp_GetUser', [
-    {
-        name: 'userId',
-        type: 'Int',
-        value: userId
+    { 
+        userId: userId,
+        type: 'Int'
     }], function (recordset) {
-        var user = new User(recordset[0]);
+        var user = exports.createUser(recordset[0]);
         got(user);
     });
 };
 
 exports.findUserByUsernamePassword = function (username, password, done) {
     $db.procedure('dbo.usp_FindUserByUsernamePassword', [
-    {
-        name: 'username',
-        value: username
+    { 
+        username: username
     }, {
-        name: 'password',
-        value: password
+        password : password
     }], function (recordset) {
         var user = null;
         if (recordset[0]) {
-            user = new User(recordset[0]);
+            user = exports.createUser(recordset[0]);
         }
 
         done(user);
@@ -35,12 +32,11 @@ exports.findUserByUsernamePassword = function (username, password, done) {
 exports.findUserByUsername = function (username, done) {
     $db.procedure('dbo.usp_FindUserByUsername', [
     {
-        name: 'username',
-        value: username
+        username: username
     }], function (recordset) {
         var user = null;
         if (recordset[0]) {
-            user = new User(recordset[0]);
+            user = new exports.createUser(recordset[0]);
         }
 
         done(user);
@@ -50,13 +46,19 @@ exports.findUserByUsername = function (username, done) {
 exports.insertUser = function (username, password, inserted) {
     $db.procedure('dbo.usp_InsertUser', [
     {
-        name: 'username',
-        value: username
+        username: username
     }, {
-        name: 'password',
-        value: password
+        password: password
     }], function (recordset) {
         var userId = recordset[0].UserId;
         exports.getUser(userId, inserted);
     });
+};
+
+exports.createUser = function(dataRow) {
+    var user = new User();
+
+    $extend(user, dataRow);
+
+    return user;
 };
