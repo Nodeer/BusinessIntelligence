@@ -13,7 +13,7 @@ exports.createUser = function (username, password, createdFunc, errorFunc) {
         if (persistedUser) {
             return errorFunc();
         } else {
-            return user_repository.insertUser(username, exports.hash(password), createdFunc);
+            return user_repository.insertUser(username, exports._hash(password), createdFunc);
         }
     });
 };
@@ -33,7 +33,7 @@ exports.authenticateUser = function (username, password, done) {
     ///<param name="password">Unhashed password of a user</param>
     ///<param name="done">Done callback</param>
     
-    return exports.findUser(username, exports.hash(password), function (user) {
+    return exports.findUser(username, exports._hash(password), function (user) {
         if (user) {
             return done(null, user);
         }
@@ -56,11 +56,11 @@ exports.deserializeUser = function (id, deserializedFunc) {
     ///<param name="deserializedFunc">Serialized callback</param>
 
     user_repository.getUser(id, function (user) {
-        deserializedFunc(null, user);
+        return deserializedFunc(null, user);
     });
 };
 
-exports.hash = function (text) {
+exports._hash = function (text) {
     ///<summary>Computes hash</summary>
     ///<param name="text">Source text</param>
     

@@ -45,7 +45,7 @@ exports.findUserByUsernamePassword = function (username, password, foundFunc) {
 exports.findUserByUsername = function (username, foundFunc) {
     ///<summary>Finds user by username only</summary>
     ///<param name="username">Name of a user</param>
-    ///<param name="foundFun">Found callback</param>
+    ///<param name="foundFunc">Found callback</param>
 
     $db.procedure('dbo.usp_FindUserByUsername', [
     {

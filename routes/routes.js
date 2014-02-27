@@ -1,4 +1,8 @@
 ﻿module.exports = function (app, passport) {
+    ///<summary>Registeres all application routes</summary>
+    ///<param name="app">Application</param>
+    ///<param name="passport">Passport</param>
+    
     require('./index.routes').register(app, passport);
 
     require('./task.routes').register(app, passport);
@@ -21,4 +25,6 @@
             error: error
         });
     });
+
+    return this;
 };

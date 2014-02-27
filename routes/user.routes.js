@@ -2,6 +2,9 @@
 var user_service = require('../services/user.service');
 
 exports.register = function (app, passport) {
+    ///<summary>Registeres routes</summary>
+    ///<param name="app">Application</param>
+    ///<param name="passport">Passport</param>
 
     app.post('/signin', function (req, res, next) {
         passport.authenticate('local', function (err, user) {
@@ -27,16 +30,22 @@ exports.register = function (app, passport) {
 
     app.post('/signup', exports.signup);
     app.post('/signout', exports.signout);
+
+    return this;
 };
 
 exports.signin = function (req, res) {
-    res.redirect('/');
+    ///<summary>User sign in</summary>
+    
+    return res.redirect('/');
 };
 
 exports.signup = function (req, res) {;
+    ///<summary>User sign up</summary>
+    
     user_service.createUser(req.body.username, req.body.password, function (user) {
         req.logIn(user, function () {
-            res.redirect('/');
+            return res.redirect('/');
         });
     }, function () {
         req.flash('alert', {
@@ -44,11 +53,13 @@ exports.signup = function (req, res) {;
                 danger: 'The user with same is already exists.'
             }
         });
-        res.redirect('/');
+
+        return res.redirect('/');
     });
 };
 
 exports.signout = function (req, res) {
     req.logout();
-    res.redirect('/');
+
+    return res.redirect('/');
 };
