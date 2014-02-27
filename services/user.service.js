@@ -1,46 +1,68 @@
-﻿var $userRepository = require('../repository/user.repository');
+﻿var user_repository = require('../repository/user.repository');
 var config = require('../config');
 var crypto = require("crypto-js");
 
-exports.createUser = function (username, password, created, error) {
-    $userRepository.findUserByUsername(username, function (persistedUser) {
+exports.createUser = function (username, password, createdFunc, errorFunc) {
+    ///<summary>Creates user</summary>
+    ///<param name="username">Name of a user</param>
+    ///<param name="password">Unhashed password of a user</param>
+    ///<param name="createdFund">User created callback</param>
+    ///<param name="errorFunc">Error handler</param>
+    
+    user_repository.findUserByUsername(username, function (persistedUser) {
         if (persistedUser) {
-            return error();
+            return errorFunc();
         } else {
-            return $userRepository.insertUser(username, exports.hash(password), created);
+            return user_repository.insertUser(username, exports.hash(password), createdFunc);
         }
     });
 };
 
-exports.findUser = function (username, password, done) {
-    return $userRepository.findUserByUsernamePassword(username, password, done);
+exports.findUser = function (username, password, foundFunc) {
+    ///<summary>Finds user by username and password</summary>
+    ///<param name="username">Username of a user</param>
+    ///<param name="password">Unhashed password of a user</param>
+    ///<param name="foundFunc">Found callback</param>
+    
+    return user_repository.findUserByUsernamePassword(username, password, foundFunc);
 };
 
 exports.authenticateUser = function (username, password, done) {
+    ///<summary>Authenticate user by username and password</summary>
+    ///<param name="username">Username of a user</param>
+    ///<param name="password">Unhashed password of a user</param>
+    ///<param name="done">Done callback</param>
+    
     return exports.findUser(username, exports.hash(password), function (user) {
-        console.log('authenticateUser=' + user);
         if (user) {
             return done(null, user);
-        } else {
-            return done(null, false);
         }
+
+        return done(null, false);
     });
 };
 
-exports.serializeUser = function (user, done) {
-    console.log('serializeUser');
-    console.log('user.UserId=' + user.UserId);
-    return done(null, user.UserId);
+exports.serializeUser = function (user, serializedFunc) {
+    ///<summary>Serializes an user model</summary>
+    ///<param name="user">User model</param>
+    ///<param name="serializedFunc">Serialized callback</param>
+
+    return serializedFunc(null, user.UserId);
 };
 
-exports.deserializeUser = function (id, done) {
-    console.log('deserializeUser');
-    console.log('id=' + id);
-    $userRepository.getUser(id, function (user) {
-        done(null, user);
+exports.deserializeUser = function (id, deserializedFunc) {
+    ///<summary>Deserializes an user model by identifier</summary>
+    ///<param name="id">User identifier</param>
+    ///<param name="deserializedFunc">Serialized callback</param>
+
+    user_repository.getUser(id, function (user) {
+        deserializedFunc(null, user);
     });
 };
 
-exports.hash = function (password) {
-    return crypto.SHA256(password + config.hash.salt).toString(crypto.enc.Hex);
+exports.hash = function (text) {
+    ///<summary>Computes hash</summary>
+    ///<param name="text">Source text</param>
+    
+    return crypto.SHA256(text + config.hash.salt).toString(crypto.enc.Hex);
 };

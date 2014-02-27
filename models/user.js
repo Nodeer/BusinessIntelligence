@@ -1,6 +1,6 @@
 ﻿var klass = require('klass');
 
-var User = klass(function () { })
+module.exports = klass(function () { })
   .methods({
       initialize: function () {
           ///<summary>Initializes the instance</summary>
@@ -11,5 +11,3 @@ var User = klass(function () { })
           return this.Username;
       }
   });
-
-module.exports = User;

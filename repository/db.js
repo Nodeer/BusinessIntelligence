@@ -1,7 +1,13 @@
 ﻿var sql = require('mssql');
 var config = require('../config');
 
-exports.procedure = function (name, params, onSuccess, onError) {
+exports.procedure = function (name, params, successFunc, errorFunc) {
+    ///<summary>Executes procedures</summary>
+    ///<param name="name">Name of the procedure to execute</param>
+    ///<param name="params">Parameters</param>
+    ///<param name="successFunc">Executed callback</param>
+    ///<param name="errorFunc">Error handler</param>
+
     if (config.db.log) {
         console.log('procedure=' + name);
     }
@@ -30,11 +36,11 @@ exports.procedure = function (name, params, onSuccess, onError) {
                         console.dir(recordset);
                     }
 
-                    onSuccess(recordset[0], recordset);
+                    successFunc(recordset[0], recordset);
                 } else {
                     console.error(err);
 
-                    onError(err);
+                    errorFunc(err);
                 }
 
                 connection.close();
@@ -42,7 +48,9 @@ exports.procedure = function (name, params, onSuccess, onError) {
         } else {
             console.error(err);
 
-            onError(err);
+            errorFunc(err);
         }
+
+        return this;
     });
 };
