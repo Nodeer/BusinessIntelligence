@@ -4,7 +4,7 @@
             form#profileform.navbar-form.navbar-right(method="post", action="/signout")
                 a.btn.btn-success(href="#")
                     span.glyphicon.glyphicon-user
-                    span #{user.getDisplayName()}'s profile
+                    span  #{user.getDisplayName()}'s profile
                 input(type="submit", value="Sign out").btn.btn-default
     else
         #unknownprofileform
