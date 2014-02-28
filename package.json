@@ -9,8 +9,8 @@
     "express": "3.4.8",
     "jshtml": "*",
     "stylus": "*",
-	"ejs": "*",
-	"node-sqlserver": "*",
-	"jade": "*"
+    "ejs": "*",
+    "jade": "*",
+    "mongoose": "^3.8.8"
   }
 }

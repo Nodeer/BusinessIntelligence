@@ -1,5 +1,5 @@
-﻿var User = require('../models/user');
-var user_service = require('../services/user.service');
+﻿var user_service = require('../services/user.service');
+var User = require('../models/user');
 
 exports.register = function (app, passport) {
     ///<summary>Registeres routes</summary>
@@ -43,18 +43,20 @@ exports.signin = function (req, res) {
 exports.signup = function (req, res) {;
     ///<summary>User sign up</summary>
     
-    user_service.createUser(req.body.username, req.body.password, function (user) {
-        req.logIn(user, function () {
+    User.create(req.body.username, req.body.password, function (err, user) {
+        if (err) {
+            req.flash('alert', {
+                alert: {
+                    danger: err
+                }
+            });
+
+            return res.redirect('/');
+        }
+
+        return req.logIn(user, function () {
             return res.redirect('/');
         });
-    }, function () {
-        req.flash('alert', {
-            alert: {
-                danger: 'The user with same is already exists.'
-            }
-        });
-
-        return res.redirect('/');
     });
 };
 

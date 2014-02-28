@@ -48,6 +48,13 @@ passport.use(new PassportLocalStrategy(user_service.authenticateUser));
 passport.serializeUser(user_service.serializeUser);
 passport.deserializeUser(user_service.deserializeUser);
 
+var mongoose = require('mongoose');
+var config = require('./config');
+mongoose.connect(config.mongodb.connectionString);
+
+console.log(mongoose.connection.host);
+console.log(mongoose.connection.port);
+
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
 });
