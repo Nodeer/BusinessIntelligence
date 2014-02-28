@@ -27,10 +27,15 @@ var crypto = require("crypto-js");
 
 
 var userSchema = new mongoose.Schema({
-    username: { type: [String], index: true },
-    password: { type: [String], index: true },
+    username: String,
+    password: String,
     modified_date: Date,
     modified_by: String
+});
+
+userSchema.index({
+     username: 1,
+     password: 1
 });
 
 userSchema.pre('save', function (next) {
@@ -65,7 +70,7 @@ userSchema.statics.create = function (username, password, done) {
 
         user = new User({
             username: username,
-            password: this._hash(password)
+            password: User._hashPassword(password)
         });
 
         return user.save(function (err) {
@@ -94,13 +99,13 @@ userSchema.statics.findByUsernamePassword = function (username, password, done) 
 
     return this.findOne({
         username: username,
-        password: this._hash(password)
+        password: User._hashPassword(password)
     }, function (err, user) {
         return done(err, user);
     });
 };
 
-userSchema.statics._hash = function (text) {
+userSchema.statics._hashPassword = function (text) {
     ///<summary>Computes hash</summary>
 
     return crypto.SHA256(text + config.hash.salt).toString(crypto.enc.Hex);
