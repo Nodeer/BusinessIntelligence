@@ -29,13 +29,14 @@
     <Content Include=".git\ms-persist.xml" />
     <Compile Include="models\person.js" />
     <Compile Include="models\user.js" />
-    <Compile Include="repository\db.js" />
+    <Compile Include="repository\repository.js" />
     <Compile Include="repository\user.repository.js" />
     <Compile Include="routes\index.routes.js" />
     <Compile Include="routes\routes.js" />
     <Compile Include="routes\task.routes.js" />
     <Compile Include="routes\user.routes.js" />
     <Compile Include="services\auth.service.js" />
+    <Compile Include="services\service.js" />
     <Compile Include="services\user.service.js" />
     <Content Include="views\alert.jade" />
     <Content Include="views\head.jade" />

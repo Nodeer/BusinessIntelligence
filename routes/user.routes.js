@@ -1,5 +1,5 @@
-﻿var user_service = require('../services/user.service');
-var User = require('../models/user');
+﻿var UserService = require('../services/user.service'),
+    User = require('../models/user');
 
 exports.register = function (app, passport) {
     ///<summary>Registeres routes</summary>
@@ -42,8 +42,8 @@ exports.signin = function (req, res) {
 
 exports.signup = function (req, res) {;
     ///<summary>User sign up</summary>
-    
-    User.create(req.body.username, req.body.password, function (err, user) {
+
+    new UserService().create(req.body.username, req.body.password, function (err, user) {
         if (err) {
             req.flash('alert', {
                 alert: {

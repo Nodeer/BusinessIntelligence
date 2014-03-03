@@ -43,7 +43,9 @@ if ('development' == app.get('env')) {
 
 require('./routes/routes')(app, passport);
 
-var user_service = require('./services/user.service');
+var UserService = require('./services/user.service');
+var user_service = new UserService();
+
 passport.use(new PassportLocalStrategy(user_service.authenticateUser));
 passport.serializeUser(user_service.serializeUser);
 passport.deserializeUser(user_service.deserializeUser);
