@@ -22,6 +22,14 @@ var UserService = Service.extend(function () { })
             return new UserRepository().create(username, password, done);
         },
 
+        update: function(user, done) {
+            ///<summary>Updates user</summary>
+            ///<param name="user">User to update</param>
+            ///<param name="done">Done callback</param>
+
+            return new UserRepository().update(user, done);
+        },
+
         findByUsernamePassword: function (username, password, done) {
             ///<summary>Finds user by username and password. Password must by hashed already.</summary>
             ///<param name="username">Name of a user</param>

@@ -6,3 +6,8 @@ biServices.factory('TaskFactory', ['$resource',
             query: { method: 'GET', params: { taskId: '' }, isArray: true }
         });
     }]);
+
+biServices.factory('UserFactory', ['$resource',
+    function ($resource) {
+        return $resource('/profile/user.json');
+    }]);

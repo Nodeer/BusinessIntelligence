@@ -39,6 +39,20 @@ var UserRepository = Repository.extend(function () { })
             });
         },
 
+        update: function(user, done) {
+            ///<summary>Updates user</summary>
+            ///<param name="user">User to update</param>
+            ///<param name="done">Done callback</param>
+            
+            User.findByIdAndUpdate(user._id, {
+                $set: {
+                    first_name: user.first_name,
+                    last_name: user.last_name,
+                    email: user.email
+                }
+            }, {}, done);
+        },
+
         findByUsernamePassword: function (username, password, done) {
             ///<summary>Finds user by username and password. Password must by hashed already.</summary>
             ///<param name="username">Name of a user</param>
