@@ -27,11 +27,11 @@
     <Compile Include="app.js" />
     <Compile Include="config.js" />
     <Content Include=".git\ms-persist.xml" />
-    <Compile Include="models\person.js" />
     <Compile Include="models\user.js" />
     <Compile Include="repository\repository.js" />
     <Compile Include="repository\user.repository.js" />
     <Compile Include="routes\index.routes.js" />
+    <Compile Include="routes\profile.routes.js" />
     <Compile Include="routes\routes.js" />
     <Compile Include="routes\task.routes.js" />
     <Compile Include="routes\user.routes.js" />
@@ -75,6 +75,7 @@
     <Content Include="views\error\500.jade" />
     <Content Include="views\error\error.jade" />
     <Content Include="views\home\index.jade" />
+    <Content Include="views\profile\index.jade" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include=".git" />
@@ -96,6 +97,7 @@
     <Folder Include="views" />
     <Folder Include="views\error" />
     <Folder Include="views\home" />
+    <Folder Include="views\profile\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <Import Project="$(VSToolsPath)\Node.js Tools\Microsoft.NodejsTools.targets" />

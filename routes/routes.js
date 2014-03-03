@@ -4,10 +4,9 @@
     ///<param name="passport">Passport</param>
     
     require('./index.routes').register(app, passport);
-
     require('./task.routes').register(app, passport);
-
     require('./user.routes').register(app, passport);
+    require('./profile.routes').register(app, passport);
 
     // Handle 404
     app.use(function (req, res) {
