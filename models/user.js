@@ -11,11 +11,6 @@ var userSchema = new Schema({
     modified_date: Date
 });
 
-userSchema.pre('save', function (next) {
-  this.modified_date = new Date();
-  next();
-});
-
 userSchema.methods.getDisplayName = function () {
     ///<summary>Get display name</summary>
 

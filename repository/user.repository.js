@@ -48,7 +48,8 @@ var UserRepository = Repository.extend(function () { })
                 $set: {
                     first_name: user.first_name,
                     last_name: user.last_name,
-                    email: user.email
+                    email: user.email,
+                    modified_date: new Date()
                 }
             }, {}, done);
         },

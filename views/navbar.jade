@@ -1,14 +1,25 @@
-﻿style
-.navbar.navbar-inverse.navbar-fixed-top
-    .container
-        .navbar-header
-            button(type="button", data-toggle="collapse", data-target=".navbar-collapse").navbar-toggle
-                span.icon-bar
-                span.icon-bar
-                span.icon-bar
-            if user
-                a.navbar-brand(href="/")
-                    span.glyphicon.glyphicon-home
-        .navbar-collapse.collapse
-            ul.nav.navbar-nav.navbar-right
-                include profile
+﻿#navbar
+    .navbar.navbar-inverse.navbar-fixed-top
+        .container
+            .navbar-header
+                button(type="button", data-toggle="collapse", data-target=".navbar-collapse").navbar-toggle
+                    span.icon-bar
+                    span.icon-bar
+                    span.icon-bar
+                if user
+                    a.navbar-brand(href="/")
+                        span.glyphicon.glyphicon-home
+            .navbar-collapse.collapse
+                if user
+                    #navigation-bar(ng-controller="NavigationCtrl")
+                        ul.nav.navbar-nav(ng-repeat="navigationGroup in navigationGroups")
+                            li.dropdown
+                                a(href="#", data-toggle="dropdown").dropdown-toggle {{navigationGroup.name}} 
+                                    b.caret
+                                ul.dropdown-menu
+                                    li(ng-repeat="navigationItem in navigationGroup.items")
+                                        a(href="{{navigationItem.path}}")
+                                            span(class="{{navigationItem.icon}}")
+                                            |  {{navigationItem.name}}
+                ul.nav.navbar-nav.navbar-right
+                    include profile
