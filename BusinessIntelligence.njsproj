@@ -39,6 +39,7 @@
     <Compile Include="services\service.js" />
     <Compile Include="services\user.service.js" />
     <Content Include="views\alert.jade" />
+    <Content Include="views\footer.jade" />
     <Content Include="views\head.jade" />
     <Content Include="views\layout.jade" />
     <Content Include="views\navbar.jade" />
