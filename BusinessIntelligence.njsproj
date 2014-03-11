@@ -5,7 +5,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{58f753dd-8c2e-4cb7-bcfd-90511afed7ae}</ProjectGuid>
     <ProjectHome />
-    <ProjectView>ProjectFiles</ProjectView>
+    <ProjectView>ShowAllFiles</ProjectView>
     <StartupFile>app.js</StartupFile>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
@@ -28,9 +28,12 @@
     <Compile Include="config.js" />
     <Content Include=".git\ms-persist.xml" />
     <Compile Include="models\user.js" />
+    <Compile Include="public\js\angular-resource.min.js" />
+    <Compile Include="public\js\angular.min.js" />
     <Compile Include="repository\repository.js" />
     <Compile Include="repository\user.repository.js" />
     <Compile Include="routes\index.routes.js" />
+    <Compile Include="routes\index.routes.tests.js" />
     <Compile Include="routes\profile.routes.js" />
     <Compile Include="routes\routes.js" />
     <Compile Include="routes\task.routes.js" />
@@ -44,6 +47,8 @@
     <Content Include="views\layout.jade" />
     <Content Include="views\navbar.jade" />
     <Content Include="views\profile.jade" />
+    <Compile Include="tests.js" />
+    <Compile Include="tests\e2e\portal.user_actions.spec.js" />
     <Compile Include="views\view.js" />
     <Content Include="public\css\body.css" />
     <Content Include="public\css\docs.css" />
@@ -51,27 +56,6 @@
     <Compile Include="public\js\app.js" />
     <Compile Include="public\js\controllers.js" />
     <Compile Include="public\js\services.js" />
-    <Content Include="setup\db\BusinessIntelligence\BusinessIntelligence.publish.xml" />
-    <Content Include="setup\db\BusinessIntelligence\bin\Debug\DeploymentReport.txt" />
-    <Content Include="setup\db\BusinessIntelligence\bin\Debug\DeploymentReport_1.txt" />
-    <Content Include="setup\db\BusinessIntelligence\bin\Debug\DeploymentReport_10.txt" />
-    <Content Include="setup\db\BusinessIntelligence\bin\Debug\DeploymentReport_11.txt" />
-    <Content Include="setup\db\BusinessIntelligence\bin\Debug\DeploymentReport_12.txt" />
-    <Content Include="setup\db\BusinessIntelligence\bin\Debug\DeploymentReport_13.txt" />
-    <Content Include="setup\db\BusinessIntelligence\bin\Debug\DeploymentReport_14.txt" />
-    <Content Include="setup\db\BusinessIntelligence\bin\Debug\DeploymentReport_15.txt" />
-    <Content Include="setup\db\BusinessIntelligence\bin\Debug\DeploymentReport_16.txt" />
-    <Content Include="setup\db\BusinessIntelligence\bin\Debug\DeploymentReport_2.txt" />
-    <Content Include="setup\db\BusinessIntelligence\bin\Debug\DeploymentReport_3.txt" />
-    <Content Include="setup\db\BusinessIntelligence\bin\Debug\DeploymentReport_4.txt" />
-    <Content Include="setup\db\BusinessIntelligence\bin\Debug\DeploymentReport_5.txt" />
-    <Content Include="setup\db\BusinessIntelligence\bin\Debug\DeploymentReport_6.txt" />
-    <Content Include="setup\db\BusinessIntelligence\bin\Debug\DeploymentReport_7.txt" />
-    <Content Include="setup\db\BusinessIntelligence\bin\Debug\DeploymentReport_8.txt" />
-    <Content Include="setup\db\BusinessIntelligence\bin\Debug\DeploymentReport_9.txt" />
-    <Content Include="setup\db\BusinessIntelligence\obj\Debug\BusinessIntelligence.sqlproj.FileListAbsolute.txt" />
-    <Content Include="setup\db\BusinessIntelligence\obj\Debug\Model.xml" />
-    <Content Include="setup\db\BusinessIntelligence\obj\Debug\refactor.xml" />
     <Content Include="views\error\404.jade" />
     <Content Include="views\error\500.jade" />
     <Content Include="views\error\error.jade" />
@@ -81,6 +65,7 @@
   <ItemGroup>
     <Folder Include=".git" />
     <Folder Include="models" />
+    <Folder Include="tests\" />
     <Folder Include="public\" />
     <Folder Include="public\css" />
     <Folder Include="public\images" />
@@ -88,13 +73,7 @@
     <Folder Include="repository" />
     <Folder Include="routes" />
     <Folder Include="services" />
-    <Folder Include="setup\" />
-    <Folder Include="setup\db\" />
-    <Folder Include="setup\db\BusinessIntelligence" />
-    <Folder Include="setup\db\BusinessIntelligence\bin\" />
-    <Folder Include="setup\db\BusinessIntelligence\bin\Debug" />
-    <Folder Include="setup\db\BusinessIntelligence\obj\" />
-    <Folder Include="setup\db\BusinessIntelligence\obj\Debug" />
+    <Folder Include="tests\e2e\" />
     <Folder Include="views" />
     <Folder Include="views\error" />
     <Folder Include="views\home" />

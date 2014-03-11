@@ -57,9 +57,7 @@ biControllers.controller('ProfileCtrl', ['$scope', 'UserFactory',
         $scope.submit = function() {
             ///<summary>Submits user profile</summary>
             
-            UserFactory.save({
-                user: $scope.user
-            }, function(user) {
+            $scope.user.$save(function(user) {
                 $scope.$emit('user.updated', user);
             });
         };

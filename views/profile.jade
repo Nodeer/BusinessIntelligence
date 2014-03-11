@@ -5,7 +5,7 @@
                 a.btn.btn-success(href="/profile/index")
                     span.glyphicon.glyphicon-user
                     span  {{getUserDisplayName()}}'s profile
-                input(type="submit", value="Sign out").btn.btn-default
+                input(type="submit", value="Sign out")#btn-signout.btn.btn-default
     else
         #unknownprofileform
             form#profileform.navbar-form(method="post", action="/")
