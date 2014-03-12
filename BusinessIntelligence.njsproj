@@ -48,6 +48,7 @@
     <Content Include="views\navbar.jade" />
     <Content Include="views\profile.jade" />
     <Compile Include="tests.js" />
+    <Compile Include="tests\unit\controllers.spec.js" />
     <Compile Include="tests\e2e\portal.user_actions.spec.js" />
     <Compile Include="views\view.js" />
     <Content Include="public\css\body.css" />
@@ -74,6 +75,7 @@
     <Folder Include="routes" />
     <Folder Include="services" />
     <Folder Include="tests\e2e\" />
+    <Folder Include="tests\unit\" />
     <Folder Include="views" />
     <Folder Include="views\error" />
     <Folder Include="views\home" />
