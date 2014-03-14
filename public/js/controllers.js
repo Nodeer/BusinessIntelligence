@@ -51,9 +51,9 @@ biControllers.controller('NavigationCtrl', ['$scope',
         ];
     }]);
 
-biControllers.controller('ProfileCtrl', ['$scope', 'UserFactory',
+biControllers.controller('ProfileCtrl', ['$scope',
     ///<summary>User profile controller [Depends on ApplicationCtrl]</summary>
-    function ($scope, UserFactory) {
+    function ($scope) {
         $scope.submit = function() {
             ///<summary>Submits user profile</summary>
             
