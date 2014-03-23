@@ -5,21 +5,14 @@
 var userSchema = new Schema({
     username: { type: String, required: 1, index: { unique: 1 } },
     password: { type: String, required: 1, index: 1, select: 0 },
-    first_name: String,
-    last_name: String,
-    email: String,
-    modified_date: Date
-});
-
-userSchema.methods.getDisplayName = function () {
-    ///<summary>Get display name</summary>
-
-    if (this.first_name || this.last_name) {
-        return sprintf('%s %s', this.first_name || '', this.last_name || '');
+    groups: [{ type: Schema.Types.ObjectId, ref: 'Group' }],
+    first_name: { type: String, default: '' },
+    last_name: { type: String, default: '' },
+    email: { type: String, default: '' },
+    audit: {
+        modified_date: { type: Date, default: Date.now }
     }
-
-    return sprintf('%s', this.username);
-};
+});
 
 userSchema.methods.getIdentity = function() {
     ///<summary>Gets identity information</summary>

@@ -1,6 +1,8 @@
 ﻿var User = require('../models/user'),
     UserRepository = require('../repository/user.repository'),
-    Service = require('./service');
+    GroupRepository = require('../repository/group.repository'),
+    Service = require('./service'),
+    klass = require('klass');
 
 
 var UserService = Service.extend(function () { })
@@ -19,10 +21,22 @@ var UserService = Service.extend(function () { })
             ///<param name="password">Unhashed password of a user</param>
             ///<param name="done">Done handler</param>
 
-            return new UserRepository().create(username, password, done);
+            var userRepository = new UserRepository();
+            return userRepository.create(username, password, function(err, user) {
+                if (err) return done(err, null);
+
+                var groupRepository = new GroupRepository();
+                return groupRepository.getByName('User', function(err, group) {
+                    if (err) return done(err, null);
+
+                    user.groups.push(group);
+
+                    return userRepository.update(user, done);
+                });
+            });
         },
 
-        update: function(user, done) {
+        save: function(user, done) {
             ///<summary>Updates user</summary>
             ///<param name="user">User to update</param>
             ///<param name="done">Done callback</param>

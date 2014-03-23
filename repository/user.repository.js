@@ -10,9 +10,7 @@ var UserRepository = Repository.extend(function () { })
             ///<param name="id">User identifier</param>
             ///<param name="done">Done callback</param>
 
-          return User.findById(id, function(err, user) {
-                return done(err, user);
-            });
+          return User.findById(id, done);
         },
 
         create: function(username, password, done) {
@@ -46,10 +44,13 @@ var UserRepository = Repository.extend(function () { })
             
             User.findByIdAndUpdate(user._id, {
                 $set: {
+                    groups: user.groups,
                     first_name: user.first_name,
                     last_name: user.last_name,
                     email: user.email,
-                    modified_date: new Date()
+                    audit: {
+                        modified_date: new Date()
+                    }
                 }
             }, {}, done);
         },
@@ -63,9 +64,7 @@ var UserRepository = Repository.extend(function () { })
             return User.findOne({
                 username: username,
                 password: _hashPassword(password)
-            }, function (err, user) {
-                return done(err, user);
-            });
+            }, done);
         },
     });
 

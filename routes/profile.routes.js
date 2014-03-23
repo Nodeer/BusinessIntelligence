@@ -30,7 +30,7 @@ exports.getUser = function(req, res) {
 };
 
 exports.saveUser = function(req, res) {
-    new UserService().update(req.body, function(err, user) {
+    new UserService().save(req.body, function(err, user) {
         if (err) {
             return res.send(500);
         }

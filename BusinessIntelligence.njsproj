@@ -27,10 +27,15 @@
     <Compile Include="app.js" />
     <Compile Include="config.js" />
     <Content Include=".git\ms-persist.xml" />
+    <Compile Include="models\group.js" />
+    <Compile Include="models\permission.js" />
     <Compile Include="models\user.js" />
     <Compile Include="public\js\angular-resource.min.js" />
     <Compile Include="public\js\angular.min.js" />
+    <Compile Include="repository\group.repository.js" />
+    <Compile Include="repository\permission.repository.js" />
     <Compile Include="repository\repository.js" />
+    <Compile Include="repository\scripts\setup.mongodb.js" />
     <Compile Include="repository\user.repository.js" />
     <Compile Include="routes\index.routes.js" />
     <Compile Include="routes\index.routes.tests.js" />
@@ -65,6 +70,7 @@
   <ItemGroup>
     <Folder Include=".git" />
     <Folder Include="models" />
+    <Folder Include="repository\scripts\" />
     <Folder Include="tests\" />
     <Folder Include="public\" />
     <Folder Include="public\css" />
