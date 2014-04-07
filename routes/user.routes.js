@@ -40,7 +40,7 @@ exports.signin = function (req, res) {
     return res.redirect('/');
 };
 
-exports.signup = function (req, res) {;
+exports.signup = function (req, res) {
     ///<summary>User sign up</summary>
 
     new UserService().create(req.body.username, req.body.password, function (err, user) {

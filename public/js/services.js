@@ -1,4 +1,6 @@
-﻿var biServices = angular.module('biServices', ['ngResource']);
+﻿"use strict";
+
+var biServices = angular.module('biServices', ['ngResource']);
 
 biServices.factory('TaskFactory', ['$resource',
     function ($resource) {

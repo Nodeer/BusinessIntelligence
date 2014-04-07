@@ -11,7 +11,17 @@ module.exports = function(grunt) {
 			  './repository/**/*.js',
 			  './routes/**/*.js',
 			  './services/**/*.js',
-			  './tests/**/*.spec.js']
+			  './tests/**/*.spec.js'
+        ],
+      options: {
+        globals: {
+          jQuery: true,
+          console: true,
+          module: true,
+          document: true,
+          angular: true
+        }
+      }
     },
     watch: {
       files: ['<%= jshint.files %>'],

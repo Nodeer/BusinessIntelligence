@@ -1,4 +1,4 @@
-﻿'use strict';
+﻿"use strict";
 
 var biControllers = angular.module('biControllers', []);
 
