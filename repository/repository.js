@@ -1,5 +1,9 @@
-﻿var klass = require('klass');
+﻿(function () {
+   'use strict';
 
-module.exports = klass(function () { })
-    .methods({
-    });
+    var klass = require('klass');
+
+    module.exports = klass(function () { })
+        .methods({
+        });
+}());

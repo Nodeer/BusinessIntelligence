@@ -1,17 +1,22 @@
-﻿var Repository = require('./repository'),
-    Group = require('../models/group');
+﻿(function () {
+   'use strict';
 
-var GroupRepository = Repository.extend(function () { })
-    .methods({
-        getByName: function(name, done) {
-            ///<summary>Gets group by name</summary>
-            ///<param name="id">Group name</param>
-            ///<param name="done">Done callback</param>
+    var Repository = require('./repository'),
+        Group = require('../models/group');
 
-          return Group.findOne({
-              name: name
-          }, done);
-        }
-    });
+    var GroupRepository = Repository.extend(function () { })
+        .methods({
+            getByName: function(name, done) {
+                ///<summary>Gets group by name</summary>
+                ///<param name="id">Group name</param>
+                ///<param name="done">Done callback</param>
 
-module.exports = GroupRepository;
+              return Group.findOne({
+                  name: name
+              }, done);
+            }
+        });
+
+    module.exports = GroupRepository;
+
+}());

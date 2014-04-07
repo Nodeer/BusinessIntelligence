@@ -1,40 +1,44 @@
-﻿var Repository = require('./repository'),
-    Permission = require('../models/permission');
+﻿(function () {
+   'use strict';
 
-var PermissionRepository = Repository.extend(function () { })
-    .methods({
-        getByName: function(name, done) {
-            ///<summary>Gets permission by name</summary>
-            ///<param name="id">Permission name</param>
-            ///<param name="done">Done callback</param>
+    var Repository = require('./repository'),
+        Permission = require('../models/permission');
 
-          return Permission.findOne({
-              name: name
-          }, done);
-        },
+    var PermissionRepository = Repository.extend(function () { })
+        .methods({
+            getByName: function(name, done) {
+                ///<summary>Gets permission by name</summary>
+                ///<param name="id">Permission name</param>
+                ///<param name="done">Done callback</param>
 
-        create: function(name, done) {
-            ///<summary>Creates user</summary>
-            ///<param name="username">Name of a user</param>
-            ///<param name="password">Unhashed password of a user</param>
-            ///<param name="done">Done handler</param>
+              return Permission.findOne({
+                  name: name
+              }, done);
+            },
 
-            this.getByName(name, function(err, permission) {
-                if (err) return done(err, null);
+            create: function(name, done) {
+                ///<summary>Creates user</summary>
+                ///<param name="username">Name of a user</param>
+                ///<param name="password">Unhashed password of a user</param>
+                ///<param name="done">Done handler</param>
 
-                if (permission) {
-                    return done('The permission is already exists.', null);
-                }
+                this.getByName(name, function(err, permission) {
+                    if (err) return done(err, null);
 
-                permission = new Permission({
-                    name: name
+                    if (permission) {
+                        return done('The permission is already exists.', null);
+                    }
+
+                    permission = new Permission({
+                        name: name
+                    });
+
+                    return permission.save(function (err) {
+                        return done(err, permission);
+                    });
                 });
+            }
+        });
 
-                return permission.save(function (err) {
-                    return done(err, permission);
-                });
-            });
-        }
-    });
-
-module.exports = PermissionRepository;
+    module.exports = PermissionRepository;
+}());
