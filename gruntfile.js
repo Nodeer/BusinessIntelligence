@@ -40,6 +40,6 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-protractor-runner');
   
-  grunt.registerTask('default', ['jshint', 'protractor:tests_e2e']);
+  grunt.registerTask('default', ['jshint']);
 
 };
