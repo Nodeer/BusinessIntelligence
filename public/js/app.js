@@ -1,8 +1,4 @@
-﻿(function () {
-   'use strict';
-
-    var bi = angular.module('biApp', [
+﻿var bi = angular.module('biApp', [
         'biControllers',
         'biServices'
     ]);
-}());

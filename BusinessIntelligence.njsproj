@@ -5,7 +5,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{58f753dd-8c2e-4cb7-bcfd-90511afed7ae}</ProjectGuid>
     <ProjectHome />
-    <ProjectView>ShowAllFiles</ProjectView>
+    <ProjectView>ProjectFiles</ProjectView>
     <StartupFile>app.js</StartupFile>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
@@ -31,6 +31,7 @@
     <Compile Include="models\group.js" />
     <Compile Include="models\permission.js" />
     <Compile Include="models\user.js" />
+    <Compile Include="models\user.snapshot.js" />
     <Compile Include="public\js\angular-resource.min.js" />
     <Compile Include="public\js\angular.min.js" />
     <Compile Include="repository\group.repository.js" />
@@ -38,8 +39,8 @@
     <Compile Include="repository\repository.js" />
     <Compile Include="repository\scripts\setup.mongodb.js" />
     <Compile Include="repository\user.repository.js" />
+    <Compile Include="repository\user.snapshot.repository.js" />
     <Compile Include="routes\index.routes.js" />
-    <Compile Include="routes\index.routes.tests.js" />
     <Compile Include="routes\profile.routes.js" />
     <Compile Include="routes\routes.js" />
     <Compile Include="routes\task.routes.js" />

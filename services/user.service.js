@@ -1,8 +1,11 @@
 ﻿var User = require('../models/user'),
+    UserSnapshot = require('../models/user.snapshot'),
     UserRepository = require('../repository/user.repository'),
+    UserSnapshotRepository = require('../repository/user.snapshot.repository'),
     GroupRepository = require('../repository/group.repository'),
     Service = require('./service'),
-    klass = require('klass');
+    klass = require('klass'),
+    extend = require('extend');
 
 
 var UserService = Service.extend(function () { })
@@ -41,7 +44,9 @@ var UserService = Service.extend(function () { })
             ///<param name="user">User to update</param>
             ///<param name="done">Done callback</param>
 
-            return new UserRepository().update(user, done);
+            return this._trackChanges(user, function(err, user) {
+                return new UserRepository().update(user, done);
+            });
         },
 
         findByUsernamePassword: function (username, password, done) {
@@ -82,6 +87,22 @@ var UserService = Service.extend(function () { })
             ///<param name="done">Serialized callback</param>
 
             return new UserRepository().getById(id, function (err, user) {
+                return done(err, user);
+            });
+        },
+
+        _trackChanges: function(user, done) {
+            ///<summary>Traces changes made for User</summary>
+            var userSnapshot = UserSnapshot.create(user);
+
+            return new UserSnapshotRepository().insert(userSnapshot, function(err) {
+                if (err) return done(err, null);
+
+                extend(user.audit, {
+                    modified_date: new Date(),
+                    revision: user.audit.revision + 1
+                });
+
                 return done(err, user);
             });
         }

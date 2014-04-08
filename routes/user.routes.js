@@ -43,7 +43,10 @@ exports.signin = function (req, res) {
 exports.signup = function (req, res) {
     ///<summary>User sign up</summary>
 
-    new UserService().create(req.body.username, req.body.password, function (err, user) {
+    var username = req.body.username,
+        password = req.body.password;
+
+    new UserService().create(username, password, function (err, user) {
         if (err) {
             req.flash('alert', {
                 alert: {

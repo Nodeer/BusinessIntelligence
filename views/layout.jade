@@ -2,10 +2,13 @@
 html(ng-app="biApp")
     head
         include head
-    body(ng-controller="ApplicationCtrl")
-        include navbar
-        .container.page-header
-            include alert
-            block content
+    if user
+        body(ng-controller="ApplicationCtrl")
+    else
+        body
+    include navbar
+    .container.page-header
+        include alert
+        block content
     footer
         include footer

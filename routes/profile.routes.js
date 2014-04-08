@@ -1,6 +1,7 @@
 ﻿var AuthService = require('../services/auth.service'),
     UserService = require('../services/user.service'),
-    View = require('../views/view');
+    View = require('../views/view'),
+    User = require('../models/user');
 
 exports.register = function (app, passport) {
     ///<summary>Registeres routes</summary>
@@ -30,7 +31,9 @@ exports.getUser = function(req, res) {
 };
 
 exports.saveUser = function(req, res) {
-    new UserService().save(req.body, function(err, user) {
+    var user = new User(req.body),
+        userService = new UserService();
+    userService.save(user, function(err, user) {
         if (err) {
             return res.send(500);
         }

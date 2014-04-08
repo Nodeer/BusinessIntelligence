@@ -10,7 +10,8 @@ var userSchema = new Schema({
     last_name: { type: String, default: '' },
     email: { type: String, default: '' },
     audit: {
-        modified_date: { type: Date, default: Date.now }
+        modified_date: { type: Date, default: Date.now },
+        revision: { type: Number, default: 1 }
     }
 });
 
