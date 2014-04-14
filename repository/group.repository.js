@@ -1,5 +1,6 @@
 ﻿var Repository = require('./repository'),
-        Group = require('../models/group');
+    Group = require('../models/group'),
+    Permission = require('../models/permission');
 
 var GroupRepository = Repository.extend(function () { })
     .methods({
@@ -10,6 +11,18 @@ var GroupRepository = Repository.extend(function () { })
 
             return Group.findOne({
                 name: name
+            }, done);
+        },
+
+        getByIds: function(ids, done) {
+            ///<summary>Gets groups by ids</summary>
+            ///<param name="ids">collection of identifiers</param>
+            ///<param name="done">Done callback</param>
+
+            return Group.find({
+                _id: {
+                    $in: ids
+                }
             }, done);
         }
     });

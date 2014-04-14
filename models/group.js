@@ -3,7 +3,7 @@
 
 var groupSchema = new Schema({
     name: { type: String, required: 1, index: { unique: 1 } },
-    permissions: [ { type: Schema.Types.ObjectId, ref: 'Permission' } ],
+    permissions: [ { type: Schema.Types.ObjectId } ],
     audit: {
         modified_date: { type: Date, default: Date.now },
         modified_by: { type: String, default: '' }

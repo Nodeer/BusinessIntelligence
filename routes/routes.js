@@ -1,4 +1,6 @@
-﻿module.exports = function (app, passport) {
+﻿var logger = require('../logger').getLogger();
+
+module.exports = function (app, passport) {
     ///<summary>Registeres all application routes</summary>
     ///<param name="app">Application</param>
     ///<param name="passport">Passport</param>
@@ -18,6 +20,9 @@
 
     // Handle 500
     app.use(function (error, req, res, next) {
+
+        logger.error(error);
+
         res.status(500);
         res.render('error/500', {
             title: '500: Internal Server Error',

@@ -28,6 +28,7 @@
     <Compile Include="config.js" />
     <Content Include=".git\ms-persist.xml" />
     <Compile Include="gruntfile.js" />
+    <Compile Include="logger.js" />
     <Compile Include="models\group.js" />
     <Compile Include="models\permission.js" />
     <Compile Include="models\user.js" />

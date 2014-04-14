@@ -37,9 +37,16 @@ app.use(flash());
 app.use(app.router);
 
 // development only
-if ('development' == app.get('env')) {
-  app.use(express.errorHandler());
-}
+var logger = require('./logger');
+logger.configure(app);
+//if ('development' == app.get('env')) {
+//  app.use(express.errorHandler());
+//}
+
+process.on('uncaughtException', function(err) {
+    // handle the error safely
+    logger.getLogger().error(err);
+});
 
 require('./routes/routes')(app, passport);
 

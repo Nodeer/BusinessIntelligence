@@ -13,6 +13,18 @@ var PermissionRepository = Repository.extend(function () { })
             }, done);
         },
 
+        getByIds: function(ids, done) {
+            ///<summary>Gets permissions by ids</summary>
+            ///<param name="ids">collection of identifiers</param>
+            ///<param name="done">Done callback</param>
+
+            return Permission.find({
+                _id: {
+                    $in: ids
+                }
+            }, done);
+        },
+
         create: function(name, done) {
             ///<summary>Creates user</summary>
             ///<param name="username">Name of a user</param>

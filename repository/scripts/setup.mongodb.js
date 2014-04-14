@@ -1,20 +1,20 @@
 ﻿db.permissions.save({
     _id: ObjectId("532eec516bf6971c899129e5"),
-    name: 'Task.Create',
+    name: 'task.create',
     description: 'Capability to Create New Tasks.'
 });
 db.permissions.save({
     _id: ObjectId("532eebf66bf6971c899129e2"),
-    name: 'Task.Read',
+    name: 'task.read',
     description: 'Capability to View Tasks.'
 });
 db.permissions.save({
     _id: ObjectId("532eec1d6bf6971c899129e3"),
-    name: 'Task.Update'
+    name: 'task.update'
 });
 db.permissions.save({
     _id: ObjectId("532eed3b6bf6971c899129e9"),
-    name: 'Task.Delete'
+    name: 'task.delete'
 });
 
 

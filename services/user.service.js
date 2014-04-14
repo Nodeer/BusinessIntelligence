@@ -3,9 +3,12 @@
     UserRepository = require('../repository/user.repository'),
     UserSnapshotRepository = require('../repository/user.snapshot.repository'),
     GroupRepository = require('../repository/group.repository'),
+    PermissionRepository = require('../repository/permission.repository'),
     Service = require('./service'),
     klass = require('klass'),
-    extend = require('extend');
+    extend = require('extend'),
+    logger = require('../logger').getLogger('user.service'),
+    sprintf = require('sprintf').sprintf;
 
 
 var UserService = Service.extend(function () { })
@@ -15,7 +18,27 @@ var UserService = Service.extend(function () { })
             ///<param name="id">User identifier</param>
             ///<param name="done">Done callback</param>
 
-          return new UserRepository().getById(id, done);
+          return new UserRepository().getById(id, function(err, user) {
+              if (err) return done(err, null);
+
+              return new GroupRepository().getByIds(user.groups, function(err, groups) {
+                    if (err) return done (err, null);
+
+                    var permissionIds = [];
+
+                    for (var group in groups) {
+                        [].push.apply(permissionIds, groups[group].permissions);
+                    }
+
+                    return new PermissionRepository().getByIds(permissionIds, function(err, permissions) {
+                        if (err) return done(err, null);
+
+                        user.permissions = permissions;
+
+                        return done(err, user);
+                    });
+                });
+            });
         },
 
         create: function(username, password, done) {
@@ -39,13 +62,20 @@ var UserService = Service.extend(function () { })
             });
         },
 
-        save: function(user, done) {
+        save: function(user, userDto, done) {
             ///<summary>Updates user</summary>
             ///<param name="user">User to update</param>
             ///<param name="done">Done callback</param>
 
-            return this._trackChanges(user, function(err, user) {
-                return new UserRepository().update(user, done);
+            var userService = this;
+            return userService._mergeChanges(user, userDto, function(err, user) {
+                if (err) return done(err, null);
+
+                return userService._trackChanges(user, function(err, user) {
+                    if (err) return done(err, null);
+
+                    return new UserRepository().update(user, done);
+                });
             });
         },
 
@@ -56,6 +86,34 @@ var UserService = Service.extend(function () { })
             ///<param name="done">Done callback</param>
 
             return new UserRepository().findByUsernamePassword(username, password, done);
+        },
+
+        hasAccess: function (user, access, done) {
+            ///<summary>Checks if user has access</summary>
+
+            for (var accessItem in access) {
+                var accessTypes = [].concat(access[accessItem]);
+                for (var accessType in accessTypes) {
+                    var accessTypeKey = accessTypes[accessType];
+
+                    var permissionKey = sprintf('%s.%s', accessItem, accessTypeKey);
+
+                    logger.info(sprintf('"%s" requested a "%s" permission.', user.getIdentity(), permissionKey));
+
+                    var permissionGranted = false;
+                    for (var permission in user.permissions) {
+                        if (user.permissions[permission].name === permissionKey) {
+                            permissionGranted = true;
+                        }
+                    }
+
+                    if (!permissionGranted) {
+                        return done('Access is denied.');
+                    }
+                }
+            }
+
+            return done(null);
         },
 
         authenticateUser: function (username, password, done) {
@@ -86,15 +144,31 @@ var UserService = Service.extend(function () { })
             ///<param name="id">User identifier</param>
             ///<param name="done">Serialized callback</param>
 
-            return new UserRepository().getById(id, function (err, user) {
+            return new UserService().getById(id, function (err, user) {
                 return done(err, user);
             });
+        },
+
+        _mergeChanges: function(user, userDto, done) {
+            ///<summary>Merge changes</summary>
+            ///<param name="user">User to merge</param>
+            ///<param name="userDto">User dto</param>
+            ///<param name="done">Done callback</param>
+            
+
+            extend(user, {
+                first_name: userDto.first_name,
+                last_name: userDto.last_name,
+                email: userDto.email,
+            });
+
+            return done(null, user);
         },
 
         _trackChanges: function(user, done) {
             ///<summary>Traces changes made for User</summary>
             var userSnapshot = UserSnapshot.create(user);
-
+            
             return new UserSnapshotRepository().insert(userSnapshot, function(err) {
                 if (err) return done(err, null);
 

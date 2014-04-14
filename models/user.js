@@ -1,11 +1,12 @@
 ﻿var sprintf = require('sprintf').sprintf,
     mongoose = require('mongoose'),
-    Schema = mongoose.Schema;
+    Schema = mongoose.Schema,
+    logger = require('../logger').getLogger('user');
 
 var userSchema = new Schema({
     username: { type: String, required: 1, index: { unique: 1 } },
     password: { type: String, required: 1, index: 1, select: 0 },
-    groups: [{ type: Schema.Types.ObjectId, ref: 'Group' }],
+    groups: [{ type: Schema.Types.ObjectId }],
     first_name: { type: String, default: '' },
     last_name: { type: String, default: '' },
     email: { type: String, default: '' },
