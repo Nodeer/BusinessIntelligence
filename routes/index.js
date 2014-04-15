@@ -1,11 +1,12 @@
-var View = require('../views/view');
+var View = require('../views/view'),
+    route = require('./route');
 
-exports.register = function (app, passport) {
+exports.register = function (app) {
     ///<summary>Registeres routes</summary>
     ///<param name="app">Application</param>
-    ///<param name="passport">Passport</param>
 
-    app.get('/', exports.index);
+    app.get('/', route.public(), exports.index);
+    //app.get('/navigation.json', exports.getNavigation);
 
     return this;
 };

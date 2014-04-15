@@ -1,6 +1,6 @@
-﻿var Repository = require('./repository');
+﻿var Base = require('./base');
 
-var UserSnapshotRepository = Repository.extend(function () { })
+var UserSnapshotRepository = Base.extend(function () { })
     .methods({
         insert: function(userSnapshot, done) {
             ///<summary>Updates user</summary>

@@ -1,8 +1,8 @@
-﻿var Repository = require('./repository'),
+﻿var Base = require('./base'),
     Group = require('../models/group'),
     Permission = require('../models/permission');
 
-var GroupRepository = Repository.extend(function () { })
+var GroupRepository = Base.extend(function () { })
     .methods({
         getByName: function(name, done) {
             ///<summary>Gets group by name</summary>

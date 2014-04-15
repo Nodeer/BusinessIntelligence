@@ -48,9 +48,9 @@ process.on('uncaughtException', function(err) {
     logger.getLogger().error(err);
 });
 
-require('./routes/routes')(app, passport);
+require('./routes/context').register(app, passport);
 
-var UserService = require('./services/user.service');
+var UserService = require('./services/user');
 var user_service = new UserService();
 
 passport.use(new PassportLocalStrategy(user_service.authenticateUser));

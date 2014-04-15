@@ -1,0 +1,7 @@
+﻿extends ./layout
+
+block management-content
+    div(ng-controller="UsersCtrl")
+        table.table.table-striped
+            tr(ng-repeat="user in users")
+                td {{user.name}}

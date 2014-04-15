@@ -1,4 +1,4 @@
-﻿var sprintf = require('sprintf').sprintf,
+﻿var util = require('util'),
     mongoose = require('mongoose'),
     Schema = mongoose.Schema,
     logger = require('../logger').getLogger('user');
@@ -6,7 +6,8 @@
 var userSchema = new Schema({
     username: { type: String, required: 1, index: { unique: 1 } },
     password: { type: String, required: 1, index: 1, select: 0 },
-    groups: [{ type: Schema.Types.ObjectId }],
+    groups: [{ type: Schema.Types.ObjectId, ref: 'Group' }],
+    permissions: [{ type: Schema.Types.ObjectId, ref: 'Permission' }],
     first_name: { type: String, default: '' },
     last_name: { type: String, default: '' },
     email: { type: String, default: '' },
@@ -19,7 +20,7 @@ var userSchema = new Schema({
 userSchema.methods.getIdentity = function() {
     ///<summary>Gets identity information</summary>
 
-    return sprintf('%s\\%s %s', this.username, this.first_name || '', this.last_name || '');
+    return util.format('%s\\%s %s', this.username, this.first_name || '', this.last_name || '');
 };
 
 module.exports = User = mongoose.model('User', userSchema);

@@ -9,12 +9,10 @@ block content
                 p. If you are looking to quickly build out a self-service BI solution that tells the story of your data, you can now use the tool you know and love – Excel - to rapidly mash-up, explore, analyze and visualize any data ranging from a few rows to hundreds of millions of rows.
         if user
             #navigation-page(ng-controller="NavigationCtrl")
-                table.table.table-striped
-                    tr(ng-repeat="navigationGroup in navigationGroups")
-                        td(style="vertical-align: middle;")
-                            h2.rotate90 {{navigationGroup.name}}
-                        td(ng-repeat="navigationItem in navigationGroup.items")
-                            h2 {{navigationItem.name}}  
-                                span(class="{{navigationItem.icon}}")
-                            p. {{navigationItem.description}}
-                            p: a(role="button", href="#").btn.btn-default View details »
+                .row(ng-repeat="navigationGroup in navigationGroups")
+                    h2 {{navigationGroup.name}}
+                    .col-md-4(ng-repeat="navigationItem in navigationGroup.items")
+                        h3 
+                            a(ng-href="{{navigationItem.path}}") {{navigationItem.name}}  
+                            span(class="{{navigationItem.icon}}")
+                        p. {{navigationItem.description}}

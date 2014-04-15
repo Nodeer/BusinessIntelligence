@@ -17,6 +17,19 @@ db.permissions.save({
     name: 'task.delete'
 });
 
+db.permissions.save({
+    _id: ObjectId("534bd4066bf6971c89912a01"),
+    name: 'management.read'
+});
+
+db.permissions.save({
+    _id: ObjectId("534bd0f36bf6971c899129fe"),
+    name: 'management.user.read'
+});
+db.permissions.save({
+    _id: ObjectId("534bd12b6bf6971c899129ff"),
+    name: 'management.user.update'
+});
 
 
 db.groups.save({
@@ -38,4 +51,8 @@ db.groups.save({
 db.groups.save({
     name: 'Project Manager',
     permissions: [  ]
+});
+db.groups.save({
+    name: 'Administrator',
+    permissions: [ ObjectId("534bd0f36bf6971c899129fe"), ObjectId("534bd12b6bf6971c899129ff"), ObjectId("534bd4066bf6971c89912a01") ]
 });

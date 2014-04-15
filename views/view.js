@@ -1,4 +1,4 @@
-﻿var extend = require('node.extend');
+﻿var extend = require('extend');
 
 var klass = require('klass');
 

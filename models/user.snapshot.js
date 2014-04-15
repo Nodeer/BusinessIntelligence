@@ -3,9 +3,10 @@
     Schema = mongoose.Schema;
 
 var userSnapshotSchema = new Schema({
-    userId: [{ type: Schema.Types.ObjectId, ref: 'User', required: 1, index: 1 }],
+    userId: [{ type: Schema.Types.ObjectId, required: 1, index: 1 }],
     username: String,
-    groups: [{ type: Schema.Types.ObjectId, ref: 'Group' }],
+    groups: [{ type: Schema.Types.ObjectId }],
+    permissions: [{ type: Schema.Types.ObjectId }],
     first_name: String,
     last_name: String,
     email: String,
@@ -23,6 +24,7 @@ userSnapshotSchema.statics.create = function(user) {
         userId: user._id,
         username: user.username,
         groups: user.groups,
+        permissions: user.permissions,
         first_name: user.first_name,
         last_name: user.last_name,
         email: user.email,

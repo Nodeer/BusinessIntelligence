@@ -1,17 +1,17 @@
 ﻿var User = require('../models/user'),
     UserSnapshot = require('../models/user.snapshot'),
-    UserRepository = require('../repository/user.repository'),
-    UserSnapshotRepository = require('../repository/user.snapshot.repository'),
-    GroupRepository = require('../repository/group.repository'),
-    PermissionRepository = require('../repository/permission.repository'),
-    Service = require('./service'),
+    UserRepository = require('../repository/user'),
+    UserSnapshotRepository = require('../repository/user.snapshot'),
+    GroupRepository = require('../repository/group'),
+    PermissionRepository = require('../repository/permission'),
+    Base = require('./base'),
     klass = require('klass'),
     extend = require('extend'),
-    logger = require('../logger').getLogger('user.service'),
-    sprintf = require('sprintf').sprintf;
+    logger = require('../logger').getLogger('services/user'),
+    util = require('util');
 
 
-var UserService = Service.extend(function () { })
+var UserService = Base.extend(function () { })
     .methods({
         getById: function(id, done) {
             ///<summary>Gets user by identifier</summary>
@@ -25,6 +25,8 @@ var UserService = Service.extend(function () { })
                     if (err) return done (err, null);
 
                     var permissionIds = [];
+                    
+                    [].push.apply(permissionIds, user.permissions);
 
                     for (var group in groups) {
                         [].push.apply(permissionIds, groups[group].permissions);
@@ -33,7 +35,9 @@ var UserService = Service.extend(function () { })
                     return new PermissionRepository().getByIds(permissionIds, function(err, permissions) {
                         if (err) return done(err, null);
 
-                        user.permissions = permissions;
+                        user.app = {
+                            permissions: permissions
+                        };
 
                         return done(err, user);
                     });
@@ -88,7 +92,7 @@ var UserService = Service.extend(function () { })
             return new UserRepository().findByUsernamePassword(username, password, done);
         },
 
-        hasAccess: function (user, access, done) {
+        requestAccess: function (user, access, done) {
             ///<summary>Checks if user has access</summary>
 
             for (var accessItem in access) {
@@ -96,13 +100,13 @@ var UserService = Service.extend(function () { })
                 for (var accessType in accessTypes) {
                     var accessTypeKey = accessTypes[accessType];
 
-                    var permissionKey = sprintf('%s.%s', accessItem, accessTypeKey);
+                    var permissionKey = util.format('%s.%s', accessItem, accessTypeKey);
 
-                    logger.info(sprintf('"%s" requested a "%s" permission.', user.getIdentity(), permissionKey));
+                    logger.info(util.format('"%s" requested a "%s" permission.', user.getIdentity(), permissionKey));
 
                     var permissionGranted = false;
-                    for (var permission in user.permissions) {
-                        if (user.permissions[permission].name === permissionKey) {
+                    for (var permission in user.app.permissions) {
+                        if (user.app.permissions[permission].name === permissionKey) {
                             permissionGranted = true;
                         }
                     }

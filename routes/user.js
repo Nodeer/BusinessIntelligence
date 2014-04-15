@@ -1,12 +1,24 @@
-﻿var UserService = require('../services/user.service'),
-    User = require('../models/user');
+﻿var UserService = require('../services/user'),
+    User = require('../models/user'),
+    route = require('./route');
 
 exports.register = function (app, passport) {
     ///<summary>Registeres routes</summary>
     ///<param name="app">Application</param>
     ///<param name="passport">Passport</param>
 
-    app.post('/signin', function (req, res, next) {
+    app.post('/signin', route.public(), exports._authenticate(passport), exports.signin);
+    app.post('/signup', route.public(), exports.signup);
+    app.post('/signout', route.public(), exports.signout);
+
+    return this;
+};
+
+exports._authenticate = function(passport) {
+    ///<summary>Authenticates user</summary>
+    ///<param name="passport">Passport</param>
+    
+    return function (req, res, next) {
         passport.authenticate('local', function (err, user) {
             if (err) {
                 return next(err);
@@ -26,12 +38,7 @@ exports.register = function (app, passport) {
 
             return res.redirect('/');
         })(req, res, next);
-    }, exports.signin);
-
-    app.post('/signup', exports.signup);
-    app.post('/signout', exports.signout);
-
-    return this;
+    };
 };
 
 exports.signin = function (req, res) {

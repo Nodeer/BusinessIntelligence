@@ -1,4 +1,4 @@
-﻿var auth_service = require('../services/auth.service');
+﻿var auth_service = require('../services/auth');
 
 exports.register = function (app, passport) {
     ///<summary>Registeres routes</summary>

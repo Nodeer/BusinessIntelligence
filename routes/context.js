@@ -1,14 +1,15 @@
-﻿var logger = require('../logger').getLogger();
+﻿var logger = require('../logger').getLogger('routes/context');
 
-module.exports = function (app, passport) {
+exports.register = function (app, passport) {
     ///<summary>Registeres all application routes</summary>
     ///<param name="app">Application</param>
-    ///<param name="passport">Passport</param>
+    ///<param name="passport">Passport instance</param>
     
-    require('./index.routes').register(app, passport);
-    require('./task.routes').register(app, passport);
-    require('./user.routes').register(app, passport);
-    require('./profile.routes').register(app, passport);
+    require('./index').register(app);
+    require('./task').register(app);
+    require('./user').register(app, passport);
+    require('./profile').register(app);
+    require('./management').register(app);
 
     // Handle 404
     app.use(function (req, res) {

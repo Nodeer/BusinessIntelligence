@@ -1,6 +1,6 @@
-﻿var Service = require('./service');
+﻿var Base = require('./base');
 
-var AuthService = Service.extend(function() {})
+var AuthService = Base.extend(function() {})
     .methods({
         authenticate: function (req, res, next) {
             ///<summary>Authenticates user</summary>

@@ -45,6 +45,15 @@ biControllers.controller('NavigationCtrl', ['$scope',
                     icon: 'glyphicon glyphicon-sort-by-attributes-alt',
                     description: 'Traceability helps to identify the way a given requirement or process has been implemented in a system, enabling you to follow the path of dependencies from the initial request, through a modeled solution and up to the deployed physical system or process.'
                 }]
+            },
+            {
+                name: 'Management',
+                items: [{
+                    name: 'Users',
+                    path: '/management/users',
+                    icon: 'glyphicon glyphicon-user',
+                    description: 'Business Intelligence security is based on permissions granted to individual users and groups of users. The easiest way to manage users in Business Intelligence (BI) is to add user groups (or in some cases, individual user accounts) to the default groups in BI so that they have the access they need.'
+                }]
             }
         ];
     }]);
