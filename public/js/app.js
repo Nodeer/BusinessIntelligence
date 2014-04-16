@@ -2,5 +2,5 @@
         'biControllers',
         'management.controllers',
         'management.services',
-        'biServices'
+        'services'
     ]);

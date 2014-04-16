@@ -19,7 +19,7 @@ exports.private = function(access) {
         return authService.authenticate(req, res, function() {
             return authService.authorizate(req, res, function() {
                 if (access) {
-                    return new UserService().requestAccess(req.user, access, function(err) {
+                    return new UserService().getAccess(req.user, access, function(err) {
                         if (err) {
                             logger.error(err);
 

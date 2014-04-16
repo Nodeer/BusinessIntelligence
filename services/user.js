@@ -92,25 +92,24 @@ var UserService = Base.extend(function () { })
             return new UserRepository().findByUsernamePassword(username, password, done);
         },
 
-        requestAccess: function (user, access, done) {
+        getAccess: function (user, access, done) {
             ///<summary>Checks if user has access</summary>
 
-            for (var accessItem in access) {
-                var accessTypes = [].concat(access[accessItem]);
-                for (var accessType in accessTypes) {
-                    var accessTypeKey = accessTypes[accessType];
+            for (var accessPermissionKey in access) {
+                var accessPermissions = [].concat(access[accessPermissionKey]);
+                for (var accessPermissionIndex in accessPermissions) {
+                    var accessPermissionValue = accessPermissions[accessPermissionIndex];
 
-                    var permissionKey = util.format('%s.%s', accessItem, accessTypeKey);
+                    var permissionName = util.format('%s.%s', accessPermissionKey, accessPermissionValue);
 
-                    logger.info(util.format('"%s" requested a "%s" permission.', user.getIdentity(), permissionKey));
+                    logger.info(util.format('"%s" requested a "%s" permission.', user.getIdentity(), permissionName));
 
                     var permissionGranted = false;
                     for (var permission in user.app.permissions) {
-                        if (user.app.permissions[permission].name === permissionKey) {
+                        if (user.app.permissions[permission].name === permissionName) {
                             permissionGranted = true;
                         }
                     }
-
                     if (!permissionGranted) {
                         return done('Access is denied.');
                     }
@@ -118,6 +117,31 @@ var UserService = Base.extend(function () { })
             }
 
             return done(null);
+        },
+
+        evaluateAccess: function (user, accesses, done) {
+            ///<summary>Evaluates access for a user</summary>
+
+            for (var accessIndex in accesses) {
+                var access = accesses[accessIndex];
+                for (var accessPermissionKey in access) {
+                    var accessPermissions = [].concat(access[accessPermissionKey]);
+                    for (var accessPermissionIndex in accessPermissions) {
+                        var accessPermissionValue = accessPermissions[accessPermissionIndex];
+
+                        var permissionName = util.format('%s.%s', accessPermissionKey, accessPermissionValue);
+
+                        access.granted = false;
+                        for (var permission in user.app.permissions) {
+                            if (user.app.permissions[permission].name === permissionName) {
+                                access.granted = true;
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+            return done(null, accesses);
         },
 
         authenticateUser: function (username, password, done) {

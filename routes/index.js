@@ -6,7 +6,6 @@ exports.register = function (app) {
     ///<param name="app">Application</param>
 
     app.get('/', route.public(), exports.index);
-    //app.get('/navigation.json', exports.getNavigation);
 
     return this;
 };

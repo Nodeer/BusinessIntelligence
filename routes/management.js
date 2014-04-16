@@ -7,8 +7,8 @@ exports.register = function (app) {
     ///<summary>Registeres routes</summary>
     ///<param name="app">Application</param>
 
-    app.get('/management/users', route.private({ 'management.user': [ 'read' ] }), exports.index);
-    app.get('/management/users/users.json', route.private({ 'management.user': [ 'read' ] }), exports.getUsers);
+    app.get('/management/users', route.private({ 'management.user': ['read'] }), exports.index);
+    app.get('/management/users/users.json', route.private({ 'management.user': ['read'] }), exports.getUsers);
 
     return this;
 };

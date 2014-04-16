@@ -85,7 +85,7 @@
     <Folder Include="public\js" />
     <Folder Include="repository" />
     <Folder Include="routes" />
-    <Folder Include="services" />
+    <Folder Include="services\" />
     <Folder Include="tests\e2e\" />
     <Folder Include="views" />
     <Folder Include="views\error" />

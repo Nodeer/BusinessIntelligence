@@ -11,6 +11,8 @@ exports.register = function (app, passport) {
     app.post('/signup', route.public(), exports.signup);
     app.post('/signout', route.public(), exports.signout);
 
+    app.post('/user/access.json', route.private(), exports.evaluateAccess);
+
     return this;
 };
 
@@ -74,4 +76,19 @@ exports.signout = function (req, res) {
     req.logout();
 
     return res.redirect('/');
+};
+
+
+exports.evaluateAccess = function (req, res) {
+    ///<summary>Evaluates access</summary>
+
+    var accesses = req.body;
+
+    return new UserService().evaluateAccess(req.user, accesses, function(err, accesses) {
+        if (err) {
+            return res.status(500).end();
+        }
+
+        return res.json(accesses);
+    });
 };

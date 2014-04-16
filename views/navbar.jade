@@ -11,15 +11,15 @@
                         span.glyphicon.glyphicon-home
             .navbar-collapse.collapse
                 if user
-                    #navigation-bar(ng-controller="NavigationCtrl")
-                        ul.nav.navbar-nav(ng-repeat="navigationGroup in navigationGroups")
+                    #navigation-bar
+                        ul.nav.navbar-nav(ng-repeat="group in navigation.groups")
                             li.dropdown
-                                a(href="#", data-toggle="dropdown").dropdown-toggle {{navigationGroup.name}} 
+                                a(href="#", data-toggle="dropdown").dropdown-toggle {{group.name}} 
                                     b.caret
                                 ul.dropdown-menu
-                                    li(ng-repeat="navigationItem in navigationGroup.items")
-                                        a(href="{{navigationItem.path}}")
-                                            span(class="{{navigationItem.icon}}")
-                                            |  {{navigationItem.name}}
+                                    li(ng-repeat="item in group.items")
+                                        a(href="{{item.path}}")
+                                            span(class="{{item.icon}}")
+                                            |  {{item.name}}
                 ul.nav.navbar-nav.navbar-right
                     include profile
