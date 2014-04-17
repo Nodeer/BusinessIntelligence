@@ -1,11 +1,11 @@
-﻿var biControllers = angular.module('biControllers', []);
+﻿var controllers = angular.module('controllers', []);
 
-biControllers.controller('TaskCtrl', ['$scope', 'TaskFactory',
+controllers.controller('TaskCtrl', ['$scope', 'TaskFactory',
     function ($scope, TaskFactory) {
         $scope.tasks = TaskFactory.query();
     }]);
 
-biControllers.controller('ApplicationCtrl', ['$scope', '$http', 'UserFactory',
+controllers.controller('ApplicationCtrl', ['$scope', '$http', 'UserFactory',
     ///<summary>Main application controller</summary>
     function ($scope, $http, UserFactory) {
         $scope.user = UserFactory.get();
@@ -46,9 +46,7 @@ biControllers.controller('ApplicationCtrl', ['$scope', '$http', 'UserFactory',
             ]
         };
 
-        $http.post('/user/access.json', {
-            manageUsers: { 'management.user': ['read'] }
-        }).success(function(access) {
+        $http.get('/user/access.json').success(function(access) {
             if (access.manageUsers.granted) {
                 $scope.navigation.groups.push({
                     name: 'Management',
@@ -63,7 +61,7 @@ biControllers.controller('ApplicationCtrl', ['$scope', '$http', 'UserFactory',
         });
     }]);
 
-biControllers.controller('ProfileCtrl', ['$scope',
+controllers.controller('ProfileCtrl', ['$scope',
     ///<summary>User profile controller [Depends on ApplicationCtrl]</summary>
     function ($scope) {
         $scope.submit = function() {

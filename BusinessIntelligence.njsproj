@@ -5,7 +5,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{58f753dd-8c2e-4cb7-bcfd-90511afed7ae}</ProjectGuid>
     <ProjectHome />
-    <ProjectView>ProjectFiles</ProjectView>
+    <ProjectView>ShowAllFiles</ProjectView>
     <StartupFile>app.js</StartupFile>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
@@ -51,6 +51,7 @@
     <Compile Include="services\auth.js" />
     <Compile Include="services\base.js" />
     <Compile Include="services\user.js" />
+    <Content Include="public\images\knowledgeBase48x48.png" />
     <Content Include="views\alert.jade" />
     <Content Include="views\footer.jade" />
     <Content Include="views\head.jade" />

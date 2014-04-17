@@ -16,3 +16,4 @@ exports.index = function (req, res) {
     var view = new View('home/index');
     return view.render(req, res);
 };
+

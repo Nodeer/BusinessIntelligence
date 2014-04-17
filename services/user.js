@@ -95,53 +95,38 @@ var UserService = Base.extend(function () { })
         getAccess: function (user, access, done) {
             ///<summary>Checks if user has access</summary>
 
-            for (var accessPermissionKey in access) {
-                var accessPermissions = [].concat(access[accessPermissionKey]);
-                for (var accessPermissionIndex in accessPermissions) {
-                    var accessPermissionValue = accessPermissions[accessPermissionIndex];
-
-                    var permissionName = util.format('%s.%s', accessPermissionKey, accessPermissionValue);
-
-                    logger.info(util.format('"%s" requested a "%s" permission.', user.getIdentity(), permissionName));
-
-                    var permissionGranted = false;
-                    for (var permission in user.app.permissions) {
-                        if (user.app.permissions[permission].name === permissionName) {
-                            permissionGranted = true;
-                        }
-                    }
-                    if (!permissionGranted) {
-                        return done('Access is denied.');
-                    }
+            return new UserService().evalutateAccess(user, {system: access}, function(err, access) {
+                if (!access.system.granted) {
+                    return done('Access is denied.');
                 }
-            }
 
-            return done(null);
+                return done(null);
+            });
         },
 
-        evaluateAccess: function (user, accesses, done) {
+        evaluateAccess: function (user, access, done) {
             ///<summary>Evaluates access for a user</summary>
 
-            for (var accessIndex in accesses) {
-                var access = accesses[accessIndex];
-                for (var accessPermissionKey in access) {
-                    var accessPermissions = [].concat(access[accessPermissionKey]);
+            for (var accessIndex in access) {
+                var accessItem = access[accessIndex];
+                for (var accessPermissionKey in accessItem) {
+                    var accessPermissions = [].concat(accessItem[accessPermissionKey]);
                     for (var accessPermissionIndex in accessPermissions) {
                         var accessPermissionValue = accessPermissions[accessPermissionIndex];
 
                         var permissionName = util.format('%s.%s', accessPermissionKey, accessPermissionValue);
 
-                        access.granted = false;
+                        accessItem.granted = false;
                         for (var permission in user.app.permissions) {
                             if (user.app.permissions[permission].name === permissionName) {
-                                access.granted = true;
+                                accessItem.granted = true;
                                 break;
                             }
                         }
                     }
                 }
             }
-            return done(null, accesses);
+            return done(null, access);
         },
 
         authenticateUser: function (username, password, done) {

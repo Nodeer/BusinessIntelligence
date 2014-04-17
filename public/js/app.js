@@ -1,5 +1,5 @@
 ﻿var bi = angular.module('biApp', [
-        'biControllers',
+        'controllers',
         'management.controllers',
         'management.services',
         'services'
