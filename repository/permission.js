@@ -27,11 +27,10 @@ var PermissionRepository = Base.extend(function () { })
 
         create: function(name, done) {
             ///<summary>Creates user</summary>
-            ///<param name="username">Name of a user</param>
-            ///<param name="password">Unhashed password of a user</param>
+            ///<param name="username">Name of a permission</param>
             ///<param name="done">Done handler</param>
 
-            this.getByName(name, function(err, permission) {
+            return new PermissionRepository().getByName(name, function(err, permission) {
                 if (err) return done(err, null);
 
                 if (permission) {

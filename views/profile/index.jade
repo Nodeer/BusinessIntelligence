@@ -10,9 +10,9 @@ block content
                         |  Personal information
                 .panel-body
                     .form-group
-                        label(for="username").col-sm-2.control-label Username
+                        label(for="email").col-sm-2.control-label Email
                         .col-sm-10
-                            label#username.form-control {{user.username}}
+                            input(type="email", ng-model="user.email", value="{{user.email}}", placeholder="Email")#email.form-control
                     .form-group
                         label(for="first_name").col-sm-2.control-label First name
                         .col-sm-10
@@ -21,10 +21,6 @@ block content
                         label(for="last_name").col-sm-2.control-label Last name
                         .col-sm-10
                             input(type="text", ng-model="user.last_name", value="{{user.last_name}}", placeholder="Last name")#last_name.form-control
-                    .form-group
-                        label(for="email").col-sm-2.control-label Email
-                        .col-sm-10
-                            input(type="email", ng-model="user.email", value="{{user.email}}", placeholder="Email")#email.form-control
                     .form-buttons
                 .panel-footer
                     input(type="submit", value="Submit").btn.btn-primary

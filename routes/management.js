@@ -23,5 +23,11 @@ exports.index = function (req, res) {
 exports.getUsers = function (req, res) {
     ///<summary>Gets list of users</summary>
 
-    return res.json([]);
+    return new UserService().getUsers(function(err, users) {
+        if (err) {
+            return res.status(500).end();
+        }
+
+        return res.json(users);
+    });
 };

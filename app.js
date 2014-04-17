@@ -53,7 +53,9 @@ require('./routes/context').register(app, passport);
 var UserService = require('./services/user');
 var user_service = new UserService();
 
-passport.use(new PassportLocalStrategy(user_service.authenticateUser));
+passport.use(new PassportLocalStrategy({
+     usernameField: 'email'
+}, user_service.authenticateUser));
 passport.serializeUser(user_service.serializeUser);
 passport.deserializeUser(user_service.deserializeUser);
 

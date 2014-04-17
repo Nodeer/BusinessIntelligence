@@ -13,21 +13,21 @@ var UserRepository = Base.extend(function () { })
             return User.findById(id, done);
         },
 
-        create: function(username, password, done) {
+        create: function(email, password, done) {
             ///<summary>Creates user</summary>
-            ///<param name="username">Name of a user</param>
+            ///<param name="email">Email</param>
             ///<param name="password">Unhashed password of a user</param>
             ///<param name="done">Done handler</param>
 
             User.findOne({
-                username: username
+                email: email
             }, function(err, user) {
                 if (user) {
                     return done('The user is already exists.', null);
                 }
 
                 user = new User({
-                    username: username,
+                    email: email,
                     password: _hashPassword(password)
                 });
 
@@ -56,17 +56,23 @@ var UserRepository = Base.extend(function () { })
             }, done);
         },
 
-        findByUsernamePassword: function (username, password, done) {
-            ///<summary>Finds user by username and password. Password must by hashed already.</summary>
-            ///<param name="username">Name of a user</param>
+        findByEmailPassword: function (email, password, done) {
+            ///<summary>Finds user by email and password. Password must by hashed already.</summary>
+            ///<param name="email">Email of a user</param>
             ///<param name="password">Unhashed password of a user</param>
             ///<param name="done">Done callback</param>
 
             return User.findOne({
-                username: username,
+                email: email,
                 password: _hashPassword(password)
             }, done);
         },
+
+        getAll: function(done) {
+            ///<summary>Gets all users.</summary> 
+
+            return User.find({}, 'email first_name last_name', done);
+        }
     });
 
 function _hashPassword(text) {

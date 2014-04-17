@@ -17,7 +17,7 @@ controllers.controller('ApplicationCtrl', ['$scope', '$http', 'UserFactory',
                     return ($scope.user.first_name || '') + ' ' + ($scope.user.last_name || '');
                 }
 
-                return $scope.user.username;
+                return $scope.user.email;
             }
             
             return '';

@@ -45,14 +45,14 @@ var UserService = Base.extend(function () { })
             });
         },
 
-        create: function(username, password, done) {
+        create: function(email, password, done) {
             ///<summary>Creates user</summary>
-            ///<param name="username">Name of a user</param>
+            ///<param name="email">Email of a user</param>
             ///<param name="password">Unhashed password of a user</param>
             ///<param name="done">Done handler</param>
 
             var userRepository = new UserRepository();
-            return userRepository.create(username, password, function(err, user) {
+            return userRepository.create(email, password, function(err, user) {
                 if (err) return done(err, null);
 
                 var groupRepository = new GroupRepository();
@@ -83,19 +83,21 @@ var UserService = Base.extend(function () { })
             });
         },
 
-        findByUsernamePassword: function (username, password, done) {
-            ///<summary>Finds user by username and password. Password must by hashed already.</summary>
-            ///<param name="username">Name of a user</param>
+        findByEmailPassword: function (email, password, done) {
+            ///<summary>Finds user by email and password. Password must by hashed already.</summary>
+            ///<param name="email">Email of a user</param>
             ///<param name="password">Hashed password of a user</param>
             ///<param name="done">Done callback</param>
 
-            return new UserRepository().findByUsernamePassword(username, password, done);
+            return new UserRepository().findByEmailPassword(email, password, done);
         },
 
         getAccess: function (user, access, done) {
             ///<summary>Checks if user has access</summary>
 
-            return new UserService().evalutateAccess(user, {system: access}, function(err, access) {
+            return new UserService().evaluateAccess(user, {system: access}, function(err, access) {
+                if (err) return done(err);
+
                 if (!access.system.granted) {
                     return done('Access is denied.');
                 }
@@ -129,13 +131,19 @@ var UserService = Base.extend(function () { })
             return done(null, access);
         },
 
-        authenticateUser: function (username, password, done) {
-            ///<summary>Authenticate user by username and password</summary>
-            ///<param name="username">Username of a user</param>
+        getUsers: function(done) {
+            ///<summary>Gets users collection</summary>
+
+            return new UserRepository().getAll(done);
+        },
+
+        authenticateUser: function (email, password, done) {
+            ///<summary>Authenticate user by email and password</summary>
+            ///<param name="email">Email of a user</param>
             ///<param name="password">Unhashed password of a user</param>
             ///<param name="done">Done callback</param>
             
-            return new UserService().findByUsernamePassword(username, password, function (err, user) {
+            return new UserService().findByEmailPassword(email, password, function (err, user) {
                 if (user) {
                     return done(err, user);
                 }

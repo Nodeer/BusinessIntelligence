@@ -52,14 +52,14 @@ exports.signin = function (req, res) {
 exports.signup = function (req, res) {
     ///<summary>User sign up</summary>
 
-    var username = req.body.username,
+    var email = req.body.email,
         password = req.body.password;
 
-    new UserService().create(username, password, function (err, user) {
+    new UserService().create(email, password, function (err, user) {
         if (err) {
             req.flash('alert', {
                 alert: {
-                    danger: err
+                    danger: err.message || err
                 }
             });
 
