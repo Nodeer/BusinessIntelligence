@@ -14,11 +14,11 @@
                     #navigation-bar
                         ul.nav.navbar-nav(ng-repeat="group in navigation.groups")
                             li.dropdown
-                                a(href="#", data-toggle="dropdown").dropdown-toggle {{group.name}} 
+                                a(href="#", data-toggle="dropdown", id="{{group.name}}").dropdown-toggle {{group.name}} 
                                     b.caret
                                 ul.dropdown-menu
                                     li(ng-repeat="item in group.items")
-                                        a(href="{{item.path}}")
+                                        a(href="{{item.path}}", id="{{item.name}}")
                                             span(class="{{item.icon}}")
                                             |  {{item.name}}
                 ul.nav.navbar-nav.navbar-right

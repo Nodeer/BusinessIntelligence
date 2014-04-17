@@ -111,6 +111,7 @@ var UserService = Base.extend(function () { })
 
             for (var accessIndex in access) {
                 var accessItem = access[accessIndex];
+                var accessGranted = false;
                 for (var accessPermissionKey in accessItem) {
                     var accessPermissions = [].concat(accessItem[accessPermissionKey]);
                     for (var accessPermissionIndex in accessPermissions) {
@@ -118,15 +119,15 @@ var UserService = Base.extend(function () { })
 
                         var permissionName = util.format('%s.%s', accessPermissionKey, accessPermissionValue);
 
-                        accessItem.granted = false;
                         for (var permission in user.app.permissions) {
                             if (user.app.permissions[permission].name === permissionName) {
-                                accessItem.granted = true;
+                                accessGranted = true;
                                 break;
                             }
                         }
                     }
                 }
+                accessItem.granted = accessGranted;
             }
             return done(null, access);
         },

@@ -11,9 +11,9 @@ block content
         if user
             #navigation-page
                 .row(ng-repeat="group in navigation.groups")
-                    h2 {{group.name}}
+                    h2(id="{{group.name}}") {{group.name}}
                     .col-md-4(ng-repeat="item in group.items")
-                        h3 
+                        h3(id="{{item.name}}")
                             a(ng-href="{{item.path}}") {{item.name}}  
                             span(class="{{item.icon}}")
                         p. {{item.description}}

@@ -3,5 +3,15 @@
 block management-content
     div(ng-controller="UsersCtrl")
         table.table.table-striped
+            tbody
+                th #
+                th Email
+                th First Name
+                th Last Name
+                th Groups
             tr(ng-repeat="user in users")
-                td {{user.name}}
+                td
+                td {{user.email}}
+                td {{user.first_name}}
+                td {{user.last_name}}
+                td 

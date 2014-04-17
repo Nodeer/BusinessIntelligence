@@ -6,6 +6,12 @@
             signin: element(by.id('btn-signin')),
             signup: element(by.id('btn-signup')),
             signout: element(by.id('btn-signout'))
+        },
+        menu: {
+            management: {
+                self: element(by.css('#navigation-bar #Management')),
+                users : element(by.css('#navigation-bar #Users'))
+            }
         }
     };
 
@@ -25,6 +31,10 @@ var User = function(app) {
         this.app.navigation.profile.email.sendKeys(email);
         this.app.navigation.profile.password.sendKeys(password);
         this.app.navigation.profile.signin.sendKeys(protractor.Key.ENTER);
+    };
+
+    this.signinAsAdmin = function() {
+        return this.signin("admin@host.com", "a");
     };
 
     this.signup = function(email, password) {
@@ -96,5 +106,26 @@ describe('an user', function() {
         expect(app.navigation.profile.signin.isPresent()).toBeTruthy();
         expect(app.navigation.profile.signup.isPresent()).toBeTruthy();
         expect(app.navigation.profile.signout.isPresent()).toBeFalsy();
+    });
+
+    it('from Administrator group can see management section', function() {
+        user.signinAsAdmin();
+
+        expect(app.navigation.menu.management.self.isPresent()).toBeTruthy();
+
+        describe('management section is correct', function() {
+            it('and users link is presented', function() {
+                expect(app.navigation.menu.management.users.isPresent()).toBeTruthy();
+            });
+        });
+    });
+
+
+    it('with Administrator group can access manage users page', function() {
+        // TODO
+    });
+
+    it('with Administrator group can access manage users page and reload it multiple times', function() {
+        // TODO
     });
 });
