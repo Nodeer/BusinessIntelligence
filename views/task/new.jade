@@ -3,17 +3,67 @@
 block task-content
     div(ng-controller="NewTaskCtrl")
         p. Business Intelligence security is based on permissions granted to individual users and groups of users. The easiest way to manage users in Business Intelligence (BI) is to add user groups (or in some cases, individual user accounts) to the default groups in BI so that they have the access they need.
-        br
-        table.table.table-striped
-            tbody
-                th #
-                th Email
-                th First Name
-                th Last Name
-                th Groups
-            tr(ng-repeat="user in users")
-                td {{$index + 1}}
-                td {{user.email}}
-                td {{user.first_name}}
-                td {{user.last_name}}
-                td {{user.groups.join(', ')}}
+
+        form(role="form", ng-controller="ProfileCtrl", ng-submit="submit()")
+            .form-group
+                label(for="name") Task Name:*
+                input#name.form-control(type="text", ng-model="name", value="{{name}}", placeholder="Task Name", required="required")
+            .form-group
+                label(for="description") Task Description:*
+                input#description.form-control(type="text", ng-model="description", value="{{description}}", placeholder="Task Description", required="required")
+            .form-group
+                .row
+                    .col-md-3
+                        label(for="external_id") Feature TFS ID:*
+                        input#external_id.form-control(type="text", ng-model="external_id", value="{{external_id}}", placeholder="12345", required="required")
+                    .col-md-9
+                        label(for="availability") Availability:
+                        .checkbox
+                            label
+                                input#general_availability(type="checkbox", ng-model="general_availability", value="{{general_availability}}")
+                                | General Availability
+                        .row
+                            .col-md-3
+                                .checkbox
+                                    label
+                                        input#limited_release(type="checkbox", ng-model="limited_release", value="{{limited_release}}")
+                                        | Limited Release
+                            .col-md-9
+                                input#limited_release_name.form-control(type="text", ng-model="limited_release_name", value="{{limited_release_name}}", placeholder="", ng-disabled="!limited_release")
+            .form-group
+                label(for="description") Input:*
+                table.table.table-striped
+                    tbody
+                        th #
+                        th Condition
+                        th Dependency
+                        th UI
+                        th API
+                    tr(ng-repeat="condition in input.conditions")
+                        td {{$index + 1}}
+                        td {{condition.name}}
+                        td {{condition.dependency}}
+                        td {{condition.ui}}
+                        td {{condition.api}}
+            .form-group
+                label(for="description") Output:*
+                table.table.table-striped
+                    tbody
+                        th #
+                        th Condition
+                        th Affects
+                        th How
+                        th Dependency
+                        th UI
+                        th API
+                    tr(ng-repeat="condition in output.conditions")
+                        td {{$index + 1}}
+                        td {{condition.name}}
+                        td {{condition.affects}}
+                        td {{condition.how}}
+                        td {{condition.dependency}}
+                        td {{condition.ui}}
+                        td {{condition.api}}
+            br
+            button.btn.btn-primary(type="button") Save
+            a.btn.btn-default(type="button", href="/") Cancel

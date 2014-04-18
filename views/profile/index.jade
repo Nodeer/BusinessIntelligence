@@ -2,25 +2,24 @@
 
 block content
     div
-        h2
-            span.glyphicon.glyphicon-user
-            |  Personal information
+        p.
+
         form(role="form", ng-controller="ProfileCtrl", ng-submit="submit()")
             .form-group
                 label(for="email") Email
                 label#email.form-control(ng-model="user.email") {{user.email}}
             .form-group
                 label(for="first_name") First name
-                input(type="text", ng-model="user.first_name", value="{{user.first_name}}", placeholder="First name")#first_name.form-control
+                input#first_name.form-control(type="text", ng-model="user.first_name", value="{{user.first_name}}", placeholder="First name")
             .form-group
                 label(for="last_name") Last name
-                input(type="text", ng-model="user.last_name", value="{{user.last_name}}", placeholder="Last name")#last_name.form-control
+                input#last_name.form-control(type="text", ng-model="user.last_name", value="{{user.last_name}}", placeholder="Last name")
             br
             .form-group
                 label(for="new_password") New Password
-                input(type="password", ng-model="user.new_password", placeholder="New Password")#new_password.form-control
+                input#new_password.form-control(type="password", ng-model="user.new_password", placeholder="New Password")
             .form-group
                 label(for="confirm_password") Confirm Password
-                input(type="password", ng-model="user.confirm_password", placeholder="Confirm Password")#confirm_password.form-control
+                input#confirm_password.form-control(type="password", ng-model="user.confirm_password", placeholder="Confirm Password")
             br
-            input(type="submit", value="Submit", ng-disabled="(user.new_password !== user.confirm_password) || working").btn.btn-primary
+            input.btn.btn-primary(type="submit", value="Submit", ng-disabled="(user.new_password !== user.confirm_password) || working")

@@ -2,9 +2,7 @@
     display: block;
 }
 
-#nav-bar-profile #profileform .form-group,
-#nav-bar-profile #profileform input,
-#nav-bar-profile #profileform a {
+.btn {
     margin-right: 3px;
 }
 
