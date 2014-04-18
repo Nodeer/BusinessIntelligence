@@ -18,7 +18,9 @@ exports.index = function (req, res) {
     ///<summary>Default view</summary>
 
     var view = new View('management/users');
-    return view.render(req, res);
+    return view.render(req, res, {
+        title: "Management | Users"
+    });
 };
 
 exports.getUsers = function (req, res) {

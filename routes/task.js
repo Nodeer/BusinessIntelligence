@@ -1,19 +1,22 @@
-﻿var auth_service = require('../services/auth');
+﻿var View = require('../views/view'),
+    logger = require('../logger'),
+    route = require('./route'),
+    extend = require('extend');
 
-exports.register = function (app, passport) {
+exports.register = function (app) {
     ///<summary>Registeres routes</summary>
     ///<param name="app">Application</param>
-    ///<param name="passport">Passport</param>
 
-   // app.get('/tasks.json', auth_service.authenticate, this.tasksJson);
-   // app.get('/tasks/:taskId.json', auth_service.authenticate, this.tasksJson);
+    app.get('/task/new', route.private({ 'task': ['create'] }), exports.new);
 
     return this;
 };
 
-exports.tasksJson = function (req, res, next) {
-    if (req.params.taskId) {
-    } else {
-        res.json({});
-    }
+exports.new = function (req, res) {
+    ///<summary>New task view</summary>
+
+    var view = new View('task/new');
+    return view.render(req, res, {
+        title: "Tasks | New"
+    });
 };

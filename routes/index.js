@@ -15,6 +15,8 @@ exports.index = function (req, res) {
     ///<summary>Default view</summary>
 
     var view = new View('home/index');
-    return view.render(req, res);
+    return view.render(req, res, {
+        title: "Home"
+    });
 };
 

@@ -1,1 +1,19 @@
-﻿
+﻿extends ./layout
+
+block task-content
+    div(ng-controller="NewTaskCtrl")
+        p. Business Intelligence security is based on permissions granted to individual users and groups of users. The easiest way to manage users in Business Intelligence (BI) is to add user groups (or in some cases, individual user accounts) to the default groups in BI so that they have the access they need.
+        br
+        table.table.table-striped
+            tbody
+                th #
+                th Email
+                th First Name
+                th Last Name
+                th Groups
+            tr(ng-repeat="user in users")
+                td {{$index + 1}}
+                td {{user.email}}
+                td {{user.first_name}}
+                td {{user.last_name}}
+                td {{user.groups.join(', ')}}

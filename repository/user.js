@@ -82,6 +82,7 @@ var UserRepository = Base.extend(function () { })
 
             return User.find({})
                 .populate('groups')
+                .sort({email: 1})
                 .exec(done);
         }
     });

@@ -36,6 +36,8 @@
     <Compile Include="public\js\directives.js" />
     <Compile Include="public\js\management.controllers.js" />
     <Compile Include="public\js\management.services.js" />
+    <Compile Include="public\js\task.controllers.js" />
+    <Compile Include="public\js\task.services.js" />
     <Compile Include="repository\group.js" />
     <Compile Include="repository\permission.js" />
     <Compile Include="repository\base.js" />
@@ -76,6 +78,7 @@
     <Content Include="views\error\error.jade" />
     <Content Include="views\home\index.jade" />
     <Content Include="views\profile\index.jade" />
+    <Content Include="views\task\layout.jade" />
     <Content Include="views\task\new.jade" />
   </ItemGroup>
   <ItemGroup>

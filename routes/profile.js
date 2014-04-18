@@ -21,7 +21,9 @@ exports.index = function (req, res) {
     ///<summary>Default view</summary>
     
     var view = new View('profile/index');
-    return view.render(req, res);
+    return view.render(req, res, {
+        title: "Profile"
+    });
 };
 
 exports.getUser = function(req, res) {

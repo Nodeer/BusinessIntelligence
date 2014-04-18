@@ -1,34 +1,26 @@
 ﻿extends ../layout
 
 block content
-    .container
-        form.form-horizontal(role="form", ng-controller="ProfileCtrl", ng-submit="submit()")
-            .panel.panel-default
-                .panel-heading
-                    h4(style="margin:0px;")
-                        span.glyphicon.glyphicon-user
-                        |  Personal information
-                .panel-body
-                    .form-group
-                        label(for="email").col-sm-2.control-label Email
-                        .col-sm-10
-                            label#email.form-control(ng-model="user.email") {{user.email}}
-                    .form-group
-                        label(for="first_name").col-sm-2.control-label First name
-                        .col-sm-10
-                            input(type="text", ng-model="user.first_name", value="{{user.first_name}}", placeholder="First name")#first_name.form-control
-                    .form-group
-                        label(for="last_name").col-sm-2.control-label Last name
-                        .col-sm-10
-                            input(type="text", ng-model="user.last_name", value="{{user.last_name}}", placeholder="Last name")#last_name.form-control
-                    br
-                    .form-group
-                        label(for="new_password").col-sm-2.control-label New Password
-                        .col-sm-10
-                            input(type="password", ng-model="user.new_password", placeholder="New Password")#new_password.form-control
-                    .form-group
-                        label(for="confirm_password").col-sm-2.control-label Confirm Password
-                        .col-sm-10
-                            input(type="password", ng-model="user.confirm_password", placeholder="Confirm Password")#confirm_password.form-control
-                .panel-footer
-                    input(type="submit", value="Submit", ng-disabled="(user.new_password !== user.confirm_password) || working").btn.btn-primary
+    div
+        h2
+            span.glyphicon.glyphicon-user
+            |  Personal information
+        form(role="form", ng-controller="ProfileCtrl", ng-submit="submit()")
+            .form-group
+                label(for="email") Email
+                label#email.form-control(ng-model="user.email") {{user.email}}
+            .form-group
+                label(for="first_name") First name
+                input(type="text", ng-model="user.first_name", value="{{user.first_name}}", placeholder="First name")#first_name.form-control
+            .form-group
+                label(for="last_name") Last name
+                input(type="text", ng-model="user.last_name", value="{{user.last_name}}", placeholder="Last name")#last_name.form-control
+            br
+            .form-group
+                label(for="new_password") New Password
+                input(type="password", ng-model="user.new_password", placeholder="New Password")#new_password.form-control
+            .form-group
+                label(for="confirm_password") Confirm Password
+                input(type="password", ng-model="user.confirm_password", placeholder="Confirm Password")#confirm_password.form-control
+            br
+            input(type="submit", value="Submit", ng-disabled="(user.new_password !== user.confirm_password) || working").btn.btn-primary
