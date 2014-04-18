@@ -201,6 +201,13 @@ var UserService = Base.extend(function () { })
                 email: userDto.email,
             });
 
+            if (userDto.new_password &&
+                userDto.new_password === userDto.confirm_password) {
+                extend(user, {
+                    password: userDto.new_password
+                });
+            }
+
             return done(null, user);
         },
 

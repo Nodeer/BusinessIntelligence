@@ -37,8 +37,7 @@ controllers.controller('NavbarCtrl', ['$scope', '$http',
                     name: 'NEW TASK',
                     type: 'button',
                     icon: 'glyphicon glyphicon-plus',
-                    path: '/',
-                    description: 'Requirements traceability is concerned with documenting the life of a requirement and providing bi-directional traceability between various associated requirements.'
+                    path: '/task/new'
                 }
             ],
             activeGroupName: sessionStorage.activeGroupName
@@ -53,12 +52,23 @@ controllers.controller('NavbarCtrl', ['$scope', '$http',
                     items: [{
                         name: 'Users',
                         path: '/management/users',
-                        icon: 'glyphicon glyphicon-user',
-                        description: 'Business Intelligence security is based on permissions granted to individual users and groups of users. The easiest way to manage users in Business Intelligence (BI) is to add user groups (or in some cases, individual user accounts) to the default groups in BI so that they have the access they need.'
+                        icon: 'glyphicon glyphicon-user'
                     }]
                 });
             }
         });
+
+        $scope.signin = function() {
+            
+        };
+
+        $scope.signup = function() {
+            
+        };
+
+        $scope.signout = function() {
+            sessionStorage.activeGroupName = '';
+        };
 
         $scope.setNavigation = function(groupName) {
             sessionStorage.activeGroupName = groupName;
@@ -71,8 +81,12 @@ controllers.controller('ProfileCtrl', ['$scope',
         $scope.submit = function() {
             ///<summary>Submits user profile</summary>
             
+            $scope.working = 1;
+
             $scope.user.$save(function(user) {
                 $scope.$emit('user.updated', user);
+
+                $scope.working = 0;
             });
         };
     }]);

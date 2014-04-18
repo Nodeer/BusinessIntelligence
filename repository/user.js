@@ -1,5 +1,6 @@
 ﻿var config = require('../config'),
     crypto = require("crypto-js"),
+    extend = require('extend'),
     User = require('../models/user'),
     Base = require('./base');
 
@@ -42,17 +43,25 @@ var UserRepository = Base.extend(function () { })
             ///<param name="user">User to update</param>
             ///<param name="done">Done callback</param>
 
-            User.findByIdAndUpdate(user._id, {
-                $set: {
-                    groups: user.groups,
-                    first_name: user.first_name,
-                    last_name: user.last_name,
-                    email: user.email,
-                    audit: {
-                        modified_date: user.audit.modified_date,
-                        revision: user.audit.revision
-                    }
+            var set = {
+                groups: user.groups,
+                first_name: user.first_name,
+                last_name: user.last_name,
+                email: user.email,
+                audit: {
+                    modified_date: user.audit.modified_date,
+                    revision: user.audit.revision
                 }
+            };
+
+            if (user.password) {
+                extend(set, {
+                    password: _hashPassword(user.password)
+                });
+            };
+
+            User.findByIdAndUpdate(user._id, {
+                $set: set
             }, done);
         },
 

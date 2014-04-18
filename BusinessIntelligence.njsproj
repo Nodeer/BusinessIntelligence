@@ -33,6 +33,7 @@
     <Compile Include="models\permission.js" />
     <Compile Include="models\user.js" />
     <Compile Include="models\user.snapshot.js" />
+    <Compile Include="public\js\directives.js" />
     <Compile Include="public\js\management.controllers.js" />
     <Compile Include="public\js\management.services.js" />
     <Compile Include="repository\group.js" />
@@ -51,6 +52,7 @@
     <Compile Include="services\auth.js" />
     <Compile Include="services\base.js" />
     <Compile Include="services\user.js" />
+    <Content Include="public\images\loader.gif" />
     <Content Include="public\images\knowledgeBase48x48.png" />
     <Content Include="views\alert.jade" />
     <Content Include="views\footer.jade" />
@@ -74,6 +76,7 @@
     <Content Include="views\error\error.jade" />
     <Content Include="views\home\index.jade" />
     <Content Include="views\profile\index.jade" />
+    <Content Include="views\task\new.jade" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include=".git" />
@@ -92,6 +95,7 @@
     <Folder Include="views\error" />
     <Folder Include="views\home" />
     <Folder Include="views\management\" />
+    <Folder Include="views\task\" />
     <Folder Include="views\profile\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />

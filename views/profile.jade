@@ -2,10 +2,10 @@
     if user
         #userprofileform
             form#profileform.navbar-form.navbar-right(method="post", action="/signout")
-                a.btn.btn-success(href="/profile/index")
+                a.btn.btn-success(href="/profile/index", ng-click="setNavigation('')")
                     span.glyphicon.glyphicon-user
                     span  {{getUserDisplayName()}}'s profile
-                input(type="submit", value="Sign out")#btn-signout.btn.btn-default
+                input(type="submit", value="Sign out", ng-click="signout()")#btn-signout.btn.btn-default
     else
         #unknownprofileform
             form#profileform.navbar-form(method="post", action="/")
@@ -13,8 +13,8 @@
                     input.form-control(type="email", placeholder="Email", name="email")
                 .form-group
                     input.form-control(type="password", placeholder="Password", name="password")
-                input(type="submit", value="Sign in")#btn-signin.btn.btn-success
-                input(type="submit", value="Sign up")#btn-signup.btn.btn-default
+                input(type="submit", value="Sign in", ng-click="signin()")#btn-signin.btn.btn-success
+                input(type="submit", value="Sign up", ng-click="signup()")#btn-signup.btn.btn-default
                 script.
                     $(function () {
                         $('#btn-signin').click(function () {
