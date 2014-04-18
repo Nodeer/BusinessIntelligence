@@ -1,6 +1,11 @@
 ﻿extends ./layout
 
 block task-content
+    style.
+        .btn-add-condition {
+            margin-top: -30px;
+            margin-left: -30px;
+        }
     div(ng-controller="NewTaskCtrl")
         p. Business Intelligence security is based on permissions granted to individual users and groups of users. The easiest way to manage users in Business Intelligence (BI) is to add user groups (or in some cases, individual user accounts) to the default groups in BI so that they have the access they need.
 
@@ -45,6 +50,8 @@ block task-content
                         td {{condition.dependency}}
                         td {{condition.ui}}
                         td {{condition.api}}
+                button.btn.btn-success.btn-xs.btn-add-condition(type="button")
+                    span.glyphicon.glyphicon-plus
             .form-group
                 label(for="description") Output:*
                 table.table.table-striped
@@ -64,6 +71,8 @@ block task-content
                         td {{condition.dependency}}
                         td {{condition.ui}}
                         td {{condition.api}}
+                button.btn.btn-success.btn-xs.btn-add-condition(type="button")
+                    span.glyphicon.glyphicon-plus
             br
             button.btn.btn-primary(type="button") Save
             a.btn.btn-default(type="button", href="/") Cancel

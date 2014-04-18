@@ -5,7 +5,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{58f753dd-8c2e-4cb7-bcfd-90511afed7ae}</ProjectGuid>
     <ProjectHome />
-    <ProjectView>ProjectFiles</ProjectView>
+    <ProjectView>ShowAllFiles</ProjectView>
     <StartupFile>app.js</StartupFile>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
@@ -38,6 +38,7 @@
     <Compile Include="public\js\management.services.js" />
     <Compile Include="public\js\task.controllers.js" />
     <Compile Include="public\js\task.services.js" />
+    <Compile Include="public\js\ui-bootstrap.min.js" />
     <Compile Include="repository\group.js" />
     <Compile Include="repository\permission.js" />
     <Compile Include="repository\base.js" />
