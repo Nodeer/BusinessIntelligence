@@ -9,8 +9,18 @@ var GroupRepository = Base.extend(function () { })
             ///<param name="id">Group name</param>
             ///<param name="done">Done callback</param>
 
+            return new GroupRepository().getByNames([name], done);
+        },
+
+        getByNames: function(names, done) {
+            ///<summary>Gets groups by names</summary>
+            ///<param name="id">Group names</param>
+            ///<param name="done">Done callback</param>
+
             return Group.findOne({
-                name: name
+                name: {
+                    $in: names
+                }
             }, done);
         },
 

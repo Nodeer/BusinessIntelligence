@@ -8,7 +8,8 @@
     klass = require('klass'),
     extend = require('extend'),
     logger = require('../logger').getLogger('services/user'),
-    util = require('util');
+    util = require('util'),
+    Enumerable = require('linq');
 
 
 var UserService = Base.extend(function () { })
@@ -132,10 +133,26 @@ var UserService = Base.extend(function () { })
             return done(null, access);
         },
 
-        getUsers: function(done) {
-            ///<summary>Gets users collection</summary>
+        getUsersDto: function(done) {
+            ///<summary>Gets users dto collection</summary>
 
-            return new UserRepository().getAll(done);
+            return new UserRepository().getAll(function(err, users) {
+                if (err) return done(err);
+                
+                var userDtos = Enumerable.from(users)
+                    .select(function(user) {
+                    return {
+                        email: user.email,
+                        first_name: user.first_name,
+                        last_name: user.last_name,
+                        groups: Enumerable.from(user.groups).select(function(group) {
+                            return group.name;
+                        }).toArray()
+                    };
+                }).toArray();
+                
+                return done(err, userDtos);
+            });
         },
 
         authenticateUser: function (email, password, done) {

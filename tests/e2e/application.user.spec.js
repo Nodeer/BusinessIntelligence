@@ -120,7 +120,6 @@ describe('an user', function() {
         });
     });
 
-
     it('with Administrator group can access manage users page', function() {
         // TODO
     });

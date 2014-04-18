@@ -2,7 +2,8 @@
     View = require('../views/view'),
     User = require('../models/user'),
     logger = require('../logger').getLogger('routes/profile'),
-    route = require('./route');
+    route = require('./route'),
+    extend = require('extend');
 
 exports.register = function (app, passport) {
     ///<summary>Registeres routes</summary>

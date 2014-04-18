@@ -1,7 +1,8 @@
 ﻿var UserService = require('../services/user'),
     View = require('../views/view'),
     logger = require('../logger').getLogger(),
-    route = require('./route');
+    route = require('./route'),
+    extend = require('extend');
 
 exports.register = function (app) {
     ///<summary>Registeres routes</summary>
@@ -23,7 +24,7 @@ exports.index = function (req, res) {
 exports.getUsers = function (req, res) {
     ///<summary>Gets list of users</summary>
 
-    return new UserService().getUsers(function(err, users) {
+    return new UserService().getUsersDto(function(err, users) {
         if (err) {
             return res.status(500).end();
         }

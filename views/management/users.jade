@@ -2,6 +2,7 @@
 
 block management-content
     div(ng-controller="UsersCtrl")
+        h2 Users
         table.table.table-striped
             tbody
                 th #
@@ -10,8 +11,8 @@ block management-content
                 th Last Name
                 th Groups
             tr(ng-repeat="user in users")
-                td
+                td {{$index + 1}}
                 td {{user.email}}
                 td {{user.first_name}}
                 td {{user.last_name}}
-                td 
+                td {{user.groups.join(', ')}}

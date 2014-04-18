@@ -26,30 +26,30 @@ controllers.controller('ApplicationCtrl', ['$scope', '$http', 'UserFactory',
         $scope.$on('user.updated', function(event, user) {
             $scope.user = user;
         });
+    }]);
 
+controllers.controller('NavbarCtrl', ['$scope', '$http',
+    ///<summary>Navigation controller</summary>
+    function ($scope, $http) {
         $scope.navigation = {
             groups: [
                 {
-                    name: 'Traceability',
-                    items: [{
-                        name: 'Impact',
-                        path: '/',
-                        icon: 'glyphicon glyphicon-sort-by-attributes',
-                        description: 'Requirements traceability is concerned with documenting the life of a requirement and providing bi-directional traceability between various associated requirements.'
-                    }, {
-                        name: 'Dependency',
-                        path: '/',
-                        icon: 'glyphicon glyphicon-sort-by-attributes-alt',
-                        description: 'Traceability helps to identify the way a given requirement or process has been implemented in a system, enabling you to follow the path of dependencies from the initial request, through a modeled solution and up to the deployed physical system or process.'
-                    }]
+                    name: 'NEW TASK',
+                    type: 'button',
+                    icon: 'glyphicon glyphicon-plus',
+                    path: '/',
+                    description: 'Requirements traceability is concerned with documenting the life of a requirement and providing bi-directional traceability between various associated requirements.'
                 }
-            ]
+            ],
+            activeGroupName: sessionStorage.activeGroupName
         };
 
         $http.get('/user/access.json').success(function(access) {
             if (access.manageUsers.granted) {
                 $scope.navigation.groups.push({
                     name: 'Management',
+                    icon: 'glyphicon glyphicon-cog',
+                    type: 'dropdown',
                     items: [{
                         name: 'Users',
                         path: '/management/users',
@@ -59,6 +59,10 @@ controllers.controller('ApplicationCtrl', ['$scope', '$http', 'UserFactory',
                 });
             }
         });
+
+        $scope.setNavigation = function(groupName) {
+            sessionStorage.activeGroupName = groupName;
+        };
     }]);
 
 controllers.controller('ProfileCtrl', ['$scope',

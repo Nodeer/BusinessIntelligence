@@ -71,7 +71,9 @@ var UserRepository = Base.extend(function () { })
         getAll: function(done) {
             ///<summary>Gets all users.</summary> 
 
-            return User.find({}, 'email first_name last_name', done);
+            return User.find({})
+                .populate('groups')
+                .exec(done);
         }
     });
 

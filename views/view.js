@@ -11,7 +11,7 @@ module.exports = klass(function (viewPath) {
             ///<param name="params">Parameters</param>
             
             var extendedParams = extend({
-                user: req.user
+                user: req.user,
             }, params || {}, req.flash('alert')[0] || {});
 
             res.render(this.viewPath, extendedParams);
