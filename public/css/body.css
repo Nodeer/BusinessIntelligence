@@ -17,3 +17,51 @@
              filter:  progid:DXImageTransform.Microsoft.BasicImage(rotation=0.083);  /* IE6,IE7 */
          -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=0.083)"; /* IE8 */
 }
+
+.col-td-1 {
+    width: 95px;
+}
+
+.col-td-2 {
+    width: 190px;
+}
+
+.col-td-3 {
+    width: 285px;
+}
+
+.col-td-4 {
+    width: 380px;
+}
+
+.col-td-5 {
+    width: 475px;
+}
+
+.col-td-6 {
+    width: 570px;
+}
+
+.col-td-7 {
+    width: 665px;
+}
+
+.col-td-8 {
+    width: 760px;
+}
+
+.col-td-9 {
+    width: 855px;
+}
+
+.col-td-10 {
+    width: 950px;
+}
+
+.col-td-11 {
+    width: 1045px;
+}
+
+.col-td-12 {
+    width: 1140px;
+}

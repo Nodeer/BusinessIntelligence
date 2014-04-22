@@ -58,7 +58,7 @@ var UserRepository = Base.extend(function () { })
                 extend(set, {
                     password: _hashPassword(user.password)
                 });
-            };
+            }
 
             User.findByIdAndUpdate(user._id, {
                 $set: set

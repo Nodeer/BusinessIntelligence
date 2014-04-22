@@ -26,10 +26,8 @@ app.use(express.cookieParser('dsaklkdl;sak90ui4op3jkl30io9p43l;kasd'));
 app.use(express.session());
 
 app.use(require('stylus').middleware(path.join(__dirname, 'public')));
-app.use('/public', express.static(path.join(__dirname, 'public')));
-app.use('/public/js', express.static(path.join(__dirname, 'public/js')));
-app.use('/public/js/angular', express.static(path.join(__dirname, 'public/js/angular')));
-app.use('/public/css', express.static(path.join(__dirname, 'public/css')));
+app.use('/public', express.static(__dirname + '/public'));
+app.use('/components', express.static(__dirname + '/bower_components'));
 
 app.use(passport.initialize());
 app.use(passport.session());

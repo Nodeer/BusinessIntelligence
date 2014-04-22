@@ -12,46 +12,52 @@ block task-content
         form(role="form", ng-controller="ProfileCtrl", ng-submit="submit()")
             .form-group
                 label(for="name") Task Name:*
-                input#name.form-control(type="text", ng-model="name", value="{{name}}", placeholder="Task Name", required="required")
+                input#name.form-control(type="text", ng-model="task.name", placeholder="Task Name", required="required")
             .form-group
                 label(for="description") Task Description:*
-                input#description.form-control(type="text", ng-model="description", value="{{description}}", placeholder="Task Description", required="required")
+                input#description.form-control(type="text", ng-model="task.description", placeholder="Task Description", required="required")
             .form-group
                 .row
                     .col-md-3
                         label(for="external_id") Feature TFS ID:*
-                        input#external_id.form-control(type="text", ng-model="external_id", value="{{external_id}}", placeholder="12345", required="required")
+                        input#external_id.form-control(type="text", ng-model="task.external_id", placeholder="12345", required="required")
                     .col-md-9
                         label(for="availability") Availability:
-                        .checkbox
+                        .radio
                             label
-                                input#general_availability(type="checkbox", ng-model="general_availability", value="{{general_availability}}")
+                                input(type="radio", name="availability", value="0", ng-model="task.availability")
                                 | General Availability
                         .row
                             .col-md-3
-                                .checkbox
+                                .radio
                                     label
-                                        input#limited_release(type="checkbox", ng-model="limited_release", value="{{limited_release}}")
-                                        | Limited Release
+                                        input(type="radio", name="availability", value="1", ng-model="task.availability")
+                                        | Partner specific
                             .col-md-9
-                                input#limited_release_name.form-control(type="text", ng-model="limited_release_name", value="{{limited_release_name}}", placeholder="", ng-disabled="!limited_release")
+                                input#limited_release_name.form-control(type="text", ng-model="task.partner_specific", placeholder="", ng-disabled="task.availability == 0")
             .form-group
                 label(for="description") Input:*
                 table.table.table-striped
                     tbody
-                        th #
-                        th Condition
-                        th Dependency
-                        th UI
-                        th API
-                    tr(ng-repeat="condition in input.conditions")
+                        th.col-td-1 #
+                        th.col-td-3 Condition
+                        th.col-td-1 UI
+                        th.col-td-1 API
+                        th.col-td-6 Dependency
+                    tr(ng-repeat="inputCondition in task.input.conditions")
                         td {{$index + 1}}
-                        td {{condition.name}}
-                        td {{condition.dependency}}
-                        td {{condition.ui}}
-                        td {{condition.api}}
-                button.btn.btn-success.btn-xs.btn-add-condition(type="button")
-                    span.glyphicon.glyphicon-plus
+                        td
+                            input(ui-select2="ui.condition.select", ng-model="inputCondition.condition", ng-change="task.input.addCondition()" placeholder="Pick a condition", style="width: 100%;")
+                        td
+                            .checkbox
+                                label
+                                    input(type="checkbox", ng-model="inputCondition.ui")
+                        td
+                            .checkbox
+                                label
+                                    input(type="checkbox", ng-model="inputCondition.api")
+                        td
+                            input(ui-select2="ui.dependency.select", ng-model="inputCondition.dependency", placeholder="Pick a dependency", style="width: 100%;")
             .form-group
                 label(for="description") Output:*
                 table.table.table-striped
@@ -63,16 +69,14 @@ block task-content
                         th Dependency
                         th UI
                         th API
-                    tr(ng-repeat="condition in output.conditions")
+                    tr(ng-repeat="outputCondition in task.output.conditions")
                         td {{$index + 1}}
-                        td {{condition.name}}
-                        td {{condition.affects}}
-                        td {{condition.how}}
-                        td {{condition.dependency}}
-                        td {{condition.ui}}
-                        td {{condition.api}}
-                button.btn.btn-success.btn-xs.btn-add-condition(type="button")
-                    span.glyphicon.glyphicon-plus
+                        td {{outputCondition.name}}
+                        td {{outputCondition.affects}}
+                        td {{outputCondition.how}}
+                        td {{outputCondition.dependency}}
+                        td {{outputCondition.ui}}
+                        td {{outputCondition.api}}
             br
             button.btn.btn-primary(type="button") Save
             a.btn.btn-default(type="button", href="/") Cancel

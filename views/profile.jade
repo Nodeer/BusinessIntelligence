@@ -10,9 +10,9 @@
         #unknownprofileform
             form#profileform.navbar-form(method="post", action="/")
                 .form-group
-                    input.form-control(type="email", placeholder="Email", name="email")
+                    input.form-control(type="email", placeholder="Email", name="email", required="required")
                 .form-group
-                    input.form-control(type="password", placeholder="Password", name="password")
+                    input.form-control(type="password", placeholder="Password", name="password", required="required")
                 input(type="submit", value="Sign in", ng-click="signin()")#btn-signin.btn.btn-success
                 input(type="submit", value="Sign up", ng-click="signup()")#btn-signup.btn.btn-default
                 script.
@@ -24,4 +24,4 @@
                         $('#btn-signup').click(function () {
                             $('#profileform').attr('action', '/signup');
                         });
-                    });
+                    });  
