@@ -29,8 +29,10 @@
     <Content Include=".git\ms-persist.xml" />
     <Compile Include="gruntfile.js" />
     <Compile Include="logger.js" />
+    <Compile Include="models\condition.js" />
     <Compile Include="models\group.js" />
     <Compile Include="models\permission.js" />
+    <Compile Include="models\task.js" />
     <Compile Include="models\user.js" />
     <Compile Include="models\user.snapshot.js" />
     <Compile Include="public\js\directives.js" />
@@ -39,10 +41,12 @@
     <Compile Include="public\js\task.controllers.js" />
     <Compile Include="public\js\task.services.js" />
     <Compile Include="public\js\ui-bootstrap.min.js" />
+    <Compile Include="repository\condition.js" />
     <Compile Include="repository\group.js" />
     <Compile Include="repository\permission.js" />
     <Compile Include="repository\base.js" />
     <Compile Include="repository\scripts\setup.mongodb.js" />
+    <Compile Include="repository\task.js" />
     <Compile Include="repository\user.js" />
     <Compile Include="repository\user.snapshot.js" />
     <Compile Include="routes\index.js" />
@@ -54,6 +58,7 @@
     <Compile Include="routes\user.js" />
     <Compile Include="services\auth.js" />
     <Compile Include="services\base.js" />
+    <Compile Include="services\task.js" />
     <Compile Include="services\user.js" />
     <Content Include="public\images\loader.gif" />
     <Content Include="public\images\knowledgeBase48x48.png" />

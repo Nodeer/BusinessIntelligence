@@ -6,8 +6,8 @@
 var userSchema = new Schema({
     email: { type: String, required: 1, index: { unique: 1 } },
     password: { type: String, required: 1, index: 1, select: 0 },
-    groups: [{ type: Schema.Types.ObjectId, ref: 'Group' }],
-    permissions: [{ type: Schema.Types.ObjectId, ref: 'Permission' }],
+    groups: [{ type: Schema.Types.ObjectId, ref: 'Group', index: 1 }],
+    permissions: [{ type: Schema.Types.ObjectId, ref: 'Permission', index: 1 }],
     first_name: { type: String, default: '' },
     last_name: { type: String, default: '' },
     audit: {

@@ -18,6 +18,10 @@
          -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=0.083)"; /* IE8 */
 }
 
+.select2-container {
+    width: 100%;
+}
+
 .col-td-1 {
     width: 95px;
 }
@@ -64,4 +68,8 @@
 
 .col-td-12 {
     width: 1140px;
+}
+
+.required {
+    color: red;
 }

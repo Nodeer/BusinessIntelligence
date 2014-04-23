@@ -9,74 +9,71 @@ block task-content
     div(ng-controller="NewTaskCtrl")
         p. Business Intelligence security is based on permissions granted to individual users and groups of users. The easiest way to manage users in Business Intelligence (BI) is to add user groups (or in some cases, individual user accounts) to the default groups in BI so that they have the access they need.
 
-        form(role="form", ng-controller="ProfileCtrl", ng-submit="submit()")
+        form(role="form", ng-submit="submit()")
             .form-group
-                label(for="name") Task Name:*
+                label(for="name") Task Name:
+                    span.required  *
                 input#name.form-control(type="text", ng-model="task.name", placeholder="Task Name", required="required")
             .form-group
-                label(for="description") Task Description:*
+                label(for="description") Task Description:
+                    span.required  *
                 input#description.form-control(type="text", ng-model="task.description", placeholder="Task Description", required="required")
             .form-group
                 .row
                     .col-md-3
-                        label(for="external_id") Feature TFS ID:*
+                        label(for="external_id") Feature TFS ID:
+                            span.required  *
                         input#external_id.form-control(type="text", ng-model="task.external_id", placeholder="12345", required="required")
                     .col-md-9
                         label(for="availability") Availability:
-                        .radio
-                            label
-                                input(type="radio", name="availability", value="0", ng-model="task.availability")
-                                | General Availability
+                            .radio
+                                label
+                                    input(type="radio", name="availability", value="0", ng-model="task.availability")
+                                    | General Availability
                         .row
                             .col-md-3
                                 .radio
                                     label
                                         input(type="radio", name="availability", value="1", ng-model="task.availability")
-                                        | Partner specific
+                                        | Partner Specific
                             .col-md-9
                                 input#limited_release_name.form-control(type="text", ng-model="task.partner_specific", placeholder="", ng-disabled="task.availability == 0")
             .form-group
-                label(for="description") Input:*
+                label(for="description") Input:
+                    span.required  *
                 table.table.table-striped
                     tbody
-                        th.col-td-1 #
                         th.col-td-3 Condition
-                        th.col-td-1 UI
-                        th.col-td-1 API
-                        th.col-td-6 Dependency
-                    tr(ng-repeat="inputCondition in task.input.conditions")
-                        td {{$index + 1}}
+                        th.col-td-3 Where Can I Set up Condition on UI
+                        th.col-td-3 How Can I Set up Condition via API
+                        th.col-td-3 Task Generates Condition
+                    tr(ng-repeat="condition in task.input.conditions")
                         td
-                            input(ui-select2="ui.condition.select", ng-model="inputCondition.condition", ng-change="task.input.addCondition()" placeholder="Pick a condition", style="width: 100%;")
+                            input(ui-select2="ui.input.condition.select", ng-model="condition.id", ng-change="task.input.addCondition(condition)", placeholder="Condition")
                         td
-                            .checkbox
-                                label
-                                    input(type="checkbox", ng-model="inputCondition.ui")
+                            input(ui-select2="ui.input.ui.select", ng-model="condition.ui", placeholder="Where Can I Set up Condition on UI", ng-show="condition.id")
                         td
-                            .checkbox
-                                label
-                                    input(type="checkbox", ng-model="inputCondition.api")
+                            input(ui-select2="ui.input.api.select", ng-model="condition.api", placeholder="How Can I Set up Condition via API", ng-show="condition.id")
                         td
-                            input(ui-select2="ui.dependency.select", ng-model="inputCondition.dependency", placeholder="Pick a dependency", style="width: 100%;")
+                            input(ui-select2="ui.input.dependency.select", ng-model="condition.dependency", placeholder="Task Generates Condition", ng-show="condition.id")
             .form-group
-                label(for="description") Output:*
+                label(for="description") Output:
+                    span.required  *
                 table.table.table-striped
                     tbody
-                        th #
-                        th Condition
-                        th Affects
-                        th How
-                        th Dependency
-                        th UI
-                        th API
+                        th.col-td-2 Condition
+                        th.col-td-2 Task Affected
+                        th.col-td-2 How Existing Tasks Affected
+                        th.col-td-2 Where Can I See Output on UI
+                        th.col-td-2 What API Can Use Output
+                        th.col-td-2 Task Uses Output as Input
                     tr(ng-repeat="outputCondition in task.output.conditions")
-                        td {{$index + 1}}
-                        td {{outputCondition.name}}
-                        td {{outputCondition.affects}}
-                        td {{outputCondition.how}}
-                        td {{outputCondition.dependency}}
-                        td {{outputCondition.ui}}
-                        td {{outputCondition.api}}
+                        td
+                        td
+                        td
+                        td
+                        td
+                        td
             br
-            button.btn.btn-primary(type="button") Save
+            input(type="submit", value="Save").btn.btn-primary
             a.btn.btn-default(type="button", href="/") Cancel
