@@ -14,6 +14,7 @@
     "mongoose": "^3.8.8",
     "log4js": "^0.6.13",
     "async": "^0.7.0",
-    "linq": "^3.0.4-beta"
+    "linq": "^3.0.4-beta",
+    "node-uuid": "^1.4.1"
   }
 }

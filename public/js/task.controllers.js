@@ -11,11 +11,14 @@ managementControllers.controller('NewTaskCtrl', ['$scope', 'TaskFactory', 'Condi
         $scope.task = {
             availability: 0,
             input: {
-                conditions: [{}],
-                addCondition: function(condition) {
-                    var conditions = $scope.task.input.conditions;
+                conditions: [{}]
+            },
+            output: {
+                conditions: [{}]
+            },
+            addCondition: function(condition, conditions) {
                     if (conditions[conditions.length-1].id) {
-                        $scope.task.input.conditions.push({});
+                        conditions.push({});
                     }
 
                     if (condition.id > 0) {
@@ -34,11 +37,37 @@ managementControllers.controller('NewTaskCtrl', ['$scope', 'TaskFactory', 'Condi
                         });
                     }
                 }
-            }
         };
 
         $scope.ui = {
-            input: {
+            partner_specific: {
+                select : {
+                    minimumInputLength: 3,
+                    multiple: true,
+                    ajax: {
+                        url: '/task/partners.json',
+                        data: function (term) {
+                            return {
+                                term: term
+                            };
+                        },
+                        results: function (data) {
+                            return { results: data };
+                        }
+                    },
+                    initSelection: function (element, callback) {
+                        var conditionId = $(element).val();
+                        if (conditionId) {
+                            ConditionFactory.get({
+                                id: conditionId
+                            }).success(function(condition) {
+                                return callback([condition]);
+                            });
+                        }
+                    }
+                }
+            },
+            input_output: {
                 condition: {
                     select : {
                         minimumInputLength: 3,
@@ -57,7 +86,9 @@ managementControllers.controller('NewTaskCtrl', ['$scope', 'TaskFactory', 'Condi
                         
                         }
                     }
-                },
+                }
+            },
+            input: {
                 ui: {
                     select : {
                         minimumInputLength: 3,

@@ -13,17 +13,17 @@ block task-content
             .form-group
                 label(for="name") Task Name:
                     span.required  *
-                input#name.form-control(type="text", ng-model="task.name", placeholder="Task Name", required="required")
+                input.form-control(ng-model="task.name", placeholder="Task Name", required="required")
             .form-group
                 label(for="description") Task Description:
                     span.required  *
-                input#description.form-control(type="text", ng-model="task.description", placeholder="Task Description", required="required")
+                input.form-control(ng-model="task.description", placeholder="Task Description", required="required")
             .form-group
                 .row
                     .col-md-3
                         label(for="external_id") Feature TFS ID:
                             span.required  *
-                        input#external_id.form-control(type="text", ng-model="task.external_id", placeholder="12345", required="required")
+                        input.form-control(ng-model="task.external_id", placeholder="12345", required="required")
                     .col-md-9
                         label(for="availability") Availability:
                             .radio
@@ -37,7 +37,7 @@ block task-content
                                         input(type="radio", name="availability", value="1", ng-model="task.availability")
                                         | Partner Specific
                             .col-md-9
-                                input#limited_release_name.form-control(type="text", ng-model="task.partner_specific", placeholder="", ng-disabled="task.availability == 0")
+                                input(type="hidden", ui-select2="ui.partner_specific.select", ng-model="task.partner_specific", placeholder="Partners", ng-disabled="task.availability == 0")
             .form-group
                 label(for="description") Input:
                     span.required  *
@@ -49,7 +49,7 @@ block task-content
                         th.col-td-3 Task Generates Condition
                     tr(ng-repeat="condition in task.input.conditions")
                         td
-                            input(ui-select2="ui.input.condition.select", ng-model="condition.id", ng-change="task.input.addCondition(condition)", placeholder="Condition")
+                            input(ui-select2="ui.input_output.condition.select", ng-model="condition.id", ng-change="task.addCondition(condition, task.input.conditions)", placeholder="Condition")
                         td
                             input(ui-select2="ui.input.ui.select", ng-model="condition.ui", placeholder="Where Can I Set up Condition on UI", ng-show="condition.id")
                         td
@@ -67,8 +67,9 @@ block task-content
                         th.col-td-2 Where Can I See Output on UI
                         th.col-td-2 What API Can Use Output
                         th.col-td-2 Task Uses Output as Input
-                    tr(ng-repeat="outputCondition in task.output.conditions")
+                    tr(ng-repeat="condition in task.output.conditions")
                         td
+                            input(ui-select2="ui.input_output.condition.select", ng-model="condition.id", ng-change="task.addCondition(condition, task.output.conditions)", placeholder="Condition")
                         td
                         td
                         td

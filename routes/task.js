@@ -3,7 +3,8 @@
     route = require('./route'),
     extend = require('extend'),
     TaskService = require('../services/task'),
-    Enumerable = require('linq');
+    Enumerable = require('linq'),
+    uuid = require('node-uuid');
 
 exports.register = function (app) {
     ///<summary>Registeres routes</summary>
@@ -12,8 +13,10 @@ exports.register = function (app) {
     app.get('/task/new', route.private({ 'task': ['create'] }), exports.new);
     app.post('/task/task.json', route.private({ 'task': ['create'] }), exports.createTask);
 
-    app.get('/task/condition/:id.json', route.private({ 'task': ['read']}), exports.getCondition);
+    app.get('/task/conditions/:id.json', route.private({ 'task': ['read']}), exports.getConditionById);
     app.get('/task/conditions.json', route.private({ 'task': ['read']}), exports.getConditions);
+
+    app.get('/task/partners.json', route.private({ 'task': ['read']}), exports.getPartners);
 
     app.get('/task/dependencies.json', route.private({ 'task': ['read']}), exports.getDependencies);
 
@@ -35,8 +38,8 @@ exports.createTask = function (req, res) {
     return res.json(task);
 };
 
-exports.getCondition = function (req, res) {
-    ///<summary>Loads a condition</summary>
+exports.getConditionById = function (req, res) {
+    ///<summary>Loads a condition by id</summary>
 
     return new TaskService().getConditionById(req.params.id, function(condition, tasks) {
         return {
@@ -80,12 +83,26 @@ exports.getConditions = function (req, res) {
         }
 
         conditions.push({
-            id: 0,
+            id: uuid.v4(),
             text: params.term
         });
 
         return res.json(conditions);
     });
+};
+
+exports.getPartners = function (req, res) {
+    ///<summary>Loads list of partners</summary>
+    
+    var params = req.query;
+
+    var conditions = [];
+    conditions.push({
+            id: uuid.v4(),
+            text: params.term
+        });
+
+    return res.json(conditions);
 };
 
 exports.getDependencies = function (req, res) {
