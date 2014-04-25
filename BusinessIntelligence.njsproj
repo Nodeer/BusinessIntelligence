@@ -65,6 +65,8 @@
     <Content Include="views\alert.jade" />
     <Content Include="views\footer.jade" />
     <Content Include="views\head.jade" />
+    <Content Include="views\home\about.jade" />
+    <Content Include="views\home\layout.jade" />
     <Content Include="views\layout.jade" />
     <Content Include="views\management\layout.jade" />
     <Content Include="views\management\users.jade" />

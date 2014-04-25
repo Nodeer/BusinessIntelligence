@@ -56,6 +56,13 @@ controllers.controller('NavbarCtrl', ['$scope', '$http',
                     }]
                 });
             }
+
+            $scope.navigation.groups.push({
+                name: 'About',
+                type: 'button',
+                icon: 'glyphicon glyphicon-question-sign',
+                path: '/about'
+            });
         });
 
         $scope.signin = function() {
