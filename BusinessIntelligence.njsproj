@@ -90,6 +90,7 @@
     <Content Include="views\profile\index.jade" />
     <Content Include="views\task\layout.jade" />
     <Content Include="views\task\new.jade" />
+    <Content Include="views\task\view.jade" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include=".git" />

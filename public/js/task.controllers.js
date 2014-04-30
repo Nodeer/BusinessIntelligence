@@ -10,7 +10,7 @@ managementControllers.controller('NewTaskCtrl', ['$scope', 'TaskFactory', 'Condi
     function ($scope, TaskFactory, ConditionFactory, PartnersFactory, $window) {
         $scope.task = {
             availability: {
-                type: 0,
+                availability_type: 0,
                 partners: []
             },
             input: {
@@ -157,7 +157,19 @@ managementControllers.controller('NewTaskCtrl', ['$scope', 'TaskFactory', 'Condi
             TaskFactory.save($scope.task, function(task) {
                 $scope.saving = 0;
 
-                $window.location.href = sprintf('/task/view?id=%s', task._id);
+                $window.location.href = sprintf('/task/view/%s', task._id);
+            });
+        };
+    }]);
+
+managementControllers.controller('ViewTaskCtrl', ['$scope', 'TaskFactory', 'ConditionFactory', 'PartnersFactory', '$location',
+    function ($scope, TaskFactory, ConditionFactory, PartnersFactory, $location) {
+        
+        $scope.init = function(id) {
+            return TaskFactory.get({
+                id: id
+            }, function(task) {
+                $scope.task = task;
             });
         };
     }]);

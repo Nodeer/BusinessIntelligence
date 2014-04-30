@@ -11,6 +11,9 @@ exports.register = function (app) {
     ///<param name="app">Application</param>
 
     app.get('/task/new', route.private({ 'task': ['create'] }), exports.new);
+    app.get('/task/view/:id', route.private({ 'task': ['read'] }), exports.view);
+
+    app.get('/task/task.json/:id', route.private({ 'task': ['read'] }), exports.getTask);
     app.post('/task/task.json', route.private({ 'task': ['create'] }), exports.createTask);
 
     app.get('/task/conditions.json/:id', route.private({ 'task': ['read']}), exports.getConditionById);
@@ -28,12 +31,42 @@ exports.new = function (req, res) {
 
     var view = new View('task/new');
     return view.render(req, res, {
-        title: "Tasks | New"
+        title: "Task | New"
+    });
+};
+
+exports.view = function (req, res) {
+    ///<summary>View task</summary>
+
+    var view = new View('task/view');
+    return view.render(req, res, {
+        title: "Task | View",
+        id: req.params.id
+    });
+};
+
+exports.getTask = function (req, res, next) {
+    ///<summary>Gets task by id</summary>
+    
+    var id = req.params.id;
+
+    return new TaskService(req.user).getTaskById(id, function(err, task) {
+        if (err) {
+            next();
+        }
+
+        return res.json(task.toDto());
     });
 };
 
 exports.createTask = function (req, res) {
-    var taskDto = req.body;
+    var taskDto = extend(true, {}, req.body, {
+        availability: {
+            partners: Enumerable.from(req.body.availability.partners).select(function(partner) {
+                return partner.text;
+            }).toArray()
+        }
+    });
 
     return new TaskService(req.user).createTask(taskDto, function(err, task) {
         return res.json(task);
@@ -95,13 +128,26 @@ exports.getConditions = function (req, res) {
 
 exports.getPartners = function (req, res) {
     ///<summary>Loads list of partners</summary>
-    var partners = [];
-    partners.push({
-        id: req.params.name,
-        text: req.params.name
-    });
 
-    return res.json(partners);
+    return new TaskService(req.user).findPartnersByName(req.params.name, function(partner) {
+        return {
+                id: partner,
+                text: partner
+            };
+    }, function(err, partners) {
+        if (err) {
+            logger.error(err);
+
+            return res.send(500);
+        }
+
+        partners.splice(0, 0, {
+            id: req.params.name,
+            text: req.params.name
+        });
+
+        return res.json(partners);
+    });
 };
 
 exports.getDependencies = function (req, res) {

@@ -8,7 +8,7 @@ var taskSnapshotSchema = new Schema({
     description: String,
     external_id: String,
     availability: {
-        type: Number,
+        availability_type: Number,
         partners: [ { type: String } ]
     },
     audit: {
@@ -28,7 +28,7 @@ taskSnapshotSchema.statics.create = function(task) {
         description: task.description,
         external_id: task.external_id,
         availability: {
-            type: task.availability.type,
+            availability_type: task.availability.availability_type,
             partners: task.availability.partners
         },
         audit: {

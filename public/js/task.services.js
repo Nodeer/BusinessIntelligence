@@ -2,7 +2,7 @@
 
 taskServices.factory('TaskFactory', ['$resource',
     function ($resource) {
-        return $resource('/task/task.json');
+        return $resource('/task/task.json/:id');
     }]);
 
 taskServices.factory('ConditionFactory', ['$resource',

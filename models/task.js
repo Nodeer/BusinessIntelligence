@@ -6,7 +6,7 @@ var taskSchema = new Schema({
     description: { type: String, default: '' },
     external_id: { type: String, index: 1},
     availability: {
-        type: Number,
+        availability_type: Number,
         partners: [ { type: String } ]
     },
     audit: {
@@ -15,5 +15,20 @@ var taskSchema = new Schema({
         revision: { type: Number, default: 1 }
     }
 });
+
+taskSchema.methods.toDto = function() {
+    ///<summary>Converts to DTO</summary>
+    
+    return {
+        id: this._id,
+        name: this.name,
+        description: this.description,
+        external_id: this.external_id,
+        availability: {
+            availability_type: this.availability.availability_type,
+            partners: this.availability.partners
+        }
+    };
+};
 
 module.exports = Task = mongoose.model('Task', taskSchema);

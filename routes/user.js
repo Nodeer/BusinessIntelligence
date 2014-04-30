@@ -83,6 +83,7 @@ exports.evaluateAccess = function (req, res) {
     ///<summary>Evaluates access</summary>
 
     return new UserService().evaluateAccess(req.user, {
+        taskCreate: { 'task': ['create'] },
         manageUsers: {
             'management.user': ['read']
         }

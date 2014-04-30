@@ -8,7 +8,11 @@ controllers.controller('TaskCtrl', ['$scope', 'TaskFactory',
 controllers.controller('ApplicationCtrl', ['$scope', '$http', 'UserFactory',
     ///<summary>Main application controller</summary>
     function ($scope, $http, UserFactory) {
-        $scope.user = UserFactory.get();
+        $scope.init = function(user) {
+            if (user) {
+                $scope.user = UserFactory.get();
+            }
+        };
 
         $scope.getUserDisplayName = function() {
             ///<summary>Get display name</summary>
@@ -31,40 +35,46 @@ controllers.controller('ApplicationCtrl', ['$scope', '$http', 'UserFactory',
 controllers.controller('NavbarCtrl', ['$scope', '$http', '$window',
     ///<summary>Navigation controller</summary>
     function ($scope, $http, $window) {
+
         $scope.navigation = {
-            groups: [
-                {
-                    name: 'NEW TASK',
-                    type: 'button',
-                    icon: 'glyphicon glyphicon-plus',
-                    path: '/task/new'
-                }
-            ],
-            activeGroupName: sessionStorage.activeGroupName
+            groups: []
         };
 
-        $http.get('/user/access.json').success(function(access) {
-            if (access.manageUsers.granted) {
-                $scope.navigation.groups.push({
-                    name: 'Management',
-                    icon: 'glyphicon glyphicon-cog',
-                    type: 'dropdown',
-                    path: '/management',
-                    items: [{
-                        name: 'Users',
-                        path: '/management/users',
-                        icon: 'glyphicon glyphicon-user'
-                    }]
+        $scope.init = function(user) {
+            if (user) {
+                $http.get('/user/access.json').success(function(access) {
+                    if (access.taskCreate.granted) {
+                        $scope.navigation.groups.push({
+                            name: 'NEW TASK',
+                            type: 'button',
+                            icon: 'glyphicon glyphicon-plus',
+                            path: '/task/new'
+                        });
+                    }
+
+                    if (access.manageUsers.granted) {
+                        $scope.navigation.groups.push({
+                            name: 'Management',
+                            icon: 'glyphicon glyphicon-cog',
+                            type: 'dropdown',
+                            path: '/management',
+                            items: [{
+                                name: 'Users',
+                                path: '/management/users',
+                                icon: 'glyphicon glyphicon-user'
+                            }]
+                        });
+                    }
+
+                    $scope.navigation.groups.push({
+                        name: 'About',
+                        type: 'button',
+                        icon: 'glyphicon glyphicon-question-sign',
+                        path: '/about'
+                    });
                 });
             }
-
-            $scope.navigation.groups.push({
-                name: 'About',
-                type: 'button',
-                icon: 'glyphicon glyphicon-question-sign',
-                path: '/about'
-            });
-        });
+        };
 
         $scope.signin = function() {
             

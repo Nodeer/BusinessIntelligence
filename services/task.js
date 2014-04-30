@@ -63,6 +63,27 @@ var TaskService = Base.extend(function (user) {
             ///<param name="done">Done callback</param>
             
             return new TaskRepository(this.user).create(taskDto, done);
+        },
+
+        findPartnersByName: function(name, map, done) {
+            ///<summary>Finds partners by name</summary>
+            ///<param name="name">Name of a partner</param>
+            ///<param name="map">Map function</param>
+            ///<param name="done">Done callback</param>
+
+            return new TaskRepository(this.user).findPartnersByName(name, function(err, partners) {
+              if (err) return done(err);
+
+              return done(err, Enumerable.from(partners).select(map).toArray());
+          });
+        },
+
+        getTaskById: function(id, done) {
+            ///<summary>Gets task by id</summary>
+            ///<param name="id">Task identifier</param>
+            ///<param name="done">Done callback</param>
+            
+            return new TaskRepository(this.user).getById(id, done);
         }
     });
 

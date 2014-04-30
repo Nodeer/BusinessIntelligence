@@ -1,14 +1,7 @@
 ﻿extends ./layout
 
 block task-content
-    style.
-        .btn-add-condition {
-            margin-top: -30px;
-            margin-left: -30px;
-        }
     div(ng-controller="NewTaskCtrl")
-        p. Business Intelligence security is based on permissions granted to individual users and groups of users. The easiest way to manage users in Business Intelligence (BI) is to add user groups (or in some cases, individual user accounts) to the default groups in BI so that they have the access they need.
-
         form(role="form", ng-submit="submit()")
             .form-group
                 label(for="name") Task Name:
@@ -28,16 +21,16 @@ block task-content
                         label(for="availability") Availability:
                             .radio
                                 label
-                                    input(type="radio", name="availability", value="0", ng-model="task.availability.type")
+                                    input(type="radio", name="availability", value="0", ng-model="task.availability.availability_type")
                                     | General Availability
                         .row
                             .col-md-3
                                 .radio
                                     label
-                                        input(type="radio", name="availability", value="1", ng-model="task.availability.type")
+                                        input(type="radio", name="availability", value="1", ng-model="task.availability.availability_type")
                                         | Partner Specific
                             .col-md-9
-                                input(type="hidden", ui-select2="ui.availability.partners.select", ng-model="task.availability.parners", placeholder="Partners", ng-disabled="task.availability.type == 0")
+                                input(type="hidden", ui-select2="ui.availability.partners.select", ng-model="task.availability.partners", placeholder="Partners", ng-disabled="task.availability.availability_type == 0")
             br
             input(type="submit", value="Save").btn.btn-primary
             a.btn.btn-default(type="button", href="/") Cancel

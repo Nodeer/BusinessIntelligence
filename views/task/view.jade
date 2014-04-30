@@ -1,0 +1,28 @@
+﻿extends ./layout
+
+block task-content
+    div(ng-controller="ViewTaskCtrl", ng-init="init('#{id}')")
+        form(role="form")
+            .form-group
+                label(for="name") Task Name:
+                p.form-control-static {{task.name}}
+            .form-group
+                label(for="description") Task Description:
+                p.form-control-static {{task.description}}
+            .form-group
+                .row
+                    .col-md-3
+                        label(for="external_id") Feature TFS ID:
+                        p.form-control-static {{task.external_id}}
+                    .col-md-9
+                        label(for="availability") Availability:
+                        div(ng-switch on="task.availability.availability_type")
+                            div(ng-switch-when="0")
+                                p.form-control-static ✓ General Availability
+                            div(ng-switch-when="1")
+                                .row
+                                    .col-md-3
+                                        p.form-control-static ✓ Partner Specific
+                                    .col-md-9
+                                        p.form-control-static
+                                            span.label.label-default(ng-repeat="partner in task.availability.partners") {{partner}}
