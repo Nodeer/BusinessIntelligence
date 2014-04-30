@@ -7,7 +7,7 @@ var taskSchema = new Schema({
     external_id: { type: String, index: 1},
     availability: {
         availability_type: Number,
-        partners: [ { type: String } ]
+        partners: [ { type: String, index: 1 } ]
     },
     audit: {
         modified_date: { type: Date, default: Date.now },

@@ -40,6 +40,8 @@
     <Compile Include="public\js\directives.js" />
     <Compile Include="public\js\management.controllers.js" />
     <Compile Include="public\js\management.services.js" />
+    <Compile Include="public\js\search.controllers.js" />
+    <Compile Include="public\js\search.services.js" />
     <Compile Include="public\js\task.controllers.js" />
     <Compile Include="public\js\task.services.js" />
     <Compile Include="public\js\ui-bootstrap.min.js" />
@@ -56,6 +58,7 @@
     <Compile Include="routes\profile.js" />
     <Compile Include="routes\route.js" />
     <Compile Include="routes\context.js" />
+    <Compile Include="routes\search.js" />
     <Compile Include="routes\task.js" />
     <Compile Include="routes\user.js" />
     <Compile Include="services\auth.js" />
@@ -69,6 +72,7 @@
     <Content Include="views\head.jade" />
     <Content Include="views\home\about.jade" />
     <Content Include="views\home\layout.jade" />
+    <Content Include="views\home\search.jade" />
     <Content Include="views\layout.jade" />
     <Content Include="views\management\layout.jade" />
     <Content Include="views\management\users.jade" />

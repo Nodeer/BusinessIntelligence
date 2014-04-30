@@ -10,6 +10,7 @@ exports.register = function (app, passport) {
     require('./user').register(app, passport);
     require('./profile').register(app);
     require('./management').register(app);
+    require('./search').register(app);
 
     // Handle 404
     app.use(function (req, res) {

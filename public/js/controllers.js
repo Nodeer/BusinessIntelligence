@@ -1,4 +1,4 @@
-﻿var controllers = angular.module('controllers', []);
+﻿var controllers = angular.module('controllers', ['search.services']);
 
 controllers.controller('TaskCtrl', ['$scope', 'TaskFactory',
     function ($scope, TaskFactory) {
@@ -45,7 +45,7 @@ controllers.controller('NavbarCtrl', ['$scope', '$http', '$window',
                 $http.get('/user/access.json').success(function(access) {
                     if (access.taskCreate.granted) {
                         $scope.navigation.groups.push({
-                            name: 'NEW TASK',
+                            name: 'New Task',
                             type: 'button',
                             icon: 'glyphicon glyphicon-plus',
                             path: '/task/new'

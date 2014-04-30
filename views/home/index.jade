@@ -2,9 +2,12 @@
 
 block home-content
     div
-        .jumbotron
-            div
-                h2 
-                    img.img-rounded(src="/public/images/knowledgeBase48x48.png")
-                    span Business Intelligence
-                p. If you are looking to quickly build out a self-service BI solution that tells the story of your data, you can now use the tool you know and love – Excel - to rapidly mash-up, explore, analyze and visualize any data ranging from a few rows to hundreds of millions of rows.
+        if !user
+            .jumbotron
+                div
+                    h2 
+                        img.img-rounded(src="/public/images/knowledgeBase48x48.png")
+                        span Business Intelligence
+                    p. If you are looking to quickly build out a self-service BI solution that tells the story of your data, you can now use the tool you know and love – Excel - to rapidly mash-up, explore, analyze and visualize any data ranging from a few rows to hundreds of millions of rows.
+        else
+            include search

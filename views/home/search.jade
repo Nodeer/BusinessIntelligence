@@ -1,0 +1,15 @@
+﻿div(ng-controller="SearchCtrl")
+    .input-group
+        span.input-group-btn
+            button.btn.btn-default(type="button", ng-click="search()")
+                span.glyphicon.glyphicon-search
+        input.form-control(placeholder="Search criteria", ng-model="search.criteria", ng-change="search()")
+    br
+    table.table.table-striped
+        tr(ng-repeat="task in search.tasks")
+            td
+                | {{$index + 1}}
+            td
+                a(ng-href="/task/view/{{task.id}}") {{task.name}}
+                p. {{task.description}}
+            td
