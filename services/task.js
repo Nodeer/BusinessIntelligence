@@ -10,7 +10,9 @@
     Enumerable = require('linq');
 
 
-var TaskService = Base.extend(function () { })
+var TaskService = Base.extend(function (user) {
+        this.user = user;
+    })
     .methods({
         findConditionsByName: function(name, map, done) {
             ///<summary>Finds conditions by name</summary>
@@ -34,7 +36,7 @@ var TaskService = Base.extend(function () { })
           return new ConditionRepository().getById(id, function(err, condition) {
               if (err) return done(err);
 
-              return new TaskRepository().getByIds(condition.dependencies, function(err, tasks) {
+              return new TaskRepository(this.user).getByIds(condition.dependencies, function(err, tasks) {
                   if (err) return done(err);
                   
                   return done(err, map(condition, tasks));
@@ -48,11 +50,19 @@ var TaskService = Base.extend(function () { })
             ///<param name="map">Map function</param>
             ///<param name="done">Done callback</param>
 
-          return new TaskRepository().findByName(name, function(err, tasks) {
+          return new TaskRepository(this.user).findByName(name, function(err, tasks) {
               if (err) return done(err);
 
               return done(err, Enumerable.from(tasks).select(map).toArray());
           });
+        },
+
+        createTask: function(taskDto, done) {
+            ///<summary>Creates task</summary>
+            ///<param name="taskDtor">Task DTO</param>
+            ///<param name="done">Done callback</param>
+            
+            return new TaskRepository(this.user).create(taskDto, done);
         }
     });
 

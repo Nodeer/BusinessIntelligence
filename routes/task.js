@@ -13,10 +13,10 @@ exports.register = function (app) {
     app.get('/task/new', route.private({ 'task': ['create'] }), exports.new);
     app.post('/task/task.json', route.private({ 'task': ['create'] }), exports.createTask);
 
-    app.get('/task/conditions/:id.json', route.private({ 'task': ['read']}), exports.getConditionById);
+    app.get('/task/conditions.json/:id', route.private({ 'task': ['read']}), exports.getConditionById);
     app.get('/task/conditions.json', route.private({ 'task': ['read']}), exports.getConditions);
 
-    app.get('/task/partners.json', route.private({ 'task': ['read']}), exports.getPartners);
+    app.get('/task/partners.json/:name', route.private({ 'task': ['read']}), exports.getPartners);
 
     app.get('/task/dependencies.json', route.private({ 'task': ['read']}), exports.getDependencies);
 
@@ -33,15 +33,17 @@ exports.new = function (req, res) {
 };
 
 exports.createTask = function (req, res) {
-    var task = req.body;
+    var taskDto = req.body;
 
-    return res.json(task);
+    return new TaskService(req.user).createTask(taskDto, function(err, task) {
+        return res.json(task);
+    });
 };
 
 exports.getConditionById = function (req, res) {
     ///<summary>Loads a condition by id</summary>
 
-    return new TaskService().getConditionById(req.params.id, function(condition, tasks) {
+    return new TaskService(req.user).getConditionById(req.params.id, function(condition, tasks) {
         return {
                 id: condition._id,
                 text: condition.name,
@@ -70,7 +72,7 @@ exports.getConditions = function (req, res) {
     
     var params = req.query;
 
-    return new TaskService().findConditionsByName(params.term, function(condition) {
+    return new TaskService(req.user).findConditionsByName(params.term, function(condition) {
         return {
                 id: condition._id,
                 text: condition.name
@@ -93,16 +95,13 @@ exports.getConditions = function (req, res) {
 
 exports.getPartners = function (req, res) {
     ///<summary>Loads list of partners</summary>
-    
-    var params = req.query;
+    var partners = [];
+    partners.push({
+        id: req.params.name,
+        text: req.params.name
+    });
 
-    var conditions = [];
-    conditions.push({
-            id: uuid.v4(),
-            text: params.term
-        });
-
-    return res.json(conditions);
+    return res.json(partners);
 };
 
 exports.getDependencies = function (req, res) {
@@ -110,7 +109,7 @@ exports.getDependencies = function (req, res) {
     
     var params = req.query;
 
-    return new TaskService().findTasksByName(params.term, function(task) {
+    return new TaskService(req.user).findTasksByName(params.term, function(task) {
         return {
                 id: task._id,
                 text: task.name

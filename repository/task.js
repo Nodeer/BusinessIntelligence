@@ -1,7 +1,10 @@
 ﻿var Base = require('./base'),
-    Task = require('../models/task');
+    Task = require('../models/task'),
+    TaskSnapshot = require('../models/task.snapshot');
 
-var TaskRepository = Base.extend(function () { })
+var TaskRepository = Base.extend(function (user) {
+        this.user = user;
+    })
     .methods({
         findByName: function(name, done) {
             ///<summary>Finds tasks by name</summary>
@@ -23,6 +26,32 @@ var TaskRepository = Base.extend(function () { })
                     $in: ids
                 }
             }, done);
+        },
+
+        create: function(taskDto, done) {
+            ///<summary>Creates task</summary>
+            ///<param name="taskDto">Task DTO</param>
+            ///<param name="done">Done callback</param>
+            
+            var user = this.user;
+            var task = new Task({
+                name: taskDto.name,
+                description: taskDto.description,
+                external_id: taskDto.external_id,
+                availability: {
+                    type: taskDto.availability.type,
+                    partners: taskDto.availability.partners
+                },
+                audit: {
+                    modified_date: new Date(),
+                    modified_by: user.getIdentity()
+                }
+            });
+
+            return task.save(function (err) {
+                return done(err, task);
+            });
+
         }
     });
 

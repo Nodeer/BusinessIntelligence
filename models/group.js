@@ -6,7 +6,8 @@ var groupSchema = new Schema({
     permissions: [ { type: Schema.Types.ObjectId, ref: 'Permission', index: 1 } ],
     audit: {
         modified_date: { type: Date, default: Date.now },
-        modified_by: { type: String, default: '' }
+        modified_by: { type: String, default: '' },
+        revision: Number,
     }
 });
 

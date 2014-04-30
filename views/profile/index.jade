@@ -22,4 +22,4 @@ block content
                 label(for="confirm_password") Confirm Password
                 input#confirm_password.form-control(type="password", ng-model="user.confirm_password", placeholder="Confirm Password")
             br
-            input.btn.btn-primary(type="submit", value="Submit", ng-disabled="(user.new_password !== user.confirm_password) || working")
+            input.btn.btn-primary(type="submit", value="Submit", ng-disabled="(user.new_password !== user.confirm_password) || saving")

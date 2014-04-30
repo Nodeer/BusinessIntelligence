@@ -28,9 +28,9 @@ controllers.controller('ApplicationCtrl', ['$scope', '$http', 'UserFactory',
         });
     }]);
 
-controllers.controller('NavbarCtrl', ['$scope', '$http',
+controllers.controller('NavbarCtrl', ['$scope', '$http', '$window',
     ///<summary>Navigation controller</summary>
-    function ($scope, $http) {
+    function ($scope, $http, $window) {
         $scope.navigation = {
             groups: [
                 {
@@ -49,6 +49,7 @@ controllers.controller('NavbarCtrl', ['$scope', '$http',
                     name: 'Management',
                     icon: 'glyphicon glyphicon-cog',
                     type: 'dropdown',
+                    path: '/management',
                     items: [{
                         name: 'Users',
                         path: '/management/users',
@@ -74,11 +75,10 @@ controllers.controller('NavbarCtrl', ['$scope', '$http',
         };
 
         $scope.signout = function() {
-            sessionStorage.activeGroupName = '';
         };
 
-        $scope.setNavigation = function(groupName) {
-            sessionStorage.activeGroupName = groupName;
+        $scope.isActive = function (viewLocation) {
+            return $window.location.pathname.contains(viewLocation);
         };
     }]);
 
@@ -88,12 +88,12 @@ controllers.controller('ProfileCtrl', ['$scope',
         $scope.submit = function() {
             ///<summary>Submits user profile</summary>
             
-            $scope.working = 1;
+            $scope.saving = 1;
 
             $scope.user.$save(function(user) {
                 $scope.$emit('user.updated', user);
 
-                $scope.working = 0;
+                $scope.saving = 0;
             });
         };
     }]);

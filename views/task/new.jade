@@ -28,53 +28,16 @@ block task-content
                         label(for="availability") Availability:
                             .radio
                                 label
-                                    input(type="radio", name="availability", value="0", ng-model="task.availability")
+                                    input(type="radio", name="availability", value="0", ng-model="task.availability.type")
                                     | General Availability
                         .row
                             .col-md-3
                                 .radio
                                     label
-                                        input(type="radio", name="availability", value="1", ng-model="task.availability")
+                                        input(type="radio", name="availability", value="1", ng-model="task.availability.type")
                                         | Partner Specific
                             .col-md-9
-                                input(type="hidden", ui-select2="ui.partner_specific.select", ng-model="task.partner_specific", placeholder="Partners", ng-disabled="task.availability == 0")
-            .form-group
-                label(for="description") Input:
-                    span.required  *
-                table.table.table-striped
-                    tbody
-                        th.col-td-3 Condition
-                        th.col-td-3 Where Can I Set up Condition on UI
-                        th.col-td-3 How Can I Set up Condition via API
-                        th.col-td-3 Task Generates Condition
-                    tr(ng-repeat="condition in task.input.conditions")
-                        td
-                            input(ui-select2="ui.input_output.condition.select", ng-model="condition.id", ng-change="task.addCondition(condition, task.input.conditions)", placeholder="Condition")
-                        td
-                            input(ui-select2="ui.input.ui.select", ng-model="condition.ui", placeholder="Where Can I Set up Condition on UI", ng-show="condition.id")
-                        td
-                            input(ui-select2="ui.input.api.select", ng-model="condition.api", placeholder="How Can I Set up Condition via API", ng-show="condition.id")
-                        td
-                            input(ui-select2="ui.input.dependency.select", ng-model="condition.dependency", placeholder="Task Generates Condition", ng-show="condition.id")
-            .form-group
-                label(for="description") Output:
-                    span.required  *
-                table.table.table-striped
-                    tbody
-                        th.col-td-2 Condition
-                        th.col-td-2 Task Affected
-                        th.col-td-2 How Existing Tasks Affected
-                        th.col-td-2 Where Can I See Output on UI
-                        th.col-td-2 What API Can Use Output
-                        th.col-td-2 Task Uses Output as Input
-                    tr(ng-repeat="condition in task.output.conditions")
-                        td
-                            input(ui-select2="ui.input_output.condition.select", ng-model="condition.id", ng-change="task.addCondition(condition, task.output.conditions)", placeholder="Condition")
-                        td
-                        td
-                        td
-                        td
-                        td
+                                input(type="hidden", ui-select2="ui.availability.partners.select", ng-model="task.availability.parners", placeholder="Partners", ng-disabled="task.availability.type == 0")
             br
             input(type="submit", value="Save").btn.btn-primary
             a.btn.btn-default(type="button", href="/") Cancel

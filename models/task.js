@@ -9,12 +9,10 @@ var taskSchema = new Schema({
         type: Number,
         partners: [ { type: String } ]
     },
-    input: {
-        conditions: [ { type: Schema.Types.ObjectId, ref: 'Condition', index: 1 } ]
-    },
     audit: {
         modified_date: { type: Date, default: Date.now },
-        modified_by: { type: String, default: '' }
+        modified_by: { type: String, default: '' },
+        revision: { type: Number, default: 1 }
     }
 });
 

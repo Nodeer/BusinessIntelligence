@@ -6,10 +6,13 @@ managementControllers.controller('TaskCtrl', ['$scope',
     function ($scope) {
     }]);
 
-managementControllers.controller('NewTaskCtrl', ['$scope', 'TaskFactory', 'ConditionFactory', '$http',
-    function ($scope, TaskFactory, ConditionFactory, $http) {
+managementControllers.controller('NewTaskCtrl', ['$scope', 'TaskFactory', 'ConditionFactory', 'PartnersFactory', '$window',
+    function ($scope, TaskFactory, ConditionFactory, PartnersFactory, $window) {
         $scope.task = {
-            availability: 0,
+            availability: {
+                type: 0,
+                partners: []
+            },
             input: {
                 conditions: [{}]
             },
@@ -40,29 +43,29 @@ managementControllers.controller('NewTaskCtrl', ['$scope', 'TaskFactory', 'Condi
         };
 
         $scope.ui = {
-            partner_specific: {
-                select : {
-                    minimumInputLength: 3,
-                    multiple: true,
-                    ajax: {
-                        url: '/task/partners.json',
-                        data: function (term) {
-                            return {
-                                term: term
-                            };
-                        },
-                        results: function (data) {
-                            return { results: data };
-                        }
-                    },
-                    initSelection: function (element, callback) {
-                        var conditionId = $(element).val();
-                        if (conditionId) {
-                            ConditionFactory.get({
-                                id: conditionId
-                            }).success(function(condition) {
-                                return callback([condition]);
+            availability: {
+                partners: {
+                    select : {
+                        minimumInputLength: 3,
+                        multiple: true,
+                        query: function(query) {
+                            return PartnersFactory.query({
+                                    name: query.term
+                            }, function(partners) {
+                                return query.callback({ results: partners });
                             });
+                        },
+                        initSelection: function (element, callback) {
+                            var partners = $(element.val().split(','));
+
+                            var data = [];
+                            partners.each(function () {
+                                data.push({
+                                    id: this,
+                                    text: this
+                                });
+                            });
+                            return callback(data);
                         }
                     }
                 }
@@ -150,10 +153,11 @@ managementControllers.controller('NewTaskCtrl', ['$scope', 'TaskFactory', 'Condi
         };
 
         $scope.submit = function() {
-            console.log('submit');
+            $scope.saving = 1;
             TaskFactory.save($scope.task, function(task) {
-                console.log('saved');
-                console.log('task.id=' + (task.id || task._id));
+                $scope.saving = 0;
+
+                $window.location.href = sprintf('/task/view?id=%s', task._id);
             });
         };
     }]);
