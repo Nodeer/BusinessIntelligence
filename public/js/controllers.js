@@ -44,9 +44,11 @@ controllers.controller('NavbarCtrl', ['$scope', '$http', '$window',
             if (user) {
                 $http.get('/user/access.json').success(function(access) {
 
-                    $scope.user.access = access;
+                    var user = $scope.user;
+                    user.access = access;
+                    $scope.$emit('user.updated', user);
 
-                    if (access.taskCreate.granted) {
+                    if (access.taskCreate) {
                         $scope.navigation.groups.push({
                             name: 'New Task',
                             type: 'button',
@@ -55,7 +57,7 @@ controllers.controller('NavbarCtrl', ['$scope', '$http', '$window',
                         });
                     }
 
-                    if (access.manageUsers.granted) {
+                    if (access.manageUsers) {
                         $scope.navigation.groups.push({
                             name: 'Management',
                             icon: 'glyphicon glyphicon-cog',

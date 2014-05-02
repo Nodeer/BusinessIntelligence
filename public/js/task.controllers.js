@@ -5,7 +5,6 @@
 managementControllers.controller('TaskCtrl', ['$scope',
     function ($scope) {
     }]);
-
 managementControllers.controller('CreateUpdateTaskCtrl', ['$scope', 'TaskFactory', 'ConditionFactory', 'PartnersFactory', '$window',
     function ($scope, TaskFactory, ConditionFactory, PartnersFactory, $window) {
         $scope.init = function(id) {
@@ -65,18 +64,7 @@ managementControllers.controller('CreateUpdateTaskCtrl', ['$scope', 'TaskFactory
                                 return query.callback({ results: partners });
                             });
                         },
-                        initSelection: function (element, callback) {
-                            var partners = $(element.val().split(','));
-
-                            var data = [];
-                            partners.each(function () {
-                                data.push({
-                                    id: this,
-                                    text: this
-                                });
-                            });
-                            return callback(data);
-                        }
+                        simple_tags: true
                     }
                 }
             },
@@ -167,6 +155,7 @@ managementControllers.controller('CreateUpdateTaskCtrl', ['$scope', 'TaskFactory
             TaskFactory.save($scope.task, function(task) {
                 $scope.saving = 0;
 
+                console.log('TASK=' + task.id);
                 $window.location.href = sprintf('/task/view/%s', task.id);
             });
         };

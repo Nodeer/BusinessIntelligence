@@ -15,7 +15,7 @@ exports.register = function (app) {
     app.get('/task/view/:id', route.private({ 'task': ['read'] }), exports.view);
 
     app.get('/task/task.json/:id', route.private({ 'task': ['read'] }), exports.getTask);
-    app.post('/task/task.json', route.private({ 'task': ['create'] }), exports.createTask);
+    app.post('/task/task.json', route.private({ 'task': ['create'] }), exports.saveTask);
 
     app.get('/task/conditions.json/:id', route.private({ 'task': ['read']}), exports.getConditionById);
     app.get('/task/conditions.json', route.private({ 'task': ['read']}), exports.getConditions);
@@ -71,16 +71,10 @@ exports.getTask = function (req, res, next) {
     });
 };
 
-exports.createTask = function (req, res) {
-    var taskDto = extend(true, {}, req.body, {
-        availability: {
-            partners: Enumerable.from(req.body.availability.partners).select(function(partner) {
-                return partner.text;
-            }).toArray()
-        }
-    });
+exports.saveTask = function (req, res) {
+    var taskDto = req.body;
 
-    return new TaskService(req.user).createTask(taskDto, function(err, task) {
+    return new TaskService(req.user).saveTask(taskDto, function(err, task) {
         return res.json(task);
     });
 };

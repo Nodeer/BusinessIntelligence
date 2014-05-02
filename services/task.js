@@ -57,12 +57,16 @@ var TaskService = Base.extend(function (user) {
           });
         },
 
-        createTask: function(taskDto, done) {
-            ///<summary>Creates task</summary>
+        saveTask: function(taskDto, done) {
+            ///<summary>Saves task</summary>
             ///<param name="taskDtor">Task DTO</param>
             ///<param name="done">Done callback</param>
             
-            return new TaskRepository(this.user).create(taskDto, done);
+            return new TaskRepository(this.user).save(taskDto, function(err, user) {
+                if (err) return done(err);
+
+                return done(err, user.toDto());
+            });
         },
 
         findPartnersByName: function(name, map, done) {

@@ -2,7 +2,8 @@
     Task = require('../models/task'),
     TaskSnapshot = require('../models/task.snapshot'),
     Enumerable = require('linq'),
-    async = require('async');
+    async = require('async'),
+    extend = require('extend');
 
 var TaskRepository = Base.extend(function (user) {
         this.user = user;
@@ -38,28 +39,34 @@ var TaskRepository = Base.extend(function (user) {
             }, done);
         },
 
-        create: function(taskDto, done) {
-            ///<summary>Creates task</summary>
+        save: function(taskDto, done) {
+            ///<summary>Saves task</summary>
             ///<param name="taskDto">Task DTO</param>
             ///<param name="done">Done callback</param>
             
             var user = this.user;
-            var task = new Task({
-                name: taskDto.name,
-                description: taskDto.description,
-                external_id: taskDto.external_id,
-                availability: {
-                    availability_type: taskDto.availability.availability_type,
-                    partners: taskDto.availability.partners
-                },
-                audit: {
-                    modified_date: new Date(),
-                    modified_by: user.getIdentity()
-                }
-            });
+            
+            return Task.findById(taskDto.id, function(err, task) {
+                task = task || new Task();
 
-            return task.save(function (err) {
-                return done(err, task);
+                extend(task, {
+                    id: taskDto.id,
+                    name: taskDto.name,
+                    description: taskDto.description,
+                    external_id: taskDto.external_id,
+                    availability: {
+                        availability_type: taskDto.availability.availability_type,
+                        partners: taskDto.availability.partners
+                    },
+                    audit: {
+                        modified_date: new Date(),
+                        modified_by: user.getIdentity()
+                    }
+                });
+
+                return task.save(function (err) {
+                    return done(err, task);
+                });
             });
         },
 

@@ -99,7 +99,7 @@ var UserService = Base.extend(function () { })
             return new UserService().evaluateAccess(user, {system: access}, function(err, access) {
                 if (err) return done(err);
 
-                if (!access.system.granted) {
+                if (!access.system) {
                     return done('Access is denied.');
                 }
 
@@ -109,6 +109,8 @@ var UserService = Base.extend(function () { })
 
         evaluateAccess: function (user, access, done) {
             ///<summary>Evaluates access for a user</summary>
+
+            var evaluatedAccess = {};
 
             for (var accessIndex in access) {
                 var accessItem = access[accessIndex];
@@ -128,9 +130,11 @@ var UserService = Base.extend(function () { })
                         }
                     }
                 }
-                accessItem.granted = accessGranted;
+                if (accessGranted) {
+                    evaluatedAccess[accessIndex] = 1;
+                }
             }
-            return done(null, access);
+            return done(null, evaluatedAccess);
         },
 
         getUsersDto: function(done) {
