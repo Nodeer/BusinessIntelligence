@@ -10,6 +10,6 @@
         salt: 'sdajklskaisd9ia09jdskadosakodk32op3o40-rifdsjf;dks;sdkidsu43poi2eoidsjklsakdsai9302'
     },
     mongodb: {
-        connectionString: 'mongodb://localhost/bi'
+        connectionString: 'mongodb://localhost/dev'
     }
 };

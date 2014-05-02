@@ -65,7 +65,11 @@ var TaskRepository = Base.extend(function (user) {
                 });
 
                 return task.save(function (err) {
-                    return done(err, task);
+                    if (err) return done(err);
+
+                    return TaskSnapshot.create(task).save(function(err) {
+                        return done(err, task);
+                    });
                 });
             });
         },
