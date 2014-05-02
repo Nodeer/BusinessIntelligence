@@ -43,12 +43,15 @@ controllers.controller('NavbarCtrl', ['$scope', '$http', '$window',
         $scope.init = function(user) {
             if (user) {
                 $http.get('/user/access.json').success(function(access) {
+
+                    $scope.user.access = access;
+
                     if (access.taskCreate.granted) {
                         $scope.navigation.groups.push({
                             name: 'New Task',
                             type: 'button',
                             icon: 'glyphicon glyphicon-plus',
-                            path: '/task/new'
+                            path: '/task/create'
                         });
                     }
 

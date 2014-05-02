@@ -93,7 +93,7 @@
     <Content Include="views\home\index.jade" />
     <Content Include="views\profile\index.jade" />
     <Content Include="views\task\layout.jade" />
-    <Content Include="views\task\new.jade" />
+    <Content Include="views\task\createUpdate.jade" />
     <Content Include="views\task\view.jade" />
   </ItemGroup>
   <ItemGroup>

@@ -20,7 +20,7 @@ taskSchema.methods.toDto = function() {
     ///<summary>Converts to DTO</summary>
     
     return {
-        id: this._id,
+        id: this.id,
         name: this.name,
         description: this.description,
         external_id: this.external_id,

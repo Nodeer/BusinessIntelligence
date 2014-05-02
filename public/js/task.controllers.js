@@ -6,40 +6,50 @@ managementControllers.controller('TaskCtrl', ['$scope',
     function ($scope) {
     }]);
 
-managementControllers.controller('NewTaskCtrl', ['$scope', 'TaskFactory', 'ConditionFactory', 'PartnersFactory', '$window',
+managementControllers.controller('CreateUpdateTaskCtrl', ['$scope', 'TaskFactory', 'ConditionFactory', 'PartnersFactory', '$window',
     function ($scope, TaskFactory, ConditionFactory, PartnersFactory, $window) {
-        $scope.task = {
-            availability: {
-                availability_type: 0,
-                partners: []
-            },
-            input: {
-                conditions: [{}]
-            },
-            output: {
-                conditions: [{}]
-            },
-            addCondition: function(condition, conditions) {
-                    if (conditions[conditions.length-1].id) {
-                        conditions.push({});
-                    }
+        $scope.init = function(id) {
+            $scope.task = {
+                    availability: {
+                        availability_type: 0,
+                        partners: []
+                    },
+                    input: {
+                        conditions: [{}]
+                    },
+                    output: {
+                        conditions: [{}]
+                    },
+                    addCondition: function(condition, conditions) {
+                            if (conditions[conditions.length-1].id) {
+                                conditions.push({});
+                            }
 
-                    if (condition.id > 0) {
-                        ConditionFactory.get({
-                            id: condition.id
-                        }).success(function(persistedCondition) {
-                            if (persistedCondition) {
-                                condition.persisted = 1;
-                                angular.extend(condition, {
-                                    persisted: 1,
-                                    ui: persistedCondition.ui,
-                                    api: persistedCondition.api,
-                                    dependencies: persistedCondition.dependencies
+                            if (condition.id > 0) {
+                                ConditionFactory.get({
+                                    id: condition.id
+                                }).success(function(persistedCondition) {
+                                    if (persistedCondition) {
+                                        condition.persisted = 1;
+                                        angular.extend(condition, {
+                                            persisted: 1,
+                                            ui: persistedCondition.ui,
+                                            api: persistedCondition.api,
+                                            dependencies: persistedCondition.dependencies
+                                        });
+                                    }
                                 });
                             }
-                        });
-                    }
-                }
+                        }
+                };
+
+            if (id) {
+                TaskFactory.get({
+                    id: id
+                }, function(task) {
+                    angular.extend($scope.task, task);
+                });
+            }
         };
 
         $scope.ui = {
@@ -157,7 +167,7 @@ managementControllers.controller('NewTaskCtrl', ['$scope', 'TaskFactory', 'Condi
             TaskFactory.save($scope.task, function(task) {
                 $scope.saving = 0;
 
-                $window.location.href = sprintf('/task/view/%s', task._id);
+                $window.location.href = sprintf('/task/view/%s', task.id);
             });
         };
     }]);

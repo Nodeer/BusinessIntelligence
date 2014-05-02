@@ -96,7 +96,10 @@ var TaskRepository = Base.extend(function (user) {
             }, function(err, results) {
                 if (err) return done(err);
 
-                return done(err, Enumerable.from(results.byName).union(results.byDescription).toArray());
+                var tasks = Enumerable.from(results.byName).union(results.byDescription).distinct(function(task) {
+                    return task.id;
+                }).toArray();
+                return done(err, tasks);
             });
         },
     });

@@ -60,7 +60,7 @@ var UserRepository = Base.extend(function () { })
                 });
             }
 
-            User.findByIdAndUpdate(user._id, {
+            User.findByIdAndUpdate(user.id, {
                 $set: set
             }, done);
         },

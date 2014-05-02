@@ -1,7 +1,7 @@
 ﻿extends ./layout
 
 block task-content
-    div(ng-controller="NewTaskCtrl")
+    div(ng-controller="CreateUpdateTaskCtrl", ng-init="init('#{id}')")
         form(role="form", ng-submit="submit()")
             .form-group
                 label(for="name") Task Name:

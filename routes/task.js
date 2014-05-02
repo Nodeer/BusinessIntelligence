@@ -10,7 +10,8 @@ exports.register = function (app) {
     ///<summary>Registeres routes</summary>
     ///<param name="app">Application</param>
 
-    app.get('/task/new', route.private({ 'task': ['create'] }), exports.new);
+    app.get('/task/create', route.private({ 'task': ['create'] }), exports.create);
+    app.get('/task/update/:id', route.private({ 'task': ['update'] }), exports.update);
     app.get('/task/view/:id', route.private({ 'task': ['read'] }), exports.view);
 
     app.get('/task/task.json/:id', route.private({ 'task': ['read'] }), exports.getTask);
@@ -26,12 +27,23 @@ exports.register = function (app) {
     return this;
 };
 
-exports.new = function (req, res) {
+exports.create = function (req, res) {
     ///<summary>New task view</summary>
 
-    var view = new View('task/new');
+    var view = new View('task/createUpdate');
     return view.render(req, res, {
-        title: "Task | New"
+        title: "Task | New",
+        id: ''
+    });
+};
+
+exports.update = function (req, res) {
+    ///<summary>New task view</summary>
+
+    var view = new View('task/createUpdate');
+    return view.render(req, res, {
+        title: "Task | Update",
+        id: req.params.id
     });
 };
 
@@ -78,13 +90,13 @@ exports.getConditionById = function (req, res) {
 
     return new TaskService(req.user).getConditionById(req.params.id, function(condition, tasks) {
         return {
-                id: condition._id,
+                id: condition.id,
                 text: condition.name,
                 ui: condition.ui,
                 api: condition.api,
                 dependencies: Enumerable.from(tasks).select(function(task) {
                     return {
-                        id: task._id,
+                        id: task.id,
                         text: task.name
                     };
                 }).toArray()
@@ -107,7 +119,7 @@ exports.getConditions = function (req, res) {
 
     return new TaskService(req.user).findConditionsByName(params.term, function(condition) {
         return {
-                id: condition._id,
+                id: condition.id,
                 text: condition.name
             };
     }, function(err, conditions) {
@@ -157,7 +169,7 @@ exports.getDependencies = function (req, res) {
 
     return new TaskService(req.user).findTasksByName(params.term, function(task) {
         return {
-                id: task._id,
+                id: task.id,
                 text: task.name
             };
     }, function(err, tasks) {

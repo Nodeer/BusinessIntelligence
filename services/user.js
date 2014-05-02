@@ -175,7 +175,7 @@ var UserService = Base.extend(function () { })
             ///<param name="user">User model</param>
             ///<param name="done">Serialized callback</param>
 
-            return done(null, user._id);
+            return done(null, user.id);
         },
 
         deserializeUser: function (id, done) {

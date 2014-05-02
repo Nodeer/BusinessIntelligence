@@ -23,7 +23,7 @@ taskSnapshotSchema.statics.create = function(task) {
     ///<param name="task">Task</param>
     
     return new TaskSnapshot(extend({}, {
-        taskId: task._id,
+        taskId: task.id,
         name: task.name,
         description: task.description,
         external_id: task.external_id,

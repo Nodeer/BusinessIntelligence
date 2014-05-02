@@ -20,7 +20,7 @@ exports.tasks = function (req, res, next) {
 
     return new TaskService(req.user).searchTasks(criteria, function(task) {
         return {
-            id: task._id,
+            id: task.id,
             name: task.name,
             description: task.description
         };

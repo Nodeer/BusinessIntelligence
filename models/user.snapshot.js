@@ -20,7 +20,7 @@ userSnapshotSchema.statics.create = function(user) {
     ///<param name="user">User</param>
     
     return new UserSnapshot(extend({}, {
-        userId: user._id,
+        userId: user.id,
         email: user.email,
         groups: user.groups,
         permissions: user.permissions,

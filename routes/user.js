@@ -84,9 +84,8 @@ exports.evaluateAccess = function (req, res) {
 
     return new UserService().evaluateAccess(req.user, {
         taskCreate: { 'task': ['create'] },
-        manageUsers: {
-            'management.user': ['read']
-        }
+        taskUpdate: { 'task': ['update'] },
+        manageUsers: { 'management.user': ['read'] }
     }, function(err, access) {
         if (err) {
             return res.status(500).end();
