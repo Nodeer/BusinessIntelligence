@@ -3206,3 +3206,6 @@ Error: listen EADDRINUSE
     at Module.load (module.js:356:32)
     at Function.Module._load (module.js:312:12)
     at Module.runMain [as _onTimeout] (module.js:497:10)
+[2014-05-02 18:42:30.372] [INFO] console - localhost
+[2014-05-02 18:42:30.373] [INFO] console - 27017
+[2014-05-02 18:42:30.380] [INFO] console - Express server listening on port 3000
