@@ -8,5 +8,6 @@
         'search.services',
         'task.controllers',
         'task.services',
-        'services'
+        'services',
+        'ngSanitize'
     ]);

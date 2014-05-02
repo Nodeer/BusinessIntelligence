@@ -1,7 +1,8 @@
 ﻿var Base = require('./base'),
     Task = require('../models/task'),
     TaskSnapshot = require('../models/task.snapshot'),
-    Enumerable = require('linq');
+    Enumerable = require('linq'),
+    async = require('async');
 
 var TaskRepository = Base.extend(function (user) {
         this.user = user;
@@ -9,7 +10,7 @@ var TaskRepository = Base.extend(function (user) {
     .methods({
         findByName: function(name, done) {
             ///<summary>Finds tasks by name</summary>
-            ///<param name="id">Task partial name</param>
+            ///<param name="name">Task partial name</param>
             ///<param name="done">Done callback</param>
 
             return Task.find({
@@ -74,7 +75,30 @@ var TaskRepository = Base.extend(function (user) {
                     return partner.match(new RegExp(name, 'i'));
                 }).toArray());
             });
-        }
+        },
+
+        search: function(criteria, done) {
+            ///<summary>Finds tasks by term</summary>
+            ///<param name="criteria">Criteria</param>
+            ///<param name="done">Done callback</param>
+
+            return async.parallel({
+                byName: function(callback){
+                    Task.find({
+                        name: new RegExp(criteria, 'i')
+                    }, callback);
+                },
+                byDescription: function(callback){
+                    Task.find({
+                        description: new RegExp(criteria, 'i')
+                    }, callback);
+                }
+            }, function(err, results) {
+                if (err) return done(err);
+
+                return done(err, Enumerable.from(results.byName).union(results.byDescription).toArray());
+            });
+        },
     });
 
 module.exports = TaskRepository;

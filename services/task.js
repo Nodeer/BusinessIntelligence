@@ -46,7 +46,7 @@ var TaskService = Base.extend(function (user) {
 
         findTasksByName: function(name, map, done) {
             ///<summary>Finds tasks by name</summary>
-            ///<param name="name">Name of a dependency</param>
+            ///<param name="name">Name of a task</param>
             ///<param name="map">Map function</param>
             ///<param name="done">Done callback</param>
 
@@ -84,7 +84,20 @@ var TaskService = Base.extend(function (user) {
             ///<param name="done">Done callback</param>
             
             return new TaskRepository(this.user).getById(id, done);
-        }
+        },
+
+        searchTasks: function(criteria, map, done) {
+            ///<summary>Searches tasks</summary>
+            ///<param name="criteria">Criteria</param>
+            ///<param name="map">Map function</param>
+            ///<param name="done">Done callback</param>
+
+          return new TaskRepository(this.user).search(criteria, function(err, tasks) {
+              if (err) return done(err);
+
+              return done(err, Enumerable.from(tasks).select(map).toArray());
+          });
+        },
     });
 
 module.exports = TaskService;

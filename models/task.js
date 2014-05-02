@@ -3,7 +3,7 @@
 
 var taskSchema = new Schema({
     name: { type: String, required: 1, index: { unique: 1 } },
-    description: { type: String, default: '' },
+    description: { type: String, index: 1, default: '' },
     external_id: { type: String, index: 1},
     availability: {
         availability_type: Number,

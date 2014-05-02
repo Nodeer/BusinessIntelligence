@@ -2,11 +2,19 @@
     'search.services'
 ]);
 
-searchControllers.controller('SearchCtrl', ['$scope', 'TaskSearchFactory',
-    function ($scope, TaskSearchFactory) {
+searchControllers.controller('SearchCtrl', ['$scope', 'TaskSearchFactory', '$sce',
+    function ($scope, TaskSearchFactory, $sce) {
         $scope.search = {
             criteria: '',
             tasks: []
+        };
+
+        $scope.highlight = function(text) {
+            if (!$scope.search.criteria) {
+                return $sce.trustAsHtml(text);
+            }
+
+            return $sce.trustAsHtml(text.replace(new RegExp($scope.search.criteria, 'gi'), '<span class="ui-match">$&</span>'));
         };
 
         $scope.search = function() {

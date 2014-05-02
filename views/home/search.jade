@@ -7,9 +7,10 @@
     br
     table.table.table-striped
         tr(ng-repeat="task in search.tasks")
-            td
+            td.col-td-min
                 | {{$index + 1}}
             td
-                a(ng-href="/task/view/{{task.id}}") {{task.name}}
-                p. {{task.description}}
+                a(ng-href="/task/view/{{task.id}}")
+                    span(ng-bind-html="highlight('{{task.name}}')")
+                p(ng-bind-html="highlight('{{task.description}}')")
             td

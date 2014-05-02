@@ -19,10 +19,12 @@ block task-content
                         input.form-control(ng-model="task.external_id", placeholder="12345", required="required")
                     .col-md-9
                         label(for="availability") Availability:
-                            .radio
-                                label
-                                    input(type="radio", name="availability", value="0", ng-model="task.availability.availability_type")
-                                    | General Availability
+                        .row
+                            .col-md-12
+                                .radio
+                                    label
+                                        input(type="radio", name="availability", value="0", ng-model="task.availability.availability_type")
+                                        | General Availability
                         .row
                             .col-md-3
                                 .radio

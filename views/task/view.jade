@@ -16,13 +16,12 @@ block task-content
                         p.form-control-static {{task.external_id}}
                     .col-md-9
                         label(for="availability") Availability:
-                        div(ng-switch on="task.availability.availability_type")
-                            div(ng-switch-when="0")
-                                p.form-control-static ✓ General Availability
-                            div(ng-switch-when="1")
-                                .row
-                                    .col-md-3
-                                        p.form-control-static ✓ Partner Specific
-                                    .col-md-9
-                                        p.form-control-static
-                                            span.label.label-default(ng-repeat="partner in task.availability.partners") {{partner}}
+                        .row
+                            .col-md-12
+                                p.form-control-static {{task.availability.availability_type == 0 ? '✓' : '✘'}} General Availability
+                        .row
+                            .col-md-3
+                                p.form-control-static {{task.availability.availability_type == 1 ? '✓' : '✘'}} Partner Specific
+                            .col-md-9
+                                p.form-control-static
+                                    span.label.label-default(ng-repeat="partner in task.availability.partners") {{partner}}

@@ -23,6 +23,10 @@
     width: 100%;
 }
 
+.col-td-min {
+    width: 1px;
+}
+
 .col-td-1 {
     width: 95px;
 }
@@ -73,4 +77,8 @@
 
 .required {
     color: red;
+}
+
+.ui-match {
+    background: yellow;
 }
