@@ -3132,3 +3132,77 @@ Error: Failed to lookup view "/error/404" in views directory "D:\Git\BusinessInt
 [2014-05-02 17:26:37.570] [INFO] console - localhost
 [2014-05-02 17:26:37.674] [INFO] console - 27017
 [2014-05-02 17:26:37.722] [INFO] console - Express server listening on port 3000
+[2014-05-02 17:56:40.934] [INFO] console - localhost
+[2014-05-02 17:56:40.937] [INFO] console - 27017
+[2014-05-02 17:56:40.944] [INFO] console - Express server listening on port 3000
+[2014-05-02 18:06:05.432] [INFO] console - localhost
+[2014-05-02 18:06:05.435] [INFO] console - 27017
+[2014-05-02 18:06:05.442] [INFO] console - Express server listening on port 3000
+[2014-05-02 18:06:40.723] [INFO] console - test
+[2014-05-02 18:06:40.724] [INFO] console - 422db0d4725e41436a7aec5ee2e3cfc01e3256145f6ebaa306632f23c50ea72a
+[2014-05-02 18:06:58.510] [INFO] console - test
+[2014-05-02 18:06:58.511] [INFO] console - 422db0d4725e41436a7aec5ee2e3cfc01e3256145f6ebaa306632f23c50ea72a
+[2014-05-02 18:08:02.046] [INFO] console - test
+[2014-05-02 18:08:02.047] [INFO] console - 422db0d4725e41436a7aec5ee2e3cfc01e3256145f6ebaa306632f23c50ea72a
+[2014-05-02 18:09:54.273] [INFO] console - localhost
+[2014-05-02 18:09:54.275] [INFO] console - 27017
+[2014-05-02 18:09:54.282] [INFO] console - Express server listening on port 3000
+[2014-05-02 18:10:20.091] [INFO] console - test
+[2014-05-02 18:10:20.092] [INFO] console - 422db0d4725e41436a7aec5ee2e3cfc01e3256145f6ebaa306632f23c50ea72a
+[2014-05-02 18:10:21.421] [INFO] console - 422db0d4725e41436a7aec5ee2e3cfc01e3256145f6ebaa306632f23c50ea72a
+[2014-05-02 18:10:21.422] [INFO] console - 807d337c288d7f2c937f3c3cf115b041f59a07e9a705cd58ec324314eda27824
+[2014-05-02 18:12:43.573] [INFO] console - localhost
+[2014-05-02 18:12:43.575] [INFO] console - 27017
+[2014-05-02 18:12:43.582] [INFO] console - Express server listening on port 3000
+[2014-05-02 18:13:55.639] [ERROR] routes/context - { [SyntaxError: D:\Git\BusinessIntelligence\views\home\search.jade:15
+    13|                 a(ng-href="/task/view/{{task.id}}")
+    14|                     span(ng-bind-html="highlight('{{task.name}}')")
+  > 15|                 p(ng-bind-html="highlight(""{{task.description}}"")")
+    16|             td
+    17|                 a(ng-href="/task/update/{{task.id}}", ng-show="user.access.taskUpdate") Update
+
+Unexpected string]
+  path: 'D:\\Git\\BusinessIntelligence\\views\\home\\search.jade' }
+SyntaxError: D:\Git\BusinessIntelligence\views\home\search.jade:15
+    13|                 a(ng-href="/task/view/{{task.id}}")
+    14|                     span(ng-bind-html="highlight('{{task.name}}')")
+  > 15|                 p(ng-bind-html="highlight(""{{task.description}}"")")
+    16|             td
+    17|                 a(ng-href="/task/update/{{task.id}}", ng-show="user.access.taskUpdate") Update
+
+Unexpected string
+    at Function (<anonymous>)
+    at assertExpression (D:\Git\BusinessIntelligence\node_modules\jade\lib\lexer.js:30:3)
+    at Object.Lexer.attrs (D:\Git\BusinessIntelligence\node_modules\jade\lib\lexer.js:635:20)
+    at Object.Lexer.next (D:\Git\BusinessIntelligence\node_modules\jade\lib\lexer.js:855:15)
+    at Object.Lexer.lookahead (D:\Git\BusinessIntelligence\node_modules\jade\lib\lexer.js:113:46)
+    at Parser.lookahead (D:\Git\BusinessIntelligence\node_modules\jade\lib\parser.js:111:23)
+    at Parser.peek (D:\Git\BusinessIntelligence\node_modules\jade\lib\parser.js:88:17)
+    at Parser.tag (D:\Git\BusinessIntelligence\node_modules\jade\lib\parser.js:704:22)
+    at Parser.parseTag (D:\Git\BusinessIntelligence\node_modules\jade\lib\parser.js:690:17)
+    at Parser.parseExpr (D:\Git\BusinessIntelligence\node_modules\jade\lib\parser.js:199:21)
+[2014-05-02 18:13:55.648] [ERROR] console - Error: Failed to lookup view "/error/500" in views directory "D:\Git\BusinessIntelligence\views"
+    at Function.app.render (D:\Git\BusinessIntelligence\node_modules\express\lib\application.js:493:17)
+    at ServerResponse.res.render (D:\Git\BusinessIntelligence\node_modules\express\lib\response.js:798:7)
+    at Object.exports.register [as handle] (D:\Git\BusinessIntelligence\routes\context.js:29:13)
+    at next (D:\Git\BusinessIntelligence\node_modules\express\node_modules\connect\lib\proto.js:188:17)
+    at next (D:\Git\BusinessIntelligence\node_modules\express\node_modules\connect\lib\proto.js:190:11)
+    at IncomingMessage.next (D:\Git\BusinessIntelligence\node_modules\express\node_modules\connect\lib\proto.js:190:11)
+    at res.render.fn (D:\Git\BusinessIntelligence\node_modules\express\lib\response.js:793:25)
+    at View.exports.renderFile [as engine] (D:\Git\BusinessIntelligence\node_modules\jade\lib\jade.js:280:14)
+    at View.render (D:\Git\BusinessIntelligence\node_modules\express\lib\view.js:76:8)
+    at Function.app.render (D:\Git\BusinessIntelligence\node_modules\express\lib\application.js:504:10)
+[2014-05-02 18:22:05.432] [INFO] console - localhost
+[2014-05-02 18:22:05.434] [INFO] console - 27017
+[2014-05-02 18:22:05.443] [ERROR] [default] - { [Error: listen EADDRINUSE] code: 'EADDRINUSE', errno: 'EADDRINUSE', syscall: 'listen' }
+Error: listen EADDRINUSE
+    at errnoException (net.js:904:11)
+    at Server._listen2 (net.js:1042:14)
+    at listen (net.js:1064:10)
+    at Server.listen (net.js:1138:5)
+    at Object.<anonymous> (D:\Git\BusinessIntelligence\app.js:68:24)
+    at Module._compile (module.js:456:26)
+    at Object.Module._extensions..js (module.js:474:10)
+    at Module.load (module.js:356:32)
+    at Function.Module._load (module.js:312:12)
+    at Module.runMain [as _onTimeout] (module.js:497:10)

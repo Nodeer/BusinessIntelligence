@@ -33,7 +33,9 @@ var UserRepository = Base.extend(function () { })
                 });
 
                 return user.save(function (err) {
-                    return done(err, user);
+                    return done(err, extend(user, {
+                        password: ''
+                    }));
                 });
             });
         },

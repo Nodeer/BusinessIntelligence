@@ -11,7 +11,7 @@
                 | {{$index + 1}}
             td
                 a(ng-href="/task/view/{{task.id}}")
-                    span(ng-bind-html="highlight('{{task.name}}')")
-                p(ng-bind-html="highlight('{{task.description}}')")
-            td
+                    span(ng-bind-html="highlight(\"{{task.name}}\")")
+                p(ng-bind-html="highlight(\"{{task.description}}\")")
+            td.col-td-min
                 a(ng-href="/task/update/{{task.id}}", ng-show="user.access.taskUpdate") Update
