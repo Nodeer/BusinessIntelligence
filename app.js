@@ -15,15 +15,20 @@ var app = express();
 // all environments
 app.set('port', process.env.PORT || 3000);
 app.set('views', path.join(__dirname, 'views'));
-//app.engine('html', require('ejs').__express);
 app.set('view engine', 'jade');
-//app.enable('view cache');
+
+if (app.get('env') == 'development') {
+    
+} else {
+    app.enable('view cache');
+}
+
 app.use(express.favicon());
 app.use(express.logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded());
 app.use(express.methodOverride());
-app.use(express.cookieParser('dsaklkdl;sak90ui4op3jkl30io9p43l;kasd'));
+app.use(express.cookieParser(process.env.COOKIE_KEY || 'dsaklkdl;sak90ui4op3jkl30io9p43l;kasd'));
 app.use(express.session());
 
 app.use(require('stylus').middleware(path.join(__dirname, 'public')));
@@ -35,12 +40,8 @@ app.use(passport.session());
 app.use(flash());
 app.use(app.router);
 
-// development only
 var logger = require('./logger');
 logger.configure(app);
-//if ('development' == app.get('env')) {
-//  app.use(express.errorHandler());
-//}
 
 process.on('uncaughtException', function(err) {
     // handle the error safely
