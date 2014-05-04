@@ -1,4 +1,5 @@
-﻿var logger = require('../logger').getLogger('routes/context');
+﻿var logger = require('../logger').getLogger('routes/context'),
+    View = require('../views/view');
 
 exports.register = function (app, passport) {
     ///<summary>Registeres all application routes</summary>
@@ -15,8 +16,9 @@ exports.register = function (app, passport) {
     // Handle 404
     app.use(function (req, res) {
         res.status(400);
-        res.render('/error/404', {
-            title: '404: File Not Found'
+        var view = new View('error/404');
+        return view.render(req, res, {
+            title: "404: File Not Found"
         });
     });
 
@@ -26,8 +28,9 @@ exports.register = function (app, passport) {
         logger.error(error);
 
         res.status(500);
-        res.render('/error/500', {
-            title: '500: Internal Server Error',
+        var view = new View('error/500');
+        return view.render(req, res, {
+            title: "500: Internal Server Error",
             error: error
         });
     });

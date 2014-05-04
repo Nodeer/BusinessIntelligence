@@ -3209,3 +3209,136 @@ Error: listen EADDRINUSE
 [2014-05-02 18:42:30.372] [INFO] console - localhost
 [2014-05-02 18:42:30.373] [INFO] console - 27017
 [2014-05-02 18:42:30.380] [INFO] console - Express server listening on port 3000
+[2014-05-04 06:32:00.223] [INFO] console - localhost
+[2014-05-04 06:32:00.226] [INFO] console - 27017
+[2014-05-04 06:32:00.233] [INFO] console - Express server listening on port 3000
+[2014-05-04 06:41:58.260] [INFO] console - localhost
+[2014-05-04 06:41:58.262] [INFO] console - 27017
+[2014-05-04 06:41:58.269] [INFO] console - Express server listening on port 3000
+[2014-05-04 06:42:14.952] [ERROR] routes/context - { [Error: Failed to lookup view "/error/404" in views directory "D:\Git\BusinessIntelligence\views"]
+  view: 
+   { name: '/error/404',
+     root: 'D:\\Git\\BusinessIntelligence\\views',
+     defaultEngine: 'jade',
+     ext: '.jade',
+     engine: [Function],
+     path: undefined } }
+Error: Failed to lookup view "/error/404" in views directory "D:\Git\BusinessIntelligence\views"
+    at Function.app.render (D:\Git\BusinessIntelligence\node_modules\express\lib\application.js:493:17)
+    at ServerResponse.res.render (D:\Git\BusinessIntelligence\node_modules\express\lib\response.js:798:7)
+    at Object.exports.register.app.use.res.render.title [as handle] (D:\Git\BusinessIntelligence\routes\context.js:18:13)
+    at next (D:\Git\BusinessIntelligence\node_modules\express\node_modules\connect\lib\proto.js:193:15)
+    at Object.regexp (D:\Git\BusinessIntelligence\node_modules\log4js\lib\connect-logger.js:99:5)
+    at next (D:\Git\BusinessIntelligence\node_modules\express\node_modules\connect\lib\proto.js:193:15)
+    at pass (D:\Git\BusinessIntelligence\node_modules\express\lib\router\index.js:110:24)
+    at Router._dispatch (D:\Git\BusinessIntelligence\node_modules\express\lib\router\index.js:173:5)
+    at Object.router (D:\Git\BusinessIntelligence\node_modules\express\lib\router\index.js:33:10)
+    at next (D:\Git\BusinessIntelligence\node_modules\express\node_modules\connect\lib\proto.js:193:15)
+[2014-05-04 06:42:14.961] [ERROR] console - Error: Failed to lookup view "/error/500" in views directory "D:\Git\BusinessIntelligence\views"
+    at Function.app.render (D:\Git\BusinessIntelligence\node_modules\express\lib\application.js:493:17)
+    at ServerResponse.res.render (D:\Git\BusinessIntelligence\node_modules\express\lib\response.js:798:7)
+    at Object.exports.register [as handle] (D:\Git\BusinessIntelligence\routes\context.js:29:13)
+    at IncomingMessage.next (D:\Git\BusinessIntelligence\node_modules\express\node_modules\connect\lib\proto.js:188:17)
+    at res.render.fn (D:\Git\BusinessIntelligence\node_modules\express\lib\response.js:793:25)
+    at Function.app.render (D:\Git\BusinessIntelligence\node_modules\express\lib\application.js:495:14)
+    at ServerResponse.res.render (D:\Git\BusinessIntelligence\node_modules\express\lib\response.js:798:7)
+    at Object.exports.register.app.use.res.render.title [as handle] (D:\Git\BusinessIntelligence\routes\context.js:18:13)
+    at next (D:\Git\BusinessIntelligence\node_modules\express\node_modules\connect\lib\proto.js:193:15)
+    at Object.regexp (D:\Git\BusinessIntelligence\node_modules\log4js\lib\connect-logger.js:99:5)
+[2014-05-04 06:42:14.962] [DEBUG] [default] - 127.0.0.1 - - "POST / HTTP/1.1" 500 1172 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:28.0) Gecko/20100101 Firefox/28.0"
+[2014-05-04 06:42:47.623] [ERROR] routes/context - { [Error: Failed to lookup view "/error/404" in views directory "D:\Git\BusinessIntelligence\views"]
+  view: 
+   { name: '/error/404',
+     root: 'D:\\Git\\BusinessIntelligence\\views',
+     defaultEngine: 'jade',
+     ext: '.jade',
+     engine: [Function],
+     path: undefined } }
+Error: Failed to lookup view "/error/404" in views directory "D:\Git\BusinessIntelligence\views"
+    at Function.app.render (D:\Git\BusinessIntelligence\node_modules\express\lib\application.js:493:17)
+    at ServerResponse.res.render (D:\Git\BusinessIntelligence\node_modules\express\lib\response.js:798:7)
+    at Object.exports.register.app.use.res.render.title [as handle] (D:\Git\BusinessIntelligence\routes\context.js:18:13)
+    at next (D:\Git\BusinessIntelligence\node_modules\express\node_modules\connect\lib\proto.js:193:15)
+    at Object.regexp (D:\Git\BusinessIntelligence\node_modules\log4js\lib\connect-logger.js:99:5)
+    at next (D:\Git\BusinessIntelligence\node_modules\express\node_modules\connect\lib\proto.js:193:15)
+    at pass (D:\Git\BusinessIntelligence\node_modules\express\lib\router\index.js:110:24)
+    at Router._dispatch (D:\Git\BusinessIntelligence\node_modules\express\lib\router\index.js:173:5)
+    at Object.router (D:\Git\BusinessIntelligence\node_modules\express\lib\router\index.js:33:10)
+    at next (D:\Git\BusinessIntelligence\node_modules\express\node_modules\connect\lib\proto.js:193:15)
+[2014-05-04 06:42:47.631] [ERROR] console - Error: Failed to lookup view "/error/500" in views directory "D:\Git\BusinessIntelligence\views"
+    at Function.app.render (D:\Git\BusinessIntelligence\node_modules\express\lib\application.js:493:17)
+    at ServerResponse.res.render (D:\Git\BusinessIntelligence\node_modules\express\lib\response.js:798:7)
+    at Object.exports.register [as handle] (D:\Git\BusinessIntelligence\routes\context.js:29:13)
+    at IncomingMessage.next (D:\Git\BusinessIntelligence\node_modules\express\node_modules\connect\lib\proto.js:188:17)
+    at res.render.fn (D:\Git\BusinessIntelligence\node_modules\express\lib\response.js:793:25)
+    at Function.app.render (D:\Git\BusinessIntelligence\node_modules\express\lib\application.js:495:14)
+    at ServerResponse.res.render (D:\Git\BusinessIntelligence\node_modules\express\lib\response.js:798:7)
+    at Object.exports.register.app.use.res.render.title [as handle] (D:\Git\BusinessIntelligence\routes\context.js:18:13)
+    at next (D:\Git\BusinessIntelligence\node_modules\express\node_modules\connect\lib\proto.js:193:15)
+    at Object.regexp (D:\Git\BusinessIntelligence\node_modules\log4js\lib\connect-logger.js:99:5)
+[2014-05-04 06:42:47.633] [DEBUG] [default] - 127.0.0.1 - - "POST / HTTP/1.1" 500 1172 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:28.0) Gecko/20100101 Firefox/28.0"
+[2014-05-04 06:43:03.419] [ERROR] routes/context - { [Error: Failed to lookup view "/error/404" in views directory "D:\Git\BusinessIntelligence\views"]
+  view: 
+   { name: '/error/404',
+     root: 'D:\\Git\\BusinessIntelligence\\views',
+     defaultEngine: 'jade',
+     ext: '.jade',
+     engine: [Function],
+     path: undefined } }
+Error: Failed to lookup view "/error/404" in views directory "D:\Git\BusinessIntelligence\views"
+    at Function.app.render (D:\Git\BusinessIntelligence\node_modules\express\lib\application.js:493:17)
+    at ServerResponse.res.render (D:\Git\BusinessIntelligence\node_modules\express\lib\response.js:798:7)
+    at Object.exports.register.app.use.res.render.title [as handle] (D:\Git\BusinessIntelligence\routes\context.js:18:13)
+    at next (D:\Git\BusinessIntelligence\node_modules\express\node_modules\connect\lib\proto.js:193:15)
+    at Object.regexp (D:\Git\BusinessIntelligence\node_modules\log4js\lib\connect-logger.js:99:5)
+    at next (D:\Git\BusinessIntelligence\node_modules\express\node_modules\connect\lib\proto.js:193:15)
+    at pass (D:\Git\BusinessIntelligence\node_modules\express\lib\router\index.js:110:24)
+    at Router._dispatch (D:\Git\BusinessIntelligence\node_modules\express\lib\router\index.js:173:5)
+    at Object.router (D:\Git\BusinessIntelligence\node_modules\express\lib\router\index.js:33:10)
+    at next (D:\Git\BusinessIntelligence\node_modules\express\node_modules\connect\lib\proto.js:193:15)
+[2014-05-04 06:43:03.426] [ERROR] console - Error: Failed to lookup view "/error/500" in views directory "D:\Git\BusinessIntelligence\views"
+    at Function.app.render (D:\Git\BusinessIntelligence\node_modules\express\lib\application.js:493:17)
+    at ServerResponse.res.render (D:\Git\BusinessIntelligence\node_modules\express\lib\response.js:798:7)
+    at Object.exports.register [as handle] (D:\Git\BusinessIntelligence\routes\context.js:29:13)
+    at IncomingMessage.next (D:\Git\BusinessIntelligence\node_modules\express\node_modules\connect\lib\proto.js:188:17)
+    at res.render.fn (D:\Git\BusinessIntelligence\node_modules\express\lib\response.js:793:25)
+    at Function.app.render (D:\Git\BusinessIntelligence\node_modules\express\lib\application.js:495:14)
+    at ServerResponse.res.render (D:\Git\BusinessIntelligence\node_modules\express\lib\response.js:798:7)
+    at Object.exports.register.app.use.res.render.title [as handle] (D:\Git\BusinessIntelligence\routes\context.js:18:13)
+    at next (D:\Git\BusinessIntelligence\node_modules\express\node_modules\connect\lib\proto.js:193:15)
+    at Object.regexp (D:\Git\BusinessIntelligence\node_modules\log4js\lib\connect-logger.js:99:5)
+[2014-05-04 06:43:03.428] [DEBUG] [default] - 127.0.0.1 - - "POST / HTTP/1.1" 500 1172 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:28.0) Gecko/20100101 Firefox/28.0"
+[2014-05-04 06:47:35.110] [INFO] console - localhost
+[2014-05-04 06:47:35.112] [INFO] console - 27017
+[2014-05-04 06:47:35.118] [INFO] console - Express server listening on port 3000
+[2014-05-04 06:47:46.690] [ERROR] routes/context - [ReferenceError: View is not defined]
+ReferenceError: View is not defined
+    at Object.handle (D:\Git\BusinessIntelligence\routes\context.js:18:24)
+    at next (D:\Git\BusinessIntelligence\node_modules\express\node_modules\connect\lib\proto.js:193:15)
+    at Object.regexp (D:\Git\BusinessIntelligence\node_modules\log4js\lib\connect-logger.js:99:5)
+    at next (D:\Git\BusinessIntelligence\node_modules\express\node_modules\connect\lib\proto.js:193:15)
+    at pass (D:\Git\BusinessIntelligence\node_modules\express\lib\router\index.js:110:24)
+    at Router._dispatch (D:\Git\BusinessIntelligence\node_modules\express\lib\router\index.js:173:5)
+    at Object.router (D:\Git\BusinessIntelligence\node_modules\express\lib\router\index.js:33:10)
+    at next (D:\Git\BusinessIntelligence\node_modules\express\node_modules\connect\lib\proto.js:193:15)
+    at Object.module.exports [as handle] (D:\Git\BusinessIntelligence\node_modules\connect-flash\lib\flash.js:21:5)
+    at next (D:\Git\BusinessIntelligence\node_modules\express\node_modules\connect\lib\proto.js:193:15)
+[2014-05-04 06:47:46.695] [ERROR] console - ReferenceError: View is not defined
+    at Object.exports.register [as handle] (D:\Git\BusinessIntelligence\routes\context.js:30:24)
+    at next (D:\Git\BusinessIntelligence\node_modules\express\node_modules\connect\lib\proto.js:188:17)
+    at next (D:\Git\BusinessIntelligence\node_modules\express\node_modules\connect\lib\proto.js:198:7)
+    at Object.regexp (D:\Git\BusinessIntelligence\node_modules\log4js\lib\connect-logger.js:99:5)
+    at next (D:\Git\BusinessIntelligence\node_modules\express\node_modules\connect\lib\proto.js:193:15)
+    at pass (D:\Git\BusinessIntelligence\node_modules\express\lib\router\index.js:110:24)
+    at Router._dispatch (D:\Git\BusinessIntelligence\node_modules\express\lib\router\index.js:173:5)
+    at Object.router (D:\Git\BusinessIntelligence\node_modules\express\lib\router\index.js:33:10)
+    at next (D:\Git\BusinessIntelligence\node_modules\express\node_modules\connect\lib\proto.js:193:15)
+    at Object.module.exports [as handle] (D:\Git\BusinessIntelligence\node_modules\connect-flash\lib\flash.js:21:5)
+[2014-05-04 06:47:46.697] [DEBUG] [default] - 127.0.0.1 - - "POST / HTTP/1.1" 500 1050 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:28.0) Gecko/20100101 Firefox/28.0"
+[2014-05-04 06:48:28.442] [INFO] console - localhost
+[2014-05-04 06:48:28.444] [INFO] console - 27017
+[2014-05-04 06:48:28.451] [INFO] console - Express server listening on port 3000
+[2014-05-04 06:49:21.437] [DEBUG] [default] - 127.0.0.1 - - "POST / HTTP/1.1" 400 1685 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:28.0) Gecko/20100101 Firefox/28.0"
+[2014-05-04 06:54:47.165] [INFO] console - localhost
+[2014-05-04 06:54:47.167] [INFO] console - 27017
+[2014-05-04 06:54:47.174] [INFO] console - Express server listening on port 3000

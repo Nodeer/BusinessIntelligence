@@ -8,20 +8,9 @@
                 input(type="submit", value="Sign out", ng-click="signout()")#btn-signout.btn.btn-default
     else
         #unknownprofileform
-            form#profileform.navbar-form(method="post", action="/")
+            form#profileform.navbar-form(method="post", action="/signin")
                 .form-group
                     input.form-control(type="email", placeholder="Email", name="email", required="required")
                 .form-group
                     input.form-control(type="password", placeholder="Password", name="password", required="required")
                 input(type="submit", value="Sign in", ng-click="signin()")#btn-signin.btn.btn-success
-                input(type="submit", value="Sign up", ng-click="signup()")#btn-signup.btn.btn-default
-                script.
-                    $(function () {
-                        $('#btn-signin').click(function () {
-                            $('#profileform').attr('action', '/signin');
-                        });
-
-                        $('#btn-signup').click(function () {
-                            $('#profileform').attr('action', '/signup');
-                        });
-                    });  
