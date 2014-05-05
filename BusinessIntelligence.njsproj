@@ -22,6 +22,7 @@
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
   <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
   <ItemGroup>
+    <Content Include="iisnode.yml" />
     <Content Include="info.txt" />
     <Content Include="package.json" />
     <Compile Include="app.js" />

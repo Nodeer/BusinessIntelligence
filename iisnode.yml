@@ -1,0 +1,40 @@
+﻿# The optional iisnode.yml file provides overrides of the iisnode configuration settings specified in web.config.
+
+# node_env - determines the environment (production, development, staging, ...) in which
+# child node processes run; if nonempty, is propagated to the child node processes as their NODE_ENV
+# environment variable; the default is the value of the IIS worker process'es NODE_ENV
+# environment variable
+
+node_env:
+
+# watchedFiles - semi-colon separated list of files that will be watched for changes; a change to a file causes the application to recycle;
+# each entry consists of an optional directory name plus required file name which are relative to the directory where the main application entry point
+# is located; wild cards are allowed in the file name portion only; for example: "*.js;node_modules\foo\lib\options.json;app_data\*.config.json"
+
+watchedFiles: *.js;iisnode.yml
+
+# loggingEnabled - controls whether stdout and stderr streams from node processes are captured and made available over HTTP
+
+loggingEnabled: true
+
+# logDirectory - directory name relative to the main application file that will store files with stdout and stderr captures; 
+# individual log file names have unique file names; log files are created lazily (i.e. when the process actually writes something
+# to stdout or stderr); an HTML index of all log files is also maintained as index.html in that directory;
+# by default, if your application is at http://foo.com/bar.js, logs will be accessible at http://foo.com/iisnode;
+# SECURITY NOTE: if log files contain sensitive information, this setting should be modified to contain enough entropy to be considered
+# cryptographically secure; in most situations, a GUID is sufficient
+
+logDirectory: logs
+
+
+maxLogFileSizeInKB: 128
+
+# maxTotalLogFileSizeInKB - maximum total size of all log files in the logDirectory; once exceeded, old log files are removed
+
+maxTotalLogFileSizeInKB: 1024
+    
+# maxLogFiles - maximum number of log files in the logDirectory; once exceeded, old log files are removed
+
+maxLogFiles: 20
+
+devErrorsEnabled: true
