@@ -20,10 +20,10 @@ var UserService = Base.extend(function () { })
             ///<param name="done">Done callback</param>
 
           return new UserRepository().getById(id, function(err, user) {
-              if (err) return done(err, null);
+              if (err) return done(err);
 
               return new GroupRepository().getByIds(user.groups, function(err, groups) {
-                    if (err) return done (err, null);
+                    if (err) return done (err);
 
                     var permissionIds = [];
                     
@@ -34,13 +34,23 @@ var UserService = Base.extend(function () { })
                     }
 
                     return new PermissionRepository().getByIds(permissionIds, function(err, permissions) {
-                        if (err) return done(err, null);
+                        if (err) return done(err);
 
                         user.app = {
                             permissions: permissions
                         };
 
-                        return done(err, user);
+                        return new UserService().evaluateAccess(user, {
+                            taskCreate: { 'task': ['create'] },
+                            taskUpdate: { 'task': ['update'] },
+                            manageUsers: { 'management.user': ['read'] }
+                        }, function(err, access) {
+                            if (err) return done(err);
+
+                            user.access = access;
+
+                            return done(err, user);
+                        });
                     });
                 });
             });
@@ -54,11 +64,11 @@ var UserService = Base.extend(function () { })
 
             var userRepository = new UserRepository();
             return userRepository.create(email, password, function(err, user) {
-                if (err) return done(err, null);
+                if (err) return done(err);
 
                 var groupRepository = new GroupRepository();
                 return groupRepository.getByName('User', function(err, group) {
-                    if (err) return done(err, null);
+                    if (err) return done(err);
 
                     user.groups.push(group);
 
@@ -74,10 +84,10 @@ var UserService = Base.extend(function () { })
 
             var userService = this;
             return userService._mergeChanges(user, userDto, function(err, user) {
-                if (err) return done(err, null);
+                if (err) return done(err);
 
                 return userService._trackChanges(user, function(err, user) {
-                    if (err) return done(err, null);
+                    if (err) return done(err);
 
                     return new UserRepository().update(user, done);
                 });
@@ -220,7 +230,7 @@ var UserService = Base.extend(function () { })
             var userSnapshot = UserSnapshot.create(user);
             
             return new UserSnapshotRepository().insert(userSnapshot, function(err) {
-                if (err) return done(err, null);
+                if (err) return done(err);
 
                 extend(user.audit, {
                     modified_date: new Date(),

@@ -11,23 +11,18 @@ exports.register = function (app, passport) {
     ///<param name="passport">Passport</param>
 
     app.get('/profile/index', route.private(), exports.index);
-    app.get('/profile/user.json', route.private(), exports.getUser);
     app.post('/profile/user.json', route.private(), exports.saveUser);
 
     return this;
 };
 
-exports.index = function (req, res) {
+exports.index = function (req, res, next) {
     ///<summary>Default view</summary>
     
     var view = new View('profile/index');
-    return view.render(req, res, {
+    return view.render(req, res, next, {
         title: "Profile"
     });
-};
-
-exports.getUser = function(req, res) {
-    return res.json(req.user);
 };
 
 exports.saveUser = function(req, res) {

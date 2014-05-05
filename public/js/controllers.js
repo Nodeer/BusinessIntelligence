@@ -5,14 +5,12 @@ controllers.controller('TaskCtrl', ['$scope', 'TaskFactory',
         $scope.tasks = TaskFactory.query();
     }]);
 
-controllers.controller('ApplicationCtrl', ['$scope', '$http', 'UserFactory',
+controllers.controller('ApplicationCtrl', ['$scope', 'UserFactory',
     ///<summary>Main application controller</summary>
-    function ($scope, $http, UserFactory) {
-        $scope.init = function(user) {
-            if (user) {
-                $scope.user = UserFactory.get();
-            }
-        };
+    function ($scope, UserFactory) {
+        UserFactory.then(function(user) {
+            $scope.user = user;
+        });
 
         $scope.getUserDisplayName = function() {
             ///<summary>Get display name</summary>
@@ -32,54 +30,45 @@ controllers.controller('ApplicationCtrl', ['$scope', '$http', 'UserFactory',
         });
     }]);
 
-controllers.controller('NavbarCtrl', ['$scope', '$http', '$window',
+controllers.controller('NavbarCtrl', ['$scope', '$window', 'UserFactory',
     ///<summary>Navigation controller</summary>
-    function ($scope, $http, $window) {
+    function ($scope, $window, UserFactory) {
 
         $scope.navigation = {
             groups: []
         };
 
-        $scope.init = function(user) {
-            if (user) {
-                $http.get('/user/access.json').success(function(access) {
-
-                    var user = $scope.user;
-                    user.access = access;
-                    $scope.$emit('user.updated', user);
-
-                    if (access.taskCreate) {
-                        $scope.navigation.groups.push({
-                            name: 'New Task',
-                            type: 'button',
-                            icon: 'glyphicon glyphicon-plus',
-                            path: '/task/create'
-                        });
-                    }
-
-                    if (access.manageUsers) {
-                        $scope.navigation.groups.push({
-                            name: 'Management',
-                            icon: 'glyphicon glyphicon-cog',
-                            type: 'dropdown',
-                            path: '/management',
-                            items: [{
-                                name: 'Users',
-                                path: '/management/users',
-                                icon: 'glyphicon glyphicon-user'
-                            }]
-                        });
-                    }
-
-                    $scope.navigation.groups.push({
-                        name: 'About',
-                        type: 'button',
-                        icon: 'glyphicon glyphicon-question-sign',
-                        path: '/about'
-                    });
+        UserFactory.then(function(user) {
+            if (user.access.taskCreate) {
+                $scope.navigation.groups.push({
+                    name: 'New Task',
+                    type: 'button',
+                    icon: 'glyphicon glyphicon-plus',
+                    path: '/task/create'
                 });
             }
-        };
+
+            if (user.access.manageUsers) {
+                $scope.navigation.groups.push({
+                    name: 'Management',
+                    icon: 'glyphicon glyphicon-cog',
+                    type: 'dropdown',
+                    path: '/management',
+                    items: [{
+                        name: 'Users',
+                        path: '/management/users',
+                        icon: 'glyphicon glyphicon-user'
+                    }]
+                });
+            }
+
+            $scope.navigation.groups.push({
+                name: 'About',
+                type: 'button',
+                icon: 'glyphicon glyphicon-question-sign',
+                path: '/about'
+            });
+        });
 
         $scope.signin = function() {
             
@@ -97,15 +86,15 @@ controllers.controller('NavbarCtrl', ['$scope', '$http', '$window',
         };
     }]);
 
-controllers.controller('ProfileCtrl', ['$scope',
+controllers.controller('ProfileCtrl', ['$scope', 'ProfileFactory',
     ///<summary>User profile controller [Depends on ApplicationCtrl]</summary>
-    function ($scope) {
+    function ($scope, ProfileFactory) {
         $scope.submit = function() {
             ///<summary>Submits user profile</summary>
             
             $scope.saving = 1;
 
-            $scope.user.$save(function(user) {
+            ProfileFactory.save($scope.user, function(user) {
                 $scope.$emit('user.updated', user);
 
                 $scope.saving = 0;

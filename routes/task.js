@@ -27,31 +27,31 @@ exports.register = function (app) {
     return this;
 };
 
-exports.create = function (req, res) {
+exports.create = function (req, res, next) {
     ///<summary>New task view</summary>
 
     var view = new View('task/createUpdate');
-    return view.render(req, res, {
+    return view.render(req, res, next, {
         title: "Task | New",
         id: ''
     });
 };
 
-exports.update = function (req, res) {
+exports.update = function (req, res, next) {
     ///<summary>New task view</summary>
 
     var view = new View('task/createUpdate');
-    return view.render(req, res, {
+    return view.render(req, res, next, {
         title: "Task | Update",
         id: req.params.id
     });
 };
 
-exports.view = function (req, res) {
+exports.view = function (req, res, next) {
     ///<summary>View task</summary>
 
     var view = new View('task/view');
-    return view.render(req, res, {
+    return view.render(req, res, next, {
         title: "Task | View",
         id: req.params.id
     });

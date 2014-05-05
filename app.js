@@ -35,6 +35,9 @@ app.use(require('stylus').middleware(path.join(__dirname, 'public')));
 app.use('/public', express.static(__dirname + '/public'));
 app.use('/components', express.static(__dirname + '/bower_components'));
 
+app.use('/logs', express.static(__dirname + '/logs'));
+app.use('/logs', express.directory(__dirname + '/logs'));
+
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());

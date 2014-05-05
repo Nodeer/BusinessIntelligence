@@ -31,7 +31,7 @@ var PermissionRepository = Base.extend(function () { })
             ///<param name="done">Done handler</param>
 
             return new PermissionRepository().getByName(name, function(err, permission) {
-                if (err) return done(err, null);
+                if (err) return done(err);
 
                 if (permission) {
                     return done('The permission is already exists.', null);

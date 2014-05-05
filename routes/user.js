@@ -1,6 +1,7 @@
 ﻿var UserService = require('../services/user'),
     User = require('../models/user'),
-    route = require('./route');
+    route = require('./route'),
+    extend = require('extend');
 
 exports.register = function (app, passport) {
     ///<summary>Registeres routes</summary>
@@ -10,8 +11,6 @@ exports.register = function (app, passport) {
     app.post('/signin', route.public(), exports._authenticate(passport), exports.signin);
     app.post('/signup', route.public(), exports.signup);
     app.post('/signout', route.public(), exports.signout);
-
-    app.get('/user/access.json', route.private(), exports.evaluateAccess);
 
     return this;
 };
@@ -73,24 +72,9 @@ exports.signup = function (req, res) {
 };
 
 exports.signout = function (req, res) {
-    req.logout();
+    req.session.regenerate(function() {
+        req.logout();
+    });
 
     return res.redirect('/');
-};
-
-
-exports.evaluateAccess = function (req, res) {
-    ///<summary>Evaluates access</summary>
-
-    return new UserService().evaluateAccess(req.user, {
-        taskCreate: { 'task': ['create'] },
-        taskUpdate: { 'task': ['update'] },
-        manageUsers: { 'management.user': ['read'] }
-    }, function(err, access) {
-        if (err) {
-            return res.status(500).end();
-        }
-
-        return res.json(access);
-    });
 };
