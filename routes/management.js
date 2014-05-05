@@ -14,11 +14,11 @@ exports.register = function (app) {
     return this;
 };
 
-exports.index = function (req, res) {
+exports.index = function (req, res, next) {
     ///<summary>Default view</summary>
 
     var view = new View('management/users');
-    return view.render(req, res, {
+    return view.render(req, res, next, {
         title: "Management | Users"
     });
 };

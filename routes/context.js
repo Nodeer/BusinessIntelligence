@@ -14,10 +14,10 @@ exports.register = function (app, passport) {
     require('./search').register(app);
 
     // Handle 404
-    app.use(function (req, res) {
+    app.use(function (req, res, next) {
         res.status(400);
         var view = new View('error/404');
-        return view.render(req, res, {
+        return view.render(req, res, next, {
             title: "404: File Not Found"
         });
     });
@@ -29,7 +29,7 @@ exports.register = function (app, passport) {
 
         res.status(500);
         var view = new View('error/500');
-        return view.render(req, res, {
+        return view.render(req, res, next, {
             title: "500: Internal Server Error",
             error: error
         });

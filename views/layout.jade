@@ -3,7 +3,7 @@ html(ng-app="biApp")
     head
         include head
     if user
-        body(ng-controller="ApplicationCtrl", ng-init="init('#{user}')")
+        body(ng-controller="ApplicationCtrl")
     else
         body
     include navbar

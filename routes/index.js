@@ -12,20 +12,20 @@ exports.register = function (app) {
     return this;
 };
 
-exports.index = function (req, res) {
+exports.index = function (req, res, next) {
     ///<summary>Default view</summary>
 
     var view = new View('home/index');
-    return view.render(req, res, {
+    return view.render(req, res, next, {
         title: "Home"
     });
 };
 
-exports.about = function (req, res) {
+exports.about = function (req, res, next) {
     ///<summary>About view</summary>
 
     var view = new View('home/about');
-    return view.render(req, res, {
+    return view.render(req, res, next, {
         title: "About"
     });
 };

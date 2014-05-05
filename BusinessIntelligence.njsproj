@@ -68,6 +68,7 @@
     <Content Include="public\images\loader.gif" />
     <Content Include="public\images\knowledgeBase48x48.png" />
     <Content Include="views\alert.jade" />
+    <Content Include="views\context.jade" />
     <Content Include="views\footer.jade" />
     <Content Include="views\head.jade" />
     <Content Include="views\home\about.jade" />
