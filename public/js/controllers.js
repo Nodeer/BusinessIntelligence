@@ -5,40 +5,35 @@ controllers.controller('TaskCtrl', ['$scope', 'TaskFactory',
         $scope.tasks = TaskFactory.query();
     }]);
 
-controllers.controller('ApplicationCtrl', ['$scope', 'UserFactory',
+controllers.controller('ApplicationCtrl', ['$scope', 'Application',
     ///<summary>Main application controller</summary>
-    function ($scope, UserFactory) {
-        UserFactory.then(function(user) {
+    function ($scope, Application) {
+        Application.then(function(user) {
             $scope.user = user;
-        });
 
-        $scope.getUserDisplayName = function() {
-            ///<summary>Get display name</summary>
-            if ($scope.user) {
+            $scope.getUserDisplayName = function() {
+                ///<summary>Get display name</summary>
                 if ($scope.user.first_name || $scope.user.last_name) {
                     return ($scope.user.first_name || '') + ' ' + ($scope.user.last_name || '');
                 }
 
                 return $scope.user.email;
-            }
-            
-            return '';
-        };
+            };
 
-        $scope.$on('user.updated', function(event, user) {
-            $scope.user = user;
+            $scope.$on('user.updated', function(event, user) {
+                $scope.user = user;
+            });
         });
     }]);
 
-controllers.controller('NavbarCtrl', ['$scope', '$window', 'UserFactory',
+controllers.controller('NavbarCtrl', ['$scope', '$window', 'Application',
     ///<summary>Navigation controller</summary>
-    function ($scope, $window, UserFactory) {
+    function ($scope, $window, Application) {
+        Application.then(function(user) {
+            $scope.navigation = {
+                groups: []
+            };
 
-        $scope.navigation = {
-            groups: []
-        };
-
-        UserFactory.then(function(user) {
             if (user.access.taskCreate) {
                 $scope.navigation.groups.push({
                     name: 'New Task',

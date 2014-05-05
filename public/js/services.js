@@ -6,11 +6,11 @@ services.factory('ProfileFactory', ['$resource',
         return $resource('/profile/user.json');
     }]);
 
-services.factory('UserFactory', ['$q', 'user', 
+services.factory('Application', ['$q', 'user', 
     function($q, user) {
         var deferred = $q.defer();
 
         deferred.resolve(angular.extend({}, user));
-                
+
         return deferred.promise;
     }]);
