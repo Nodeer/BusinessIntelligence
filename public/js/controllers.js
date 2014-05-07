@@ -36,6 +36,7 @@ controllers.controller('NavbarCtrl', ['$scope', '$window', 'Application',
 
             if (user.access.taskCreate) {
                 $scope.navigation.groups.push({
+                    id: 'NewTask',
                     name: 'New Task',
                     type: 'button',
                     icon: 'glyphicon glyphicon-plus',
@@ -56,13 +57,6 @@ controllers.controller('NavbarCtrl', ['$scope', '$window', 'Application',
                     }]
                 });
             }
-
-            $scope.navigation.groups.push({
-                name: 'About',
-                type: 'button',
-                icon: 'glyphicon glyphicon-question-sign',
-                path: '/about'
-            });
         });
 
         $scope.signin = function() {

@@ -50,6 +50,7 @@
     <Compile Include="repository\permission.js" />
     <Compile Include="repository\base.js" />
     <Compile Include="repository\scripts\setup.mongodb.js" />
+    <Compile Include="repository\scripts\setup.mongodb.spec.js" />
     <Compile Include="repository\task.js" />
     <Compile Include="repository\user.js" />
     <Compile Include="repository\user.snapshot.js" />
@@ -71,7 +72,6 @@
     <Content Include="views\context.jade" />
     <Content Include="views\footer.jade" />
     <Content Include="views\head.jade" />
-    <Content Include="views\home\about.jade" />
     <Content Include="views\home\layout.jade" />
     <Content Include="views\home\search.jade" />
     <Content Include="views\layout.jade" />
@@ -80,7 +80,10 @@
     <Content Include="views\navbar.jade" />
     <Content Include="views\profile.jade" />
     <Compile Include="tests.e2e.js" />
-    <Compile Include="tests\e2e\application.user.spec.js" />
+    <Compile Include="tests\e2e\application.js" />
+    <Compile Include="tests\e2e\administrator.spec.js" />
+    <Compile Include="tests\e2e\businessanalyst.spec.js" />
+    <Compile Include="tests\e2e\user.spec.js" />
     <Compile Include="views\view.js" />
     <Content Include="public\css\body.css" />
     <Content Include="public\css\docs.css" />

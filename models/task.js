@@ -26,7 +26,7 @@ taskSchema.methods.toDto = function() {
         external_id: this.external_id,
         availability: {
             availability_type: this.availability.availability_type,
-            partners: this.availability.partners
+            partners: this.availability.partners,
         }
     };
 };

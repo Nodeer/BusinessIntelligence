@@ -14,17 +14,17 @@
                     #navigation-bar
                         ul.nav.navbar-nav(ng-repeat="group in navigation.groups", ng-switch on="group.type")
                             li.dropdown(ng-switch-when="dropdown", ng-class="{ active: isActive(group.path)}")
-                                a(href="#", data-toggle="dropdown", id="{{group.name}}").dropdown-toggle
+                                a(href="#", data-toggle="dropdown", id="{{group.id || group.name}}").dropdown-toggle
                                     span(class="{{group.icon}}")
                                     |  {{group.name}} 
                                     b.caret
                                 ul.dropdown-menu
                                     li(ng-repeat="item in group.items")
-                                        a(href="{{item.path}}", id="{{item.name}}")
+                                        a(href="{{item.path}}", id="{{item.id || item.name}}")
                                             span(class="{{item.icon}}")
                                             |  {{item.name}}
                             li(ng-switch-when="button", ng-class="{ active: isActive(group.path)}")
-                                a(href="{{group.path}}", id="{{group.name}}")
+                                a(href="{{group.path}}", id="{{group.id || group.name}}")
                                             span(class="{{group.icon}}")
                                             |  {{group.name}}
                 ul.nav.navbar-nav.navbar-right

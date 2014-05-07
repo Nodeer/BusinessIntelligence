@@ -60,7 +60,8 @@ var TaskRepository = Base.extend(function (user) {
                     },
                     audit: {
                         modified_date: new Date(),
-                        modified_by: user.getIdentity()
+                        modified_by: user.getIdentity(),
+                        revision: task.audit.revision + 1
                     }
                 });
 
