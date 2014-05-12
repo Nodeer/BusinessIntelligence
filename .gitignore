@@ -3,5 +3,6 @@ logs/*
 
 #Uploads
 uploads/*
+!uploads/unknown_user.png
 
 !.gitignore
