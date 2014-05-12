@@ -1,10 +1,12 @@
 ﻿exports.Application = function() {
     this.navigation = {
         profile: {
+            self: element(by.css('#userprofileform #profile')),
             email: element(by.name('email')),
             password: element(by.name('password')),
             signin: element(by.id('btn-signin')),
-            signout: element(by.id('btn-signout'))
+            profile: element(by.css('#userprofileform #btn-profile')),
+            signout: element(by.css('#userprofileform #btn-signout'))
         },
         menu: {
             newTask: {
@@ -51,7 +53,8 @@ exports.User = function(app) {
 
     this.signout = function() {
         ///<summary>Sign out</summary>
-        
+
+        this.app.navigation.profile.self.click();
         return this.app.navigation.profile.signout.click();
     };
 };

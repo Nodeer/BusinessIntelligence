@@ -11,15 +11,6 @@ controllers.controller('ApplicationCtrl', ['$scope', 'Application',
         Application.then(function(user) {
             $scope.user = user;
 
-            $scope.getUserDisplayName = function() {
-                ///<summary>Get display name</summary>
-                if ($scope.user.first_name || $scope.user.last_name) {
-                    return ($scope.user.first_name || '') + ' ' + ($scope.user.last_name || '');
-                }
-
-                return $scope.user.email;
-            };
-
             $scope.$on('user.updated', function(event, user) {
                 $scope.user = user;
             });

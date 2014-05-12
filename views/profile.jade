@@ -3,10 +3,25 @@
         #userprofileform
             form#profileform.navbar-form.navbar-right(method="post", action="/signout")
                 .form-group
-                    a.btn.btn-success(href="/profile/index")
-                        span.glyphicon.glyphicon-user
-                        span  {{getUserDisplayName()}}'s profile
-                input(type="submit", value="Sign out", ng-click="signout()")#btn-signout.btn.btn-default
+                    ul.nav.navbar-nav
+                        li.dropdown
+                            a#profile.dropdown-toggle(href="#", data-toggle="dropdown", style="padding: 0px;")
+                                img#img-avatar.image-avatar-small(ng-src="/image/{{user.avatar}}")
+                                |  
+                                b.caret
+                            ul.dropdown-menu
+                                li(style="padding: 0px;")
+                                    a#btn-profile(href="/profile/index")
+                                        span.glyphicon.glyphicon-user
+                                        |  Profile
+                                li
+                                    a#btn-signout(href="#", ng-click="signout()")
+                                        span.glyphicon.glyphicon-off
+                                        |  Sign out
+            script.
+                $('#btn-signout').click(function() {
+                    $('#profileform')[0].submit();
+                });
     else
         #unknownprofileform
             form#profileform.navbar-form(method="post", action="/signin")

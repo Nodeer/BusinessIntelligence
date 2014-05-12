@@ -9,10 +9,10 @@ block content
                     .form-group
                         label(for"avatar")
                         .thumbnail
-                            img#img-avatar.image-avatar-medium(ng-src="/image/{{user.avatar}}", style="cursor: pointer;")
+                            img#img-avatar-load.image-avatar-medium(ng-src="/image/{{user.avatar}}", style="cursor: pointer;")
                         input#input-avatar(type="file", name="avatar", data-filename-placement="inside", style="display: none !important;")
                     script.
-                        $('#img-avatar').click(function() {
+                        $('#img-avatar-load').click(function() {
                             $('#input-avatar').click();
                         });
                         $('#input-avatar').change(function() {
