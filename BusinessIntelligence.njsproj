@@ -37,6 +37,7 @@
     <Compile Include="models\task.snapshot.js" />
     <Compile Include="models\user.js" />
     <Compile Include="models\user.snapshot.js" />
+    <Compile Include="public\js\components\bootstrap.file-input.js" />
     <Compile Include="public\js\directives.js" />
     <Compile Include="public\js\management.controllers.js" />
     <Compile Include="public\js\management.services.js" />
@@ -44,7 +45,7 @@
     <Compile Include="public\js\search.services.js" />
     <Compile Include="public\js\task.controllers.js" />
     <Compile Include="public\js\task.services.js" />
-    <Compile Include="public\js\ui-bootstrap.min.js" />
+    <Compile Include="public\js\components\ui-bootstrap.min.js" />
     <Compile Include="repository\condition.js" />
     <Compile Include="repository\group.js" />
     <Compile Include="repository\permission.js" />
@@ -54,6 +55,7 @@
     <Compile Include="repository\task.js" />
     <Compile Include="repository\user.js" />
     <Compile Include="repository\user.snapshot.js" />
+    <Compile Include="routes\file.js" />
     <Compile Include="routes\index.js" />
     <Compile Include="routes\management.js" />
     <Compile Include="routes\profile.js" />
@@ -103,6 +105,7 @@
   <ItemGroup>
     <Folder Include=".git" />
     <Folder Include="models" />
+    <Folder Include="public\js\components\" />
     <Folder Include="repository\scripts\" />
     <Folder Include="tests\" />
     <Folder Include="public\" />

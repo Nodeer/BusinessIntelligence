@@ -4,14 +4,21 @@
     ptor = protractor.getInstance();
 
 describe('a Business Analyst', function() {
-    it('can see new task link', function() {
+
+    it('should see able to sign in with valid email / password', function() {
         browser.get('/');
 
         user.signinAsBusinessAnalyst();
 
         expect(app.navigation.profile.signin.isPresent()).toBeFalsy();
         expect(app.navigation.profile.signout.isPresent()).toBeTruthy();
+    });
 
+    it('able to search', function() {
+        expect(app.home.search.self.isPresent()).toBeTruthy();
+    });
+
+    it('can see new task link', function() {
         expect(app.navigation.menu.newTask.self.isPresent()).toBeTruthy();
     });
 

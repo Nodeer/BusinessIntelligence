@@ -6,6 +6,7 @@ var express = require('express');
 var http = require('http');
 var path = require('path');
 var flash = require('connect-flash');
+var multer = require('multer');
 
 var passport = require('passport');
 var PassportLocalStrategy = require('passport-local').Strategy;
@@ -27,6 +28,9 @@ app.use(express.favicon());
 app.use(express.logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded());
+app.use(multer({
+    dest: './uploads/'
+}));
 app.use(express.methodOverride());
 app.use(express.cookieParser(process.env.COOKIE_KEY || 'dsaklkdl;sak90ui4op3jkl30io9p43l;kasd'));
 app.use(express.session());

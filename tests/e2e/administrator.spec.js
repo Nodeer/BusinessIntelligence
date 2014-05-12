@@ -4,14 +4,20 @@
     ptor = protractor.getInstance();
 
 describe('an Administrator', function() {
-    it('can see management section', function() {
+    it('should see able to sign in with valid email / password', function() {
         browser.get('/');
 
         user.signinAsAdmin();
 
         expect(app.navigation.profile.signin.isPresent()).toBeFalsy();
         expect(app.navigation.profile.signout.isPresent()).toBeTruthy();
+    });
 
+    it('able to search', function() {
+        expect(app.home.search.self.isPresent()).toBeTruthy();
+    });
+
+    it('can see management section', function() {
         expect(app.navigation.menu.management.self.isPresent()).toBeTruthy();
     });
 

@@ -20,6 +20,12 @@
     this.alerts = {
         danger: $('div .alert.alert-danger').$('p')
     };
+
+    this.home = {
+        search: {
+            self: element(by.model('search.criteria'))
+        }
+    };
 };
 
 exports.User = function(app) {

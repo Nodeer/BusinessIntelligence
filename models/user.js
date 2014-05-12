@@ -10,6 +10,7 @@ var userSchema = new Schema({
     permissions: [{ type: Schema.Types.ObjectId, ref: 'Permission', index: 1 }],
     first_name: { type: String, default: '' },
     last_name: { type: String, default: '' },
+    avatar: String,
     audit: {
         modified_date: { type: Date, default: Date.now },
         revision: { type: Number, default: 1 }
@@ -30,6 +31,7 @@ userSchema.methods.toDto = function() {
         email: this.email,
         first_name: this.first_name,
         last_name: this.last_name,
+        avatar: this.avatar,
         access: this.access
     };
 };

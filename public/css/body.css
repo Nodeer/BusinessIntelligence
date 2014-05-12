@@ -82,3 +82,23 @@
 .ui-match {
     background: yellow;
 }
+
+.image-avatar-tiny {
+    width: 16px !important;
+    height: 16px !important;
+}
+
+.image-avatar-small {
+    width: 32px !important;
+    height: 32px !important;
+}
+
+.image-avatar-medium {
+    width: 64px !important;
+    height: 64px !important;
+}
+
+.image-avatar-large {
+    width: 128px !important;
+    height: 128px !important;
+}

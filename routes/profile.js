@@ -13,6 +13,9 @@ exports.register = function (app, passport) {
     app.get('/profile/index', route.private(), exports.index);
     app.post('/profile/user.json', route.private(), exports.saveUser);
 
+    app.get('/profile/avatar.img', route.private(), exports.getAvatar);
+    app.post('/profile/index', route.private(), exports.saveAvatar);
+
     return this;
 };
 
@@ -36,5 +39,19 @@ exports.saveUser = function(req, res) {
         }
 
         return res.json(user);
+    });
+};
+
+exports.getAvatar = function(req, res, next) {
+    return res.end();
+};
+
+exports.saveAvatar = function(req, res, next) {
+    return new UserService().save(req.user, {
+        avatar: req.files.avatar.path
+    }, function(err) {
+        if (err) return next();
+
+        return exports.index(req, res, next);
     });
 };

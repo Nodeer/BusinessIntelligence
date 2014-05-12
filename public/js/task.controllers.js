@@ -155,7 +155,6 @@ managementControllers.controller('CreateUpdateTaskCtrl', ['$scope', 'TaskFactory
             TaskFactory.save($scope.task, function(task) {
                 $scope.saving = 0;
 
-                console.log('TASK=' + task.id);
                 $window.location.href = sprintf('/task/view/%s', task.id);
             });
         };

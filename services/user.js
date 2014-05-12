@@ -159,6 +159,7 @@ var UserService = Base.extend(function () { })
                         email: user.email,
                         first_name: user.first_name,
                         last_name: user.last_name,
+                        avatar: user.avatar,
                         groups: Enumerable.from(user.groups).select(function(group) {
                             return group.name;
                         }).toArray()
@@ -209,11 +210,7 @@ var UserService = Base.extend(function () { })
             ///<param name="done">Done callback</param>
             
 
-            extend(user, {
-                first_name: userDto.first_name,
-                last_name: userDto.last_name,
-                email: userDto.email,
-            });
+            extend(user, userDto);
 
             if (userDto.new_password &&
                 userDto.new_password === userDto.confirm_password) {

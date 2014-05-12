@@ -9,6 +9,7 @@ var userSnapshotSchema = new Schema({
     permissions: [{ type: Schema.Types.ObjectId }],
     first_name: String,
     last_name: String,
+    avatar: String,
     audit: {
         modified_date: { type: Date, index: 1 },
         revision: { type: Number, index: 1 }
@@ -26,6 +27,7 @@ userSnapshotSchema.statics.create = function(user) {
         permissions: user.permissions,
         first_name: user.first_name,
         last_name: user.last_name,
+        avatar: user.avatar,
         audit: user.audit
     }));
 };

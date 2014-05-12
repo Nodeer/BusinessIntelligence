@@ -49,6 +49,7 @@ var UserRepository = Base.extend(function () { })
                 groups: user.groups,
                 first_name: user.first_name,
                 last_name: user.last_name,
+                avatar: user.avatar,
                 email: user.email,
                 audit: {
                     modified_date: user.audit.modified_date,
