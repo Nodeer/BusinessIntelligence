@@ -1,0 +1,47 @@
+﻿div
+    .modal-header
+        h3.modal-title
+            span.glyphicon.glyphicon-import
+            |  Add Input
+    .modal-body
+        form.form-horizontal(role="form")
+            .form-group
+                label.col-sm-4.control-label(for="conditionType") Condition Type:
+                    span.required  *
+                .col-sm-8
+                    select#conditionType.form-control(ng-model="condition.type")
+                        option Setting
+                        option Event
+            div(ng-switch="condition.type")
+                div(ng-switch-when="Setting")
+                    .form-group
+                        label.col-sm-4.control-label(for="level") Level:
+                            span.required  *
+                        .col-sm-8
+                            input#level.form-control
+                    .form-group
+                        label.col-sm-4.control-label(for="value") Value:
+                            span.required  *
+                        .col-sm-8
+                            input#value.form-control
+                div(ng-switch-when="Event")
+                    .form-group
+                        label.col-sm-4.control-label(for="description") Description:
+                            span.required  *
+                        .col-sm-8
+                            input#description.form-control
+            .form-group
+                label.col-sm-4.control-label(for="enterFromUI") Enter from UI:
+                .col-sm-8
+                    input#enterFromUI.form-control
+            .form-group
+                label.col-sm-4.control-label(for="enterFromAPI") Enter from API:
+                .col-sm-8
+                    input#enterFromAPI.form-control
+            .form-group
+                label.col-sm-4.control-label(for="note") Note:
+                .col-sm-8
+                    textarea#note.form-control
+    .modal-footer
+        button.btn.btn-primary(ng-click="submit()") Submit
+        button.btn.btn-default(ng-click="cancel()") Cancel

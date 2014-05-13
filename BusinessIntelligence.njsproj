@@ -98,8 +98,9 @@
     <Content Include="views\error\error.jade" />
     <Content Include="views\home\index.jade" />
     <Content Include="views\profile\index.jade" />
+    <Content Include="views\task\input\create_update.jade" />
     <Content Include="views\task\layout.jade" />
-    <Content Include="views\task\createUpdate.jade" />
+    <Content Include="views\task\create_update.jade" />
     <Content Include="views\task\view.jade" />
   </ItemGroup>
   <ItemGroup>
@@ -122,6 +123,7 @@
     <Folder Include="views\management\" />
     <Folder Include="views\task\" />
     <Folder Include="views\profile\" />
+    <Folder Include="views\task\input\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <Import Project="$(VSToolsPath)\Node.js Tools\Microsoft.NodejsTools.targets" />

@@ -14,6 +14,8 @@ exports.register = function (app) {
     app.get('/task/update/:id', route.private({ 'task': ['update'] }), exports.update);
     app.get('/task/view/:id', route.private({ 'task': ['read'] }), exports.view);
 
+    app.get('/task/input/create', route.private({ 'task': ['create'] }), exports.createInput);
+
     app.get('/task/task.json/:id', route.private({ 'task': ['read'] }), exports.getTask);
     app.post('/task/task.json', route.private({ 'task': ['create'] }), exports.saveTask);
 
@@ -30,7 +32,7 @@ exports.register = function (app) {
 exports.create = function (req, res, next) {
     ///<summary>New task view</summary>
 
-    var view = new View('task/createUpdate');
+    var view = new View('task/create_update');
     return view.render(req, res, next, {
         title: "Task | New",
         id: ''
@@ -40,7 +42,7 @@ exports.create = function (req, res, next) {
 exports.update = function (req, res, next) {
     ///<summary>New task view</summary>
 
-    var view = new View('task/createUpdate');
+    var view = new View('task/create_update');
     return view.render(req, res, next, {
         title: "Task | Update",
         id: req.params.id
@@ -54,6 +56,14 @@ exports.view = function (req, res, next) {
     return view.render(req, res, next, {
         title: "Task | View",
         id: req.params.id
+    });
+};
+
+exports.createInput = function (req, res, next) {
+    var view = new View('task/input/create_update');
+    return view.render(req, res, next, {
+        title: "Task | Add Input",
+        id: ''
     });
 };
 

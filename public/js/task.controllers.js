@@ -2,11 +2,12 @@
     'task.services'
 ]);
 
-managementControllers.controller('TaskCtrl', ['$scope',
+taskControllers.controller('TaskCtrl', ['$scope',
     function ($scope) {
     }]);
-managementControllers.controller('CreateUpdateTaskCtrl', ['$scope', 'TaskFactory', 'ConditionFactory', 'PartnersFactory', '$window',
-    function ($scope, TaskFactory, ConditionFactory, PartnersFactory, $window) {
+
+taskControllers.controller('CreateUpdateTaskCtrl', ['$scope', 'TaskFactory', 'ConditionFactory', 'PartnersFactory', '$window', '$modal',
+    function ($scope, TaskFactory, ConditionFactory, PartnersFactory, $window, $modal) {
         $scope.init = function(id) {
             $scope.task = {
                     availability: {
@@ -14,32 +15,50 @@ managementControllers.controller('CreateUpdateTaskCtrl', ['$scope', 'TaskFactory
                         partners: []
                     },
                     input: {
-                        conditions: [{}]
+                        conditions: [],
+                        addCondition: function() {
+                            var modalInstance = $modal.open({
+                                templateUrl: '/task/input/create',
+                                controller: 'CreateUpdateInputConditionCtrl',
+                                resolve: {
+                                    condition: function () {
+                                        return {};
+                                    }
+                                }
+                            });
+
+                            modalInstance.result.then(function (selectedItem) {
+                                alert(selectedItem);
+                            });
+                        },
                     },
                     output: {
-                        conditions: [{}]
+                        conditions: [],
+                        addCondition: function() {
+                            alert('output');
+                        },
                     },
                     addCondition: function(condition, conditions) {
-                            if (conditions[conditions.length-1].id) {
-                                conditions.push({});
-                            }
-
-                            if (condition.id > 0) {
-                                ConditionFactory.get({
-                                    id: condition.id
-                                }).success(function(persistedCondition) {
-                                    if (persistedCondition) {
-                                        condition.persisted = 1;
-                                        angular.extend(condition, {
-                                            persisted: 1,
-                                            ui: persistedCondition.ui,
-                                            api: persistedCondition.api,
-                                            dependencies: persistedCondition.dependencies
-                                        });
-                                    }
-                                });
-                            }
+                        if (conditions[conditions.length-1].id) {
+                            conditions.push({});
                         }
+
+                        if (condition.id > 0) {
+                            ConditionFactory.get({
+                                id: condition.id
+                            }).success(function(persistedCondition) {
+                                if (persistedCondition) {
+                                    condition.persisted = 1;
+                                    angular.extend(condition, {
+                                        persisted: 1,
+                                        ui: persistedCondition.ui,
+                                        api: persistedCondition.api,
+                                        dependencies: persistedCondition.dependencies
+                                    });
+                                }
+                            });
+                        }
+                    }
                 };
 
             if (id) {
@@ -160,7 +179,7 @@ managementControllers.controller('CreateUpdateTaskCtrl', ['$scope', 'TaskFactory
         };
     }]);
 
-managementControllers.controller('ViewTaskCtrl', ['$scope', 'TaskFactory', 'ConditionFactory', 'PartnersFactory', '$location',
+taskControllers.controller('ViewTaskCtrl', ['$scope', 'TaskFactory', 'ConditionFactory', 'PartnersFactory', '$location',
     function ($scope, TaskFactory, ConditionFactory, PartnersFactory, $location) {
         
         $scope.init = function(id) {
@@ -169,5 +188,21 @@ managementControllers.controller('ViewTaskCtrl', ['$scope', 'TaskFactory', 'Cond
             }, function(task) {
                 $scope.task = task;
             });
+        };
+    }]);
+
+taskControllers.controller('CreateUpdateInputConditionCtrl', ['$scope', '$modalInstance', 'condition',
+    function($scope, $modalInstance, condition) {
+
+        $scope.condition = angular.extend({
+            type: "Setting"
+        }, condition);
+
+        $scope.submit = function () {
+            $modalInstance.close('closed');
+        };
+
+        $scope.cancel = function () {
+            $modalInstance.dismiss();
         };
     }]);
