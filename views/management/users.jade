@@ -10,12 +10,15 @@ block management-content
         table.table.table-striped
             tbody
                 th #
+                th Avatar
                 th Email
                 th First Name
                 th Last Name
                 th Groups
             tr(ng-repeat="user in users")
                 td {{$index + 1}}
+                td
+                    img#img-avatar-load.image-avatar-small(ng-src="/image/{{user.avatar}}")
                 td {{user.email}}
                 td {{user.first_name}}
                 td {{user.last_name}}

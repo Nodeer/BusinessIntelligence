@@ -28,7 +28,7 @@ controllers.controller('NavbarCtrl', ['$scope', '$window', 'Application',
             if (user.access.taskCreate) {
                 $scope.navigation.groups.push({
                     id: 'NewTask',
-                    name: 'New Task',
+                    name: 'NEW TASK',
                     type: 'button',
                     icon: 'glyphicon glyphicon-plus',
                     path: '/task/create'

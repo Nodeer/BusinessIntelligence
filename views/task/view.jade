@@ -4,8 +4,12 @@ block task-content
     div(ng-controller="ViewTaskCtrl", ng-init="init('#{id}')")
         form(role="form")
             .form-group
-                label(for="name") Task Name:
-                p.form-control-static {{task.name}}
+                .row
+                    .col-md-10
+                        label(for="name") Task Name:
+                        p.form-control-static {{task.name}}
+                    .col-md-2
+                        a(ng-href="/task/update/{{task.id}}", ng-show="user.access.taskUpdate") Update Task
             .form-group
                 label(for="description") Task Description:
                 p.form-control-static {{task.description}}
