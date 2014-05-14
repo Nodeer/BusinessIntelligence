@@ -24,7 +24,10 @@ exports.register = function (app) {
 
     app.get('/task/partners.json/:name', route.private({ 'task': ['read']}), exports.getPartners);
 
+    app.get('/task/settings.json/name/:name', route.private({ 'task': ['read']}), exports.getSettingNames);
+
     app.get('/task/dependencies.json', route.private({ 'task': ['read']}), exports.getDependencies);
+
 
     return this;
 };
@@ -163,6 +166,20 @@ exports.getPartners = function (req, res) {
         });
 
         return res.json(partners);
+    });
+};
+
+exports.getSettingNames = function (req, res, next) {
+    ///<summary>Loads list of setting names</summary>
+
+    return new TaskService(req.user).findSettingNames(req.params.name, function(settingName) {
+        return {
+            name: settingName
+        };
+    }, function(err, settingNames) {
+        if (err) return next();
+
+        return res.json(settingNames);
     });
 };
 

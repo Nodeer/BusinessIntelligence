@@ -14,3 +14,8 @@ taskServices.factory('PartnersFactory', ['$resource',
     function ($resource) {
         return $resource('/task/partners.json/:name');
     }]);
+
+taskServices.factory('SettingNamesFactory', ['$resource',
+    function ($resource) {
+        return $resource('/task/settings.json/name/:name');
+    }]);

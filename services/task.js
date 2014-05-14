@@ -82,6 +82,19 @@ var TaskService = Base.extend(function (user) {
           });
         },
 
+        findSettingNames: function(name, map, done) {
+            ///<summary>Finds setting names</summary>
+            ///<param name="name">Name of a setting</param>
+            ///<param name="map">Map function</param>
+            ///<param name="done">Done callback</param>
+
+            return new TaskRepository(this.user).findSettingNames(name, function(err, settingNames) {
+              if (err) return done(err);
+
+              return done(err, Enumerable.from(settingNames).select(map).toArray());
+          });
+        },
+
         getTaskById: function(id, done) {
             ///<summary>Gets task by id</summary>
             ///<param name="id">Task identifier</param>

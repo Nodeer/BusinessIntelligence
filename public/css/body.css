@@ -79,6 +79,10 @@
     color: red;
 }
 
+.required-one-of {
+    color: orange;
+}
+
 .ui-match {
     background: yellow;
 }

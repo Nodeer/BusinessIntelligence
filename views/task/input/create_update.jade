@@ -6,42 +6,65 @@
     .modal-body
         form.form-horizontal(role="form")
             .form-group
-                label.col-sm-4.control-label(for="conditionType") Condition Type:
+                label.col-sm-4.control-label(for="condition-type") Condition Type:
                     span.required  *
                 .col-sm-8
-                    select#conditionType.form-control(ng-model="condition.type")
-                        option Setting
-                        option Event
+                    select#condition-type.form-control.selectpicker.show-tick.show-menu-arrow(ng-model="condition.type")
+                        option(data-icon="glyphicon glyphicon-wrench") Setting
+                        option(data-icon="glyphicon glyphicon-flash") Event
+                        option(data-icon="glyphicon glyphicon-floppy-disk") File/Data
+                        option(data-icon="glyphicon glyphicon-pushpin") State
+                        option(data-icon="glyphicon glyphicon-transfer") Request
+                    script.
+                        $('#condition-type').selectpicker();
             div(ng-switch="condition.type")
                 div(ng-switch-when="Setting")
                     .form-group
-                        label.col-sm-4.control-label(for="level") Level:
+                        label.col-sm-4.control-label(for="setting-name") Name:
                             span.required  *
                         .col-sm-8
-                            input#level.form-control
+                            input#setting-name.form-control(ng-model="condition.setting.name", typeahead="name for name in condition.setting.getSettingNames($viewValue)")
                     .form-group
-                        label.col-sm-4.control-label(for="value") Value:
+                        label.col-sm-4.control-label(for="setting-level") Level:
                             span.required  *
                         .col-sm-8
-                            input#value.form-control
-                div(ng-switch-when="Event")
+                            select#setting-level.form-control.selectpicker.show-tick.show-menu-arrow
+                                option(data-icon="glyphicon glyphicon-hdd") Database
+                                option(data-icon="glyphicon glyphicon-globe") TPA Setup
+                                option(data-icon="glyphicon glyphicon-tower") Administrator
+                                option(data-icon="glyphicon glyphicon-cutlery") Employer
+                                option(data-icon="glyphicon glyphicon-user") Consumer
+                                option(data-icon="glyphicon glyphicon-file") Plan
+                                option(data-icon="glyphicon glyphicon-shopping-cart") Enrollment
                     .form-group
-                        label.col-sm-4.control-label(for="description") Description:
+                        label.col-sm-4.control-label(for="setting-value") Value:
                             span.required  *
                         .col-sm-8
-                            input#description.form-control
+                            input#setting-value.form-control(ng-model="condition.setting.value")
+                    script.
+                        $('#setting-level').selectpicker();
+                div(ng-switch-default)
+                    .form-group
+                        label.col-sm-4.control-label(for="event-description") Description:
+                            span.required  *
+                        .col-sm-8
+                            input#event-description.form-control
             .form-group
                 label.col-sm-4.control-label(for="enterFromUI") Enter from UI:
+                    span.required-one-of  *
                 .col-sm-8
-                    input#enterFromUI.form-control
+                    input#enterFromUI.form-control(ng-model="condition.ui")
             .form-group
                 label.col-sm-4.control-label(for="enterFromAPI") Enter from API:
+                    span.required-one-of  *
                 .col-sm-8
-                    input#enterFromAPI.form-control
+                    input#enterFromAPI.form-control(ng-model="condition.api")
             .form-group
                 label.col-sm-4.control-label(for="note") Note:
                 .col-sm-8
                     textarea#note.form-control
     .modal-footer
-        button.btn.btn-primary(ng-click="submit()") Submit
+        button.btn.btn-primary(ng-click="submit()", ng-disabled="!condition.validate()") Submit
         button.btn.btn-default(ng-click="cancel()") Cancel
+    script.
+        $('.selectpicker').selectpicker();

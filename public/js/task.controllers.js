@@ -191,12 +191,29 @@ taskControllers.controller('ViewTaskCtrl', ['$scope', 'TaskFactory', 'ConditionF
         };
     }]);
 
-taskControllers.controller('CreateUpdateInputConditionCtrl', ['$scope', '$modalInstance', 'condition',
-    function($scope, $modalInstance, condition) {
+taskControllers.controller('CreateUpdateInputConditionCtrl', ['$scope', 'SettingNamesFactory', '$modalInstance', 'condition',
+    function($scope, SettingNamesFactory, $modalInstance, condition) {
 
         $scope.condition = angular.extend({
-            type: "Setting"
+            type: "Setting",
+            setting: {
+                value: '',
+                getSettingNames: function(value) {
+                    return SettingNamesFactory
+                        .query({
+                            name: value
+                        }).$promise.then(function(settingNames) {
+                            return Enumerable.from(settingNames).select(function(settingName) {
+                                return settingName.name;
+                            }).toArray();
+                        });
+                }
+            }
         }, condition);
+
+        $scope.condition.validate = function() {
+            return $scope.condition.ui || $scope.condition.api;
+        };
 
         $scope.submit = function () {
             $modalInstance.close('closed');
