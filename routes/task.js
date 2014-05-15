@@ -3,6 +3,7 @@
     route = require('./route'),
     extend = require('extend'),
     TaskService = require('../services/task'),
+    ConditionService = require('../services/condition'),
     Enumerable = require('linq'),
     uuid = require('node-uuid');
 
@@ -14,7 +15,7 @@ exports.register = function (app) {
     app.get('/task/update/:id', route.private({ 'task': ['update'] }), exports.update);
     app.get('/task/view/:id', route.private({ 'task': ['read'] }), exports.view);
 
-    app.get('/task/input/create', route.private({ 'task': ['create'] }), exports.createInput);
+    app.get('/task/condition/create/update', route.private({ 'task': ['create'] }), exports.createUpdateInput);
 
     app.get('/task/task.json/:id', route.private({ 'task': ['read'] }), exports.getTask);
     app.post('/task/task.json', route.private({ 'task': ['create'] }), exports.saveTask);
@@ -24,7 +25,10 @@ exports.register = function (app) {
 
     app.get('/task/partners.json/:name', route.private({ 'task': ['read']}), exports.getPartners);
 
-    app.get('/task/settings.json/name/:name', route.private({ 'task': ['read']}), exports.getSettingNames);
+    app.get('/task/conditions.json/setting.name/:value', route.private({ 'task': ['read']}), exports.getSettingNames);
+    app.get('/task/conditions.json/setting.value/:value', route.private({ 'task': ['read']}), exports.getSettingValues);
+    app.get('/task/conditions.json/ui/:value', route.private({ 'task': ['read']}), exports.getUiValues);
+    app.get('/task/conditions.json/api/:value', route.private({ 'task': ['read']}), exports.getApiValues);
 
     app.get('/task/dependencies.json', route.private({ 'task': ['read']}), exports.getDependencies);
 
@@ -62,8 +66,8 @@ exports.view = function (req, res, next) {
     });
 };
 
-exports.createInput = function (req, res, next) {
-    var view = new View('task/input/create_update');
+exports.createUpdateInput = function (req, res, next) {
+    var view = new View('task/condition/create_update');
     return view.render(req, res, next, {
         title: "Task | Add Input",
         id: ''
@@ -172,14 +176,53 @@ exports.getPartners = function (req, res) {
 exports.getSettingNames = function (req, res, next) {
     ///<summary>Loads list of setting names</summary>
 
-    return new TaskService(req.user).findSettingNames(req.params.name, function(settingName) {
+    return new ConditionService(req.user).findSettingNames(req.params.value, function(settingName) {
         return {
-            name: settingName
+            value: settingName
         };
     }, function(err, settingNames) {
         if (err) return next();
 
         return res.json(settingNames);
+    });
+};
+
+exports.getSettingValues = function (req, res, next) {
+
+    return new ConditionService(req.user).findSettingValues(req.params.value, function(settingValue) {
+        return {
+            value: settingValue
+        };
+    }, function(err, settingValues) {
+        if (err) return next();
+
+        return res.json(settingValues);
+    });
+};
+
+exports.getUiValues = function (req, res, next) {
+
+    return new ConditionService(req.user).findUiValues(req.params.value, function(uiValue) {
+        return {
+            value: uiValue
+        };
+    }, function(err, uiValues) {
+        if (err) return next();
+
+        return res.json(uiValues);
+    });
+};
+
+exports.getApiValues = function (req, res, next) {
+
+    return new ConditionService(req.user).findApiValues(req.params.value, function(apiValue) {
+        return {
+            value: apiValue
+        };
+    }, function(err, apiValues) {
+        if (err) return next();
+
+        return res.json(apiValues);
     });
 };
 

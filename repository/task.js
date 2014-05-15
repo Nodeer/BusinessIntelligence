@@ -89,10 +89,6 @@ var TaskRepository = Base.extend(function (user) {
             });
         },
 
-        findSettingNames: function(name, done) {
-            return done(null, ['Y', 'N', 'True', 'False']);
-        },
-
         search: function(criteria, done) {
             ///<summary>Finds tasks by term</summary>
             ///<param name="criteria">Criteria</param>

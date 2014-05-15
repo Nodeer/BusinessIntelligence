@@ -2,33 +2,31 @@
     .modal-header
         h3.modal-title
             span.glyphicon.glyphicon-import
-            |  Add Input
+            |  Add / Update Condition
     .modal-body
         form.form-horizontal(role="form")
             .form-group
                 label.col-sm-4.control-label(for="condition-type") Condition Type:
                     span.required  *
                 .col-sm-8
-                    select#condition-type.form-control.selectpicker.show-tick.show-menu-arrow(ng-model="condition.type")
+                    select#condition-type.form-control.nya-selectpicker.show-tick.show-menu-arrow(ng-model="condition.condition_type")
                         option(data-icon="glyphicon glyphicon-wrench") Setting
                         option(data-icon="glyphicon glyphicon-flash") Event
                         option(data-icon="glyphicon glyphicon-floppy-disk") File/Data
                         option(data-icon="glyphicon glyphicon-pushpin") State
                         option(data-icon="glyphicon glyphicon-transfer") Request
-                    script.
-                        $('#condition-type').selectpicker();
-            div(ng-switch="condition.type")
+            div(ng-switch="condition.condition_type")
                 div(ng-switch-when="Setting")
                     .form-group
                         label.col-sm-4.control-label(for="setting-name") Name:
                             span.required  *
                         .col-sm-8
-                            input#setting-name.form-control(ng-model="condition.setting.name", typeahead="name for name in condition.setting.getSettingNames($viewValue)")
+                            input#setting-name.form-control(ng-model="condition.setting.name", typeahead="settingName for settingName in condition.getValues('setting.name', $viewValue)")
                     .form-group
                         label.col-sm-4.control-label(for="setting-level") Level:
                             span.required  *
                         .col-sm-8
-                            select#setting-level.form-control.selectpicker.show-tick.show-menu-arrow
+                            select#setting-level.form-control.nya-selectpicker.show-tick.show-menu-arrow(ng-model="condition.setting.level")
                                 option(data-icon="glyphicon glyphicon-hdd") Database
                                 option(data-icon="glyphicon glyphicon-globe") TPA Setup
                                 option(data-icon="glyphicon glyphicon-tower") Administrator
@@ -40,25 +38,23 @@
                         label.col-sm-4.control-label(for="setting-value") Value:
                             span.required  *
                         .col-sm-8
-                            input#setting-value.form-control(ng-model="condition.setting.value")
-                    script.
-                        $('#setting-level').selectpicker();
+                            input#setting-value.form-control(ng-model="condition.setting.value", typeahead="settingValue for settingValue in condition.getValues('setting.value', $viewValue)")
                 div(ng-switch-default)
                     .form-group
                         label.col-sm-4.control-label(for="event-description") Description:
                             span.required  *
                         .col-sm-8
-                            input#event-description.form-control
+                            input#event-description.form-control(ng-model="condition.description")
             .form-group
                 label.col-sm-4.control-label(for="enterFromUI") Enter from UI:
                     span.required-one-of  *
                 .col-sm-8
-                    input#enterFromUI.form-control(ng-model="condition.ui")
+                    input#enterFromUI.form-control(ng-model="condition.ui", typeahead="uiValue for uiValue in condition.getValues('ui', $viewValue)")
             .form-group
                 label.col-sm-4.control-label(for="enterFromAPI") Enter from API:
                     span.required-one-of  *
                 .col-sm-8
-                    input#enterFromAPI.form-control(ng-model="condition.api")
+                    input#enterFromAPI.form-control(ng-model="condition.api", typeahead="apiValue for apiValue in condition.getValues('api', $viewValue)")
             .form-group
                 label.col-sm-4.control-label(for="note") Note:
                 .col-sm-8

@@ -88,10 +88,23 @@ var TaskService = Base.extend(function (user) {
             ///<param name="map">Map function</param>
             ///<param name="done">Done callback</param>
 
-            return new TaskRepository(this.user).findSettingNames(name, function(err, settingNames) {
+            return new ConditionRepository(this.user).findSettingNames(name, function(err, settingNames) {
               if (err) return done(err);
 
               return done(err, Enumerable.from(settingNames).select(map).toArray());
+          });
+        },
+
+        findSettingValues: function(value, map, done) {
+            ///<summary>Finds setting values</summary>
+            ///<param name="value">Value of a setting</param>
+            ///<param name="map">Map function</param>
+            ///<param name="done">Done callback</param>
+
+            return new ConditionRepository(this.user).findSettingValues(value, function(err, settingValues) {
+              if (err) return done(err);
+
+              return done(err, Enumerable.from(settingValues).select(map).toArray());
           });
         },
 

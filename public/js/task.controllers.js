@@ -1,13 +1,14 @@
 ﻿var taskControllers = angular.module('task.controllers', [
-    'task.services'
+    'task.services',
+    'models'
 ]);
 
 taskControllers.controller('TaskCtrl', ['$scope',
     function ($scope) {
     }]);
 
-taskControllers.controller('CreateUpdateTaskCtrl', ['$scope', 'TaskFactory', 'ConditionFactory', 'PartnersFactory', '$window', '$modal',
-    function ($scope, TaskFactory, ConditionFactory, PartnersFactory, $window, $modal) {
+taskControllers.controller('CreateUpdateTaskCtrl', ['$scope', 'TaskFactory', 'ConditionFactory', 'PartnersFactory', 'ConditionBuilder', '$window', '$modal',
+    function ($scope, TaskFactory, ConditionFactory, PartnersFactory, ConditionBuilder, $window, $modal) {
         $scope.init = function(id) {
             $scope.task = {
                     availability: {
@@ -16,21 +17,26 @@ taskControllers.controller('CreateUpdateTaskCtrl', ['$scope', 'TaskFactory', 'Co
                     },
                     input: {
                         conditions: [],
-                        addCondition: function() {
+                        createUpdateCondition: function(condition) {
                             var modalInstance = $modal.open({
-                                templateUrl: '/task/input/create',
+                                templateUrl: '/task/condition/create/update',
                                 controller: 'CreateUpdateInputConditionCtrl',
                                 resolve: {
                                     condition: function () {
-                                        return {};
+                                        return $.extend(true, {}, condition || {});
                                     }
                                 }
                             });
 
-                            modalInstance.result.then(function (selectedItem) {
-                                alert(selectedItem);
+                            modalInstance.result.then(function (resultCondition) {
+                                if (condition) {
+                                    $.extend(true, condition, resultCondition);
+                                } else {
+                                    var conditionModel = ConditionBuilder.build(resultCondition);
+                                    $scope.task.input.conditions.push(conditionModel);
+                                }
                             });
-                        },
+                        }
                     },
                     output: {
                         conditions: [],
@@ -49,7 +55,7 @@ taskControllers.controller('CreateUpdateTaskCtrl', ['$scope', 'TaskFactory', 'Co
                             }).success(function(persistedCondition) {
                                 if (persistedCondition) {
                                     condition.persisted = 1;
-                                    angular.extend(condition, {
+                                    $.extend(true, condition, {
                                         persisted: 1,
                                         ui: persistedCondition.ui,
                                         api: persistedCondition.api,
@@ -65,7 +71,7 @@ taskControllers.controller('CreateUpdateTaskCtrl', ['$scope', 'TaskFactory', 'Co
                 TaskFactory.get({
                     id: id
                 }, function(task) {
-                    angular.extend($scope.task, task);
+                   $.extend(true, $scope.task, task);
                 });
             }
         };
@@ -179,8 +185,8 @@ taskControllers.controller('CreateUpdateTaskCtrl', ['$scope', 'TaskFactory', 'Co
         };
     }]);
 
-taskControllers.controller('ViewTaskCtrl', ['$scope', 'TaskFactory', 'ConditionFactory', 'PartnersFactory', '$location',
-    function ($scope, TaskFactory, ConditionFactory, PartnersFactory, $location) {
+taskControllers.controller('ViewTaskCtrl', ['$scope', 'TaskFactory',
+    function ($scope, TaskFactory) {
         
         $scope.init = function(id) {
             return TaskFactory.get({
@@ -191,32 +197,52 @@ taskControllers.controller('ViewTaskCtrl', ['$scope', 'TaskFactory', 'ConditionF
         };
     }]);
 
-taskControllers.controller('CreateUpdateInputConditionCtrl', ['$scope', 'SettingNamesFactory', '$modalInstance', 'condition',
-    function($scope, SettingNamesFactory, $modalInstance, condition) {
+taskControllers.controller('CreateUpdateInputConditionCtrl', ['$scope', 'ConditionsFactory', '$modalInstance', 'condition',
+    function($scope, ConditionsFactory, $modalInstance, condition) {
 
-        $scope.condition = angular.extend({
-            type: "Setting",
+        $scope.condition = $.extend(true, {
+            condition_type: "Setting",
             setting: {
-                value: '',
-                getSettingNames: function(value) {
-                    return SettingNamesFactory
-                        .query({
-                            name: value
-                        }).$promise.then(function(settingNames) {
-                            return Enumerable.from(settingNames).select(function(settingName) {
-                                return settingName.name;
-                            }).toArray();
-                        });
-                }
-            }
+                name: '',
+                level: 'Administrator',
+                value: ''
+            },
+            description: '',
+            ui: '',
+            api: '',
+            getValues: function(name, value, done) {
+                return ConditionsFactory
+                    .query({
+                        name: name,
+                        value: value
+                    }).$promise.then(function(values) {
+                        return Enumerable.from(values).select(function(settingValue) {
+                            return settingValue.value;
+                        }).toArray();
+                    });
+            },
         }, condition);
 
         $scope.condition.validate = function() {
-            return $scope.condition.ui || $scope.condition.api;
+            var condition = $scope.condition;
+
+            var valid = condition.ui.length || condition.api.length;
+
+            switch(condition.condition_type) {
+            case "Setting":
+                valid = valid && condition.setting.name.length &&
+                    condition.setting.level.length &&
+                    condition.setting.value.length;
+                break;
+            default:
+                valid = valid && condition.description.length;
+                break;
+            }
+            return valid;
         };
 
         $scope.submit = function () {
-            $modalInstance.close('closed');
+            $modalInstance.close($scope.condition);
         };
 
         $scope.cancel = function () {

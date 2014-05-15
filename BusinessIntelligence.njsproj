@@ -42,6 +42,7 @@
     <Compile Include="public\js\directives.js" />
     <Compile Include="public\js\management.controllers.js" />
     <Compile Include="public\js\management.services.js" />
+    <Compile Include="public\js\models.js" />
     <Compile Include="public\js\search.controllers.js" />
     <Compile Include="public\js\search.services.js" />
     <Compile Include="public\js\task.controllers.js" />
@@ -67,6 +68,7 @@
     <Compile Include="routes\user.js" />
     <Compile Include="services\auth.js" />
     <Compile Include="services\base.js" />
+    <Compile Include="services\condition.js" />
     <Compile Include="services\task.js" />
     <Compile Include="services\user.js" />
     <Content Include="public\images\loader.gif" />
@@ -99,7 +101,7 @@
     <Content Include="views\error\error.jade" />
     <Content Include="views\home\index.jade" />
     <Content Include="views\profile\index.jade" />
-    <Content Include="views\task\input\create_update.jade" />
+    <Content Include="views\task\condition\create_update.jade" />
     <Content Include="views\task\layout.jade" />
     <Content Include="views\task\create_update.jade" />
     <Content Include="views\task\view.jade" />
@@ -124,7 +126,7 @@
     <Folder Include="views\management\" />
     <Folder Include="views\task\" />
     <Folder Include="views\profile\" />
-    <Folder Include="views\task\input\" />
+    <Folder Include="views\task\condition\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <Import Project="$(VSToolsPath)\Node.js Tools\Microsoft.NodejsTools.targets" />

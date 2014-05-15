@@ -1,5 +1,6 @@
 ﻿var Base = require('./base'),
-    Condition = require('../models/condition');
+    Condition = require('../models/condition'),
+    Enumerable = require('linq');
 
 var ConditionRepository = Base.extend(function () { })
     .methods({
@@ -31,6 +32,46 @@ var ConditionRepository = Base.extend(function () { })
                     $in: ids
                 }
             }, done);
+        },
+
+        findSettingNames: function(name, done) {
+            return Condition.distinct('setting.name', function(err, settingNames) {
+                if (err) return done(err);
+
+                return done(err, Enumerable.from(settingNames).where(function(settingName) {
+                    return settingName.match(new RegExp(name, 'i'));
+                }).toArray());
+            });
+        },
+
+        findSettingValues: function(value, done) {
+            return Condition.distinct('setting.value', function(err, settingValues) {
+                if (err) return done(err);
+
+                return done(err, Enumerable.from(settingValues).where(function(settingValue) {
+                    return settingValue.match(new RegExp(value, 'i'));
+                }).toArray());
+            });
+        },
+
+        findUiValues: function(value, done) {
+            return Condition.distinct('ui', function(err, uiValues) {
+                if (err) return done(err);
+
+                return done(err, Enumerable.from(uiValues).where(function(uiValue) {
+                    return uiValue.match(new RegExp(value, 'i'));
+                }).toArray());
+            });
+        },
+
+        findApiValues: function(value, done) {
+            return Condition.distinct('api', function(err, apiValues) {
+                if (err) return done(err);
+
+                return done(err, Enumerable.from(apiValues).where(function(apiValue) {
+                    return apiValue.match(new RegExp(value, 'i'));
+                }).toArray());
+            });
         }
     });
 

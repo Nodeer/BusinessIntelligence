@@ -15,7 +15,7 @@ taskServices.factory('PartnersFactory', ['$resource',
         return $resource('/task/partners.json/:name');
     }]);
 
-taskServices.factory('SettingNamesFactory', ['$resource',
+taskServices.factory('ConditionsFactory', ['$resource',
     function ($resource) {
-        return $resource('/task/settings.json/name/:name');
+        return $resource('/task/conditions.json/:name/:value');
     }]);
