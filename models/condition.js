@@ -14,8 +14,22 @@ var conditionSchema = new Schema({
     affects: [ { type: Schema.Types.ObjectId, ref: 'Affect', index: 1 } ],
     audit: {
         modified_date: { type: Date, default: Date.now },
-        modified_by: { type: String, default: '' }
+        modified_by: { type: String, default: '' },
+        revision: { type: Number, default: 1 }
     }
 });
+
+conditionSchema.methods.toDto = function() {
+    ///<summary>Converts to DTO</summary>
+    
+    return {
+        id: this.id,
+        condition_type: this.condition_type,
+        setting: this.setting,
+        description: this.description,
+        ui: this.ui,
+        api: this.api
+    };
+};
 
 module.exports = Condition = mongoose.model('Condition', conditionSchema);

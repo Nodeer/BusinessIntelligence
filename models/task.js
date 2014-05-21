@@ -2,12 +2,18 @@
     Schema = mongoose.Schema;
 
 var taskSchema = new Schema({
-    name: { type: String, required: 1, index: { unique: 1 } },
+    name: { type: String, required: 1, index: 1 },
     description: { type: String, index: 1, default: '' },
     external_id: { type: String, index: 1},
     availability: {
         availability_type: Number,
         partners: [ { type: String, index: 1 } ]
+    },
+    input: {
+        conditions: [ { type: Schema.Types.ObjectId, ref: 'Condition', index: 1 } ]
+    },
+    output: {
+        conditions: [ { type: Schema.Types.ObjectId, ref: 'Condition', index: 1 } ]
     },
     audit: {
         modified_date: { type: Date, default: Date.now },

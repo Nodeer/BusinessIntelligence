@@ -71,7 +71,13 @@ taskControllers.controller('CreateUpdateTaskCtrl', ['$scope', 'TaskFactory', 'Co
                 TaskFactory.get({
                     id: id
                 }, function(task) {
-                   $.extend(true, $scope.task, task);
+                   $.extend(true, $scope.task, task, {
+                       input: {
+                           conditions: Enumerable.from(task.input.conditions).select(function(condition) {
+                               return ConditionBuilder.build(condition);
+                           }).toArray()
+                       }
+                   });
                 });
             }
         };
@@ -211,15 +217,19 @@ taskControllers.controller('CreateUpdateInputConditionCtrl', ['$scope', 'Conditi
             ui: '',
             api: '',
             getValues: function(name, value, done) {
-                return ConditionsFactory
-                    .query({
-                        name: name,
-                        value: value
-                    }).$promise.then(function(values) {
-                        return Enumerable.from(values).select(function(settingValue) {
-                            return settingValue.value;
-                        }).toArray();
-                    });
+                if (value) {
+                    return ConditionsFactory
+                        .query({
+                            name: name,
+                            value: value
+                        }).$promise.then(function(values) {
+                            return Enumerable.from(values).select(function(settingValue) {
+                                return settingValue.value;
+                            }).toArray();
+                        });
+                } else {
+                    return [];
+                }
             },
         }, condition);
 

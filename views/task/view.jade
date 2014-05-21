@@ -9,6 +9,8 @@ block task-content
                         label(for="name") Task Name:
                         p.form-control-static {{task.name}}
                     .col-md-2
+                        span.glyphicon.glyphicon-pencil
+                        |  
                         a(ng-href="/task/update/{{task.id}}", ng-show="user.access.taskUpdate") Update Task
             .form-group
                 label(for="description") Task Description:

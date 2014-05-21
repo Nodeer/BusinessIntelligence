@@ -1,8 +1,12 @@
 ﻿var Base = require('./base'),
     Condition = require('../models/condition'),
-    Enumerable = require('linq');
+    ConditionSnapshot = require('../models/condition.snapshot'),
+    Enumerable = require('linq'),
+    extend = require('extend');
 
-var ConditionRepository = Base.extend(function () { })
+var ConditionRepository = Base.extend(function (user) {
+        this.user = user;
+    })
     .methods({
         findByName: function(name, done) {
             ///<summary>Finds condition by name</summary>
@@ -34,42 +38,35 @@ var ConditionRepository = Base.extend(function () { })
             }, done);
         },
 
-        findSettingNames: function(name, done) {
-            return Condition.distinct('setting.name', function(err, settingNames) {
-                if (err) return done(err);
+        save: function(conditionDto, done) {
+            var user = this.user;
+            return Condition.findById(conditionDto.id, function(err, condition) {
+                condition = condition || new Condition();
 
-                return done(err, Enumerable.from(settingNames).where(function(settingName) {
-                    return settingName.match(new RegExp(name, 'i'));
-                }).toArray());
+                extend(condition, conditionDto, {
+                    audit: {
+                        modified_date: new Date(),
+                        modified_by: user.getIdentity(),
+                        revision: condition.audit.revision + 1
+                    }
+                });
+
+                return condition.save(function (err) {
+                    if (err) return done(err);
+
+                    return ConditionSnapshot.create(condition).save(function(err) {
+                        return done(err, condition);
+                    });
+                });
             });
         },
 
-        findSettingValues: function(value, done) {
-            return Condition.distinct('setting.value', function(err, settingValues) {
+        findValues: function(name, value, done) {
+            return Condition.distinct(name, function(err, values) {
                 if (err) return done(err);
 
-                return done(err, Enumerable.from(settingValues).where(function(settingValue) {
-                    return settingValue.match(new RegExp(value, 'i'));
-                }).toArray());
-            });
-        },
-
-        findUiValues: function(value, done) {
-            return Condition.distinct('ui', function(err, uiValues) {
-                if (err) return done(err);
-
-                return done(err, Enumerable.from(uiValues).where(function(uiValue) {
-                    return uiValue.match(new RegExp(value, 'i'));
-                }).toArray());
-            });
-        },
-
-        findApiValues: function(value, done) {
-            return Condition.distinct('api', function(err, apiValues) {
-                if (err) return done(err);
-
-                return done(err, Enumerable.from(apiValues).where(function(apiValue) {
-                    return apiValue.match(new RegExp(value, 'i'));
+                return done(err, Enumerable.from(values).where(function(singleValue) {
+                    return singleValue.match(new RegExp(value, 'i'));
                 }).toArray());
             });
         }

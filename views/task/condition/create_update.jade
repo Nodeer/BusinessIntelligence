@@ -9,7 +9,7 @@
                 label.col-sm-4.control-label(for="condition-type") Condition Type:
                     span.required  *
                 .col-sm-8
-                    select#condition-type.form-control.nya-selectpicker.show-tick.show-menu-arrow(ng-model="condition.condition_type")
+                    select#condition-type.form-control.nya-selectpicker.show-tick.show-menu-arrow(ng-model="condition.condition_type", required="required")
                         option(data-icon="glyphicon glyphicon-wrench") Setting
                         option(data-icon="glyphicon glyphicon-flash") Event
                         option(data-icon="glyphicon glyphicon-floppy-disk") File/Data
@@ -21,12 +21,12 @@
                         label.col-sm-4.control-label(for="setting-name") Name:
                             span.required  *
                         .col-sm-8
-                            input#setting-name.form-control(ng-model="condition.setting.name", typeahead="settingName for settingName in condition.getValues('setting.name', $viewValue)")
+                            input#setting-name.form-control(ng-model="condition.setting.name", typeahead="settingName for settingName in condition.getValues('setting.name', $viewValue)", required="required")
                     .form-group
                         label.col-sm-4.control-label(for="setting-level") Level:
                             span.required  *
                         .col-sm-8
-                            select#setting-level.form-control.nya-selectpicker.show-tick.show-menu-arrow(ng-model="condition.setting.level")
+                            select#setting-level.form-control.nya-selectpicker.show-tick.show-menu-arrow(ng-model="condition.setting.level", required="required")
                                 option(data-icon="glyphicon glyphicon-hdd") Database
                                 option(data-icon="glyphicon glyphicon-globe") TPA Setup
                                 option(data-icon="glyphicon glyphicon-tower") Administrator
@@ -44,7 +44,7 @@
                         label.col-sm-4.control-label(for="event-description") Description:
                             span.required  *
                         .col-sm-8
-                            input#event-description.form-control(ng-model="condition.description")
+                            input#event-description.form-control(ng-model="condition.description", typeahead="descriptionValue for descriptionValue in condition.getValues('description', $viewValue)", required="required")
             .form-group
                 label.col-sm-4.control-label(for="enterFromUI") Enter from UI:
                     span.required-one-of  *

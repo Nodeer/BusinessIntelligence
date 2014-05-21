@@ -31,6 +31,7 @@
     <Compile Include="logger.js" />
     <Compile Include="models\affect.js" />
     <Compile Include="models\condition.js" />
+    <Compile Include="models\condition.snapshot.js" />
     <Compile Include="models\group.js" />
     <Compile Include="models\permission.js" />
     <Compile Include="models\task.js" />

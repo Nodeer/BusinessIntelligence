@@ -1,6 +1,7 @@
 ﻿var Base = require('./base'),
     Task = require('../models/task'),
     TaskSnapshot = require('../models/task.snapshot'),
+    ConditionRepository = require('./condition'),
     Enumerable = require('linq'),
     async = require('async'),
     extend = require('extend');
@@ -23,8 +24,31 @@ var TaskRepository = Base.extend(function (user) {
             ///<summary>Gets task by id</summary>
             ///<param name="id">Task identifier</param>
             ///<param name="done">Done callback</param>
-            
-            return Task.findById(id, done);
+
+            var user = this.user;
+            return Task.findById(id, function(err, task) {
+                if (err) return done(err);
+
+                var taskDto = task.toDto();
+                return async.series([
+                    function(callback) {
+                        return new ConditionRepository(user).getByIds(task.input.conditions, function(err, conditions) {
+                            if (err) return callback(err);
+
+                            taskDto.input = {
+                                conditions: Enumerable.from(conditions).select(function(condition) {
+                                    return condition.toDto();
+                                }).toArray()
+                            };
+                            return callback(err, taskDto);
+                        });
+                    }
+                ], function(err) {
+                    if (err) return done(err);
+                    
+                    return done(err, taskDto);
+                });
+            });
         },
 
         getByIds: function(ids, done) {
@@ -65,11 +89,24 @@ var TaskRepository = Base.extend(function (user) {
                     }
                 });
 
-                return task.save(function (err) {
-                    if (err) return done(err);
+                return async.series([
+                    function(callback) {
+                        async.map(taskDto.input.conditions, function(condition, conditionSaved) {
+                            return new ConditionRepository(user).save(condition, conditionSaved);
+                        }, function(err, conditions) {
+                            task.input.conditions = Enumerable.from(conditions).select(function(condition) {
+                                return condition.id;
+                            }).toArray();
+                            return callback();
+                        });
+                    }
+                ], function() {
+                    return task.save(function (err) {
+                        if (err) return done(err);
 
-                    return TaskSnapshot.create(task).save(function(err) {
-                        return done(err, task);
+                        return TaskSnapshot.create(task).save(function(err) {
+                            return done(err, task);
+                        });
                     });
                 });
             });

@@ -25,10 +25,7 @@ exports.register = function (app) {
 
     app.get('/task/partners.json/:name', route.private({ 'task': ['read']}), exports.getPartners);
 
-    app.get('/task/conditions.json/setting.name/:value', route.private({ 'task': ['read']}), exports.getSettingNames);
-    app.get('/task/conditions.json/setting.value/:value', route.private({ 'task': ['read']}), exports.getSettingValues);
-    app.get('/task/conditions.json/ui/:value', route.private({ 'task': ['read']}), exports.getUiValues);
-    app.get('/task/conditions.json/api/:value', route.private({ 'task': ['read']}), exports.getApiValues);
+    app.get('/task/conditions.json/:name/:value', route.private({ 'task': ['read']}), exports.getConditionValues);
 
     app.get('/task/dependencies.json', route.private({ 'task': ['read']}), exports.getDependencies);
 
@@ -84,7 +81,7 @@ exports.getTask = function (req, res, next) {
             next();
         }
 
-        return res.json(task.toDto());
+        return res.json(task);
     });
 };
 
@@ -223,6 +220,19 @@ exports.getApiValues = function (req, res, next) {
         if (err) return next();
 
         return res.json(apiValues);
+    });
+};
+
+exports.getConditionValues = function (req, res, next) {
+
+    return new ConditionService(req.user).findValues(req.params.name, req.params.value, function(value) {
+        return {
+            value: value
+        };
+    }, function(err, values) {
+        if (err) return next();
+
+        return res.json(values);
     });
 };
 
