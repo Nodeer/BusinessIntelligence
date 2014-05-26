@@ -103,6 +103,7 @@
     <Content Include="views\home\index.jade" />
     <Content Include="views\profile\index.jade" />
     <Content Include="views\task\condition\create_update.jade" />
+    <Content Include="views\task\partial_condition_icon.jade" />
     <Content Include="views\task\layout.jade" />
     <Content Include="views\task\create_update.jade" />
     <Content Include="views\task\view.jade" />

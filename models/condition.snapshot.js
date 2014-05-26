@@ -4,6 +4,7 @@
 
 var conditionSnapshotSchema = new Schema({
     conditionId: { type: Schema.Types.ObjectId, required: 1, index: 1 },
+    name: String,
     condition_type: String,
     setting: {
         name: String,
@@ -11,8 +12,14 @@ var conditionSnapshotSchema = new Schema({
         value: String
     },
     description: String,
-    ui: String,
-    api: String,
+    ui: {
+        input: String,
+        output: String
+    },
+    api: {
+        input: String,
+        output: String
+    },
     affects: [ { type: Schema.Types.ObjectId, ref: 'Affect', index: 1 } ],
     audit: {
         modified_date: Date,
@@ -24,6 +31,7 @@ var conditionSnapshotSchema = new Schema({
 conditionSnapshotSchema.statics.create = function(condition) {
     return new ConditionSnapshot({
         conditionId: condition.id,
+        name: condition.name,
         condition_type: condition.condition_type,
         setting: condition.setting,
         description: condition.description,

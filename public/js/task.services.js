@@ -5,11 +5,6 @@ taskServices.factory('TaskFactory', ['$resource',
         return $resource('/task/task.json/:id');
     }]);
 
-taskServices.factory('ConditionFactory', ['$resource',
-    function ($resource) {
-        return $resource('/task/conditions.json/:id');
-    }]);
-
 taskServices.factory('PartnersFactory', ['$resource',
     function ($resource) {
         return $resource('/task/partners.json/:name');

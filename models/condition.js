@@ -2,6 +2,7 @@
     Schema = mongoose.Schema;
 
 var conditionSchema = new Schema({
+    name: { type: String, required: 1, index: 1},
     condition_type: { type: String, required: 1 },
     setting: {
         name: { type: String, index: 1 },
@@ -9,8 +10,14 @@ var conditionSchema = new Schema({
         value: { type: String, index: 1 }
     },
     description: { type: String, index: 1},
-    ui: { type: String, index: 1 },
-    api: { type: String, index: 1 },
+    ui: {
+        input: { type: String, index: 1, default: '' },
+        output: { type: String, index: 1, default: '' }
+    },
+    api: {
+        input: { type: String, index: 1, default: '' },
+        output: { type: String, index: 1, default: '' }
+    },
     affects: [ { type: Schema.Types.ObjectId, ref: 'Affect', index: 1 } ],
     audit: {
         modified_date: { type: Date, default: Date.now },

@@ -20,11 +20,11 @@ exports.register = function (app) {
     app.get('/task/task.json/:id', route.private({ 'task': ['read'] }), exports.getTask);
     app.post('/task/task.json', route.private({ 'task': ['create'] }), exports.saveTask);
 
-    app.get('/task/conditions.json/:id', route.private({ 'task': ['read']}), exports.getConditionById);
-    app.get('/task/conditions.json', route.private({ 'task': ['read']}), exports.getConditions);
+    app.get('/task/conditions.json/unused/:id', route.private({ 'task': ['read']}), exports.getConditionById);
 
     app.get('/task/partners.json/:name', route.private({ 'task': ['read']}), exports.getPartners);
 
+    app.get('/task/conditions.json/:name', route.private({ 'task': ['read']}), exports.getConditionsByName);
     app.get('/task/conditions.json/:name/:value', route.private({ 'task': ['read']}), exports.getConditionValues);
 
     app.get('/task/dependencies.json', route.private({ 'task': ['read']}), exports.getDependencies);
@@ -120,32 +120,6 @@ exports.getConditionById = function (req, res) {
     });
 };
 
-exports.getConditions = function (req, res) {
-    ///<summary>Loads list of conditions</summary>
-    
-    var params = req.query;
-
-    return new TaskService(req.user).findConditionsByName(params.term, function(condition) {
-        return {
-                id: condition.id,
-                text: condition.name
-            };
-    }, function(err, conditions) {
-        if (err) {
-            logger.error(err);
-
-            return res.send(500);
-        }
-
-        conditions.push({
-            id: uuid.v4(),
-            text: params.term
-        });
-
-        return res.json(conditions);
-    });
-};
-
 exports.getPartners = function (req, res) {
     ///<summary>Loads list of partners</summary>
 
@@ -170,56 +144,18 @@ exports.getPartners = function (req, res) {
     });
 };
 
-exports.getSettingNames = function (req, res, next) {
-    ///<summary>Loads list of setting names</summary>
+exports.getConditionsByName = function (req, res) {
 
-    return new ConditionService(req.user).findSettingNames(req.params.value, function(settingName) {
-        return {
-            value: settingName
-        };
-    }, function(err, settingNames) {
-        if (err) return next();
+    return new ConditionService(req.user).findConditionsByName(req.params.name, function(condition) {
+        return condition.toDto();
+    }, function(err, conditions) {
+        if (err) {
+            logger.error(err);
 
-        return res.json(settingNames);
-    });
-};
+            return res.send(500);
+        }
 
-exports.getSettingValues = function (req, res, next) {
-
-    return new ConditionService(req.user).findSettingValues(req.params.value, function(settingValue) {
-        return {
-            value: settingValue
-        };
-    }, function(err, settingValues) {
-        if (err) return next();
-
-        return res.json(settingValues);
-    });
-};
-
-exports.getUiValues = function (req, res, next) {
-
-    return new ConditionService(req.user).findUiValues(req.params.value, function(uiValue) {
-        return {
-            value: uiValue
-        };
-    }, function(err, uiValues) {
-        if (err) return next();
-
-        return res.json(uiValues);
-    });
-};
-
-exports.getApiValues = function (req, res, next) {
-
-    return new ConditionService(req.user).findApiValues(req.params.value, function(apiValue) {
-        return {
-            value: apiValue
-        };
-    }, function(err, apiValues) {
-        if (err) return next();
-
-        return res.json(apiValues);
+        return res.json(conditions);
     });
 };
 

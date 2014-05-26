@@ -30,7 +30,7 @@ var TaskRepository = Base.extend(function (user) {
                 if (err) return done(err);
 
                 var taskDto = task.toDto();
-                return async.series([
+                return async.parallel([
                     function(callback) {
                         return new ConditionRepository(user).getByIds(task.input.conditions, function(err, conditions) {
                             if (err) return callback(err);
@@ -40,7 +40,19 @@ var TaskRepository = Base.extend(function (user) {
                                     return condition.toDto();
                                 }).toArray()
                             };
-                            return callback(err, taskDto);
+                            return callback(err);
+                        });
+                    },
+                    function(callback) {
+                        return new ConditionRepository(user).getByIds(task.output.conditions, function(err, conditions) {
+                            if (err) return callback(err);
+
+                            taskDto.output = {
+                                conditions: Enumerable.from(conditions).select(function(condition) {
+                                    return condition.toDto();
+                                }).toArray()
+                            };
+                            return callback(err);
                         });
                     }
                 ], function(err) {
@@ -89,12 +101,22 @@ var TaskRepository = Base.extend(function (user) {
                     }
                 });
 
-                return async.series([
+                return async.parallel([
                     function(callback) {
                         async.map(taskDto.input.conditions, function(condition, conditionSaved) {
                             return new ConditionRepository(user).save(condition, conditionSaved);
                         }, function(err, conditions) {
                             task.input.conditions = Enumerable.from(conditions).select(function(condition) {
+                                return condition.id;
+                            }).toArray();
+                            return callback();
+                        });
+                    },
+                    function(callback) {
+                        async.map(taskDto.output.conditions, function(condition, conditionSaved) {
+                            return new ConditionRepository(user).save(condition, conditionSaved);
+                        }, function(err, conditions) {
+                            task.output.conditions = Enumerable.from(conditions).select(function(condition) {
                                 return condition.id;
                             }).toArray();
                             return callback();
