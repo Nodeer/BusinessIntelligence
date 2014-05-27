@@ -42,6 +42,8 @@ app.use('/components', express.static(__dirname + '/bower_components'));
 app.use('/logs', express.static(__dirname + '/logs'));
 app.use('/logs', express.directory(__dirname + '/logs'));
 
+app.use('/uploads', express.static(__dirname + '/uploads'));
+
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());

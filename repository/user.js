@@ -30,7 +30,7 @@ var UserRepository = Base.extend(function () { })
                 user = new User({
                     email: email,
                     password: _hashPassword(password),
-                    avatar: 'uploads\\unknown_user.png'
+                    avatar: 'uploads/unknown_user.png'
                 });
 
                 return user.save(function (err) {
