@@ -18,7 +18,7 @@ block management-content
             tr(ng-repeat="user in users")
                 td {{$index + 1}}
                 td
-                    img#img-avatar-load.image-avatar-small(ng-src="/image/{{user.avatar}}")
+                    img#img-avatar-load.image-avatar-small(ng-src="/{{user.avatar}}")
                 td {{user.email}}
                 td {{user.first_name}}
                 td {{user.last_name}}

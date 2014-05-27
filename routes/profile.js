@@ -47,8 +47,9 @@ exports.getAvatar = function(req, res, next) {
 };
 
 exports.saveAvatar = function(req, res, next) {
+
     return new UserService().save(req.user, {
-        avatar: req.files.avatar.path
+        avatar: req.files.avatar.path.replace('\\', '/')
     }, function(err) {
         if (err) return next();
 

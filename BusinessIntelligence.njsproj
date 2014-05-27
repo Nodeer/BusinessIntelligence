@@ -58,7 +58,6 @@
     <Compile Include="repository\task.js" />
     <Compile Include="repository\user.js" />
     <Compile Include="repository\user.snapshot.js" />
-    <Compile Include="routes\file.js" />
     <Compile Include="routes\index.js" />
     <Compile Include="routes\management.js" />
     <Compile Include="routes\profile.js" />
