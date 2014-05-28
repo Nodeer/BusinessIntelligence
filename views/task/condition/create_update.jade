@@ -70,7 +70,7 @@
             .form-group
                 label.col-sm-4.control-label(for="note") Note:
                 .col-sm-8
-                    textarea#note.form-control
+                    textarea#note.form-control(ng-model="condition.note")
     .modal-footer
         button.btn.btn-primary(ng-click="submit()", ng-disabled="!condition.validate()") Submit
         button.btn.btn-default(ng-click="cancel()") Cancel

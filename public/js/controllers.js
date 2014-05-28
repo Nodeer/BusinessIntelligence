@@ -37,12 +37,12 @@ controllers.controller('NavbarCtrl', ['$scope', '$window', 'Application',
 
             if (user.access.manageUsers) {
                 $scope.navigation.groups.push({
-                    name: 'Management',
+                    name: 'MANAGEMENT',
                     icon: 'glyphicon glyphicon-cog',
                     type: 'dropdown',
                     path: '/management',
                     items: [{
-                        name: 'Users',
+                        name: 'USERS',
                         path: '/management/users',
                         icon: 'glyphicon glyphicon-user'
                     }]

@@ -67,7 +67,7 @@ taskControllers.controller('CreateUpdateTaskCtrl', ['$scope', 'TaskFactory', 'Co
                             if (condition) {
                                 return $.extend(true, condition, ConditionBuilder.build(resultCondition));
                             } else {
-                                return scope.pushCondition(resultCondition);
+                                return scope.conditions.push(ConditionBuilder.build(resultCondition));
                             }
                         });
                     },
