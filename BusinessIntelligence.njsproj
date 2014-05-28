@@ -106,6 +106,7 @@
     <Content Include="views\task\layout.jade" />
     <Content Include="views\task\create_update.jade" />
     <Content Include="views\task\view.jade" />
+    <Content Include="views\version.jade" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include=".git" />
