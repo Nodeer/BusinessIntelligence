@@ -23,9 +23,13 @@ taskControllers.controller('CreateUpdateTaskCtrl', ['$scope', 'TaskFactory', 'Co
                                 });
                         },
                         pushCondition: function(condition) {
-                            $scope.task.input.conditions.push(ConditionBuilder.build(condition));
-
                             $scope.task.input.findConditionCriteria = '';
+
+                            if (condition.id) {
+                                return $scope.task.input.conditions.push(ConditionBuilder.build(condition));
+                            }
+
+                            return $scope.task.input.createUpdateCondition();
                         },
                     },
                     output: {
@@ -36,9 +40,13 @@ taskControllers.controller('CreateUpdateTaskCtrl', ['$scope', 'TaskFactory', 'Co
                                 });
                         },
                         pushCondition: function(condition) {
-                            $scope.task.output.conditions.push(ConditionBuilder.build(condition));
-
                             $scope.task.output.findConditionCriteria = '';
+
+                            if (condition.id) {
+                                return $scope.task.output.conditions.push(ConditionBuilder.build(condition));
+                            }
+
+                            return $scope.task.output.createUpdateCondition();
                         }
                     },
                     createUpdateCondition: function(scope, condition, mode) {
@@ -72,9 +80,13 @@ taskControllers.controller('CreateUpdateTaskCtrl', ['$scope', 'TaskFactory', 'Co
                         .query({
                             name: criteria
                         }).$promise.then(function(conditions) {
-                            return Enumerable.from(conditions).select(function(condition) {
+                            var conditions = Enumerable.from(conditions).select(function(condition) {
                                 return ConditionBuilder.build(condition);
                             }).toArray();
+                            conditions.push({
+                                name: '* Create a new one'
+                            });
+                            return conditions;
                         });
                     }
                 };

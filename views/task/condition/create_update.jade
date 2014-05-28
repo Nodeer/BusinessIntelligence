@@ -17,34 +17,36 @@
                         option(data-icon="glyphicon glyphicon-transfer") Request
             div(ng-switch="condition.condition_type")
                 div(ng-switch-when="Setting")
-                    .form-group
-                        label.col-sm-4.control-label(for="setting-name") Name:
-                            span.required  *
-                        .col-sm-8
-                            input#setting-name.form-control(ng-model="condition.setting.name", typeahead="settingName for settingName in condition.getValues('setting.name', $viewValue)", required="required")
-                    .form-group
-                        label.col-sm-4.control-label(for="setting-level") Level:
-                            span.required  *
-                        .col-sm-8
-                            select#setting-level.form-control.nya-selectpicker.show-tick.show-menu-arrow(ng-model="condition.setting.level", required="required")
-                                option(data-icon="glyphicon glyphicon-hdd") Database
-                                option(data-icon="glyphicon glyphicon-globe") TPA Setup
-                                option(data-icon="glyphicon glyphicon-tower") Administrator
-                                option(data-icon="glyphicon glyphicon-cutlery") Employer
-                                option(data-icon="glyphicon glyphicon-user") Consumer
-                                option(data-icon="glyphicon glyphicon-file") Plan
-                                option(data-icon="glyphicon glyphicon-shopping-cart") Enrollment
-                    .form-group
-                        label.col-sm-4.control-label(for="setting-value") Value:
-                            span.required  *
-                        .col-sm-8
-                            input#setting-value.form-control(ng-model="condition.setting.value", typeahead="settingValue for settingValue in condition.getValues('setting.value', $viewValue)")
+                    .well
+                        .form-group
+                            label.col-sm-4.control-label(for="setting-name") Name:
+                                span.required  *
+                            .col-sm-8
+                                input#setting-name.form-control(ng-model="condition.setting.name", typeahead="settingName for settingName in condition.getValues('setting.name', $viewValue)", required="required")
+                        .form-group
+                            label.col-sm-4.control-label(for="setting-level") Level:
+                                span.required  *
+                            .col-sm-8
+                                select#setting-level.form-control.nya-selectpicker.show-tick.show-menu-arrow(ng-model="condition.setting.level", required="required")
+                                    option(data-icon="glyphicon glyphicon-hdd") Database
+                                    option(data-icon="glyphicon glyphicon-globe") TPA Setup
+                                    option(data-icon="glyphicon glyphicon-tower") Administrator
+                                    option(data-icon="glyphicon glyphicon-cutlery") Employer
+                                    option(data-icon="glyphicon glyphicon-user") Consumer
+                                    option(data-icon="glyphicon glyphicon-file") Plan
+                                    option(data-icon="glyphicon glyphicon-shopping-cart") Enrollment
+                        .form-group
+                            label.col-sm-4.control-label(for="setting-value") Value:
+                                span.required  *
+                            .col-sm-8
+                                input#setting-value.form-control(ng-model="condition.setting.value", typeahead="settingValue for settingValue in condition.getValues('setting.value', $viewValue)")
                 div(ng-switch-default)
-                    .form-group
-                        label.col-sm-4.control-label(for="event-description") Description:
-                            span.required  *
-                        .col-sm-8
-                            input#event-description.form-control(ng-model="condition.description", typeahead="descriptionValue for descriptionValue in condition.getValues('description', $viewValue)", required="required")
+                    .well
+                        .form-group
+                            label.col-sm-4.control-label(for="event-description") Description:
+                                span.required  *
+                            .col-sm-8
+                                input#event-description.form-control(ng-model="condition.description", typeahead="descriptionValue for descriptionValue in condition.getValues('description', $viewValue)", required="required")
             .form-group(ng-if="mode.input")
                 label.col-sm-4.control-label(for="enterFromUI") Enter from UI:
                     span.required-one-of  *
