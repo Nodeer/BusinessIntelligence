@@ -73,6 +73,15 @@ taskControllers.controller('CreateUpdateTaskCtrl', ['$scope', 'TaskFactory', 'Co
                             return $scope.task.$output.createUpdateCondition(output, condition);
                         }
                     },
+                    $condition: {
+                        trimNote: function(note) {
+                            note = note || '';
+                            if (note.length > 25) {
+                                return sprintf('%s..', note.substring(0, 25));
+                            }
+                            return note;
+                        }
+                    },
                     createUpdateCondition: function(scope, condition, mode) {
                         var modalInstance = $modal.open({
                             templateUrl: '/task/condition/create/update',
@@ -88,7 +97,7 @@ taskControllers.controller('CreateUpdateTaskCtrl', ['$scope', 'TaskFactory', 'Co
                         });
 
                         modalInstance.result.then(function (resultCondition) {
-                            if (condition) {
+                            if (condition.id) {
                                 return $.extend(true, condition, ConditionBuilder.build(resultCondition));
                             } else {
                                 return scope.conditions.push(ConditionBuilder.build(resultCondition));
@@ -104,7 +113,7 @@ taskControllers.controller('CreateUpdateTaskCtrl', ['$scope', 'TaskFactory', 'Co
                         .query({
                             name: criteria
                         }).$promise.then(function(conditions) {
-                            var conditions = Enumerable.from(conditions).select(function(condition) {
+                            conditions = Enumerable.from(conditions).select(function(condition) {
                                 return ConditionBuilder.build(condition);
                             }).toArray();
                             conditions.push({

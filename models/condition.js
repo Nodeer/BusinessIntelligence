@@ -18,6 +18,7 @@ var conditionSchema = new Schema({
         input: { type: String, index: 1, default: '' },
         output: { type: String, index: 1, default: '' }
     },
+    note: String,
     affects: [ { type: Schema.Types.ObjectId, ref: 'Affect', index: 1 } ],
     audit: {
         modified_date: { type: Date, default: Date.now },
@@ -36,7 +37,8 @@ conditionSchema.methods.toDto = function() {
         setting: this.setting,
         description: this.description,
         ui: this.ui,
-        api: this.api
+        api: this.api,
+        note: this.note
     };
 };
 

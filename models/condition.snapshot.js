@@ -20,6 +20,7 @@ var conditionSnapshotSchema = new Schema({
         input: String,
         output: String
     },
+    note: String,
     affects: [ { type: Schema.Types.ObjectId, ref: 'Affect', index: 1 } ],
     audit: {
         modified_date: Date,
@@ -37,6 +38,7 @@ conditionSnapshotSchema.statics.create = function(condition) {
         description: condition.description,
         ui: condition.ui,
         api: condition.api,
+        note: condition.note,
         audit: condition.audit
     });
 };
