@@ -32,26 +32,40 @@ var TaskRepository = Base.extend(function (user) {
                 var taskDto = task.toDto();
                 return async.parallel([
                     function(callback) {
-                        return new ConditionRepository(user).getByIds(task.input.conditions, function(err, conditions) {
+                        return async.map(task.inputs, function(input, inputCallback) {
+                            return new ConditionRepository(user).getByIds(input.conditions, function(err, conditions) {
+                                if (err) return inputCallback(err);
+
+                                return inputCallback(err, {
+                                    conditions: Enumerable.from(conditions).select(function(condition) {
+                                        return condition.toDto();
+                                    }).toArray()
+                                });
+                            });
+                        }, function(err, inputs) {
                             if (err) return callback(err);
 
-                            taskDto.input = {
-                                conditions: Enumerable.from(conditions).select(function(condition) {
-                                    return condition.toDto();
-                                }).toArray()
-                            };
+                            taskDto.inputs = inputs;
+
                             return callback(err);
                         });
                     },
                     function(callback) {
-                        return new ConditionRepository(user).getByIds(task.output.conditions, function(err, conditions) {
+                        return async.map(task.outputs, function(output, outputCallback) {
+                            return new ConditionRepository(user).getByIds(output.conditions, function(err, conditions) {
+                                if (err) return outputCallback(err);
+
+                                return outputCallback(err, {
+                                    conditions: Enumerable.from(conditions).select(function(condition) {
+                                        return condition.toDto();
+                                    }).toArray()
+                                });
+                            });
+                        }, function(err, outputs) {
                             if (err) return callback(err);
 
-                            taskDto.output = {
-                                conditions: Enumerable.from(conditions).select(function(condition) {
-                                    return condition.toDto();
-                                }).toArray()
-                            };
+                            taskDto.outputs = outputs;
+
                             return callback(err);
                         });
                     }
@@ -103,26 +117,50 @@ var TaskRepository = Base.extend(function (user) {
 
                 return async.parallel([
                     function(callback) {
-                        async.map(taskDto.input.conditions, function(condition, conditionSaved) {
-                            return new ConditionRepository(user).save(condition, conditionSaved);
-                        }, function(err, conditions) {
-                            task.input.conditions = Enumerable.from(conditions).select(function(condition) {
-                                return condition.id;
-                            }).toArray();
-                            return callback();
+                        return async.map(taskDto.inputs, function(input, inputCallback) {
+                            return async.map(input.conditions, function(condition, conditionCallback) {
+                                return new ConditionRepository(user).save(condition, conditionCallback);
+                            }, function(err, conditions) {
+                                if (err) return inputCallback(err);
+
+                                return inputCallback(err, {
+                                    conditions: Enumerable.from(conditions).select(function(condition) {
+                                        return condition.id;
+                                    }).toArray()
+                                });
+                            });
+                        }, function(err, inputs) {
+                            if (err) return callback(err);
+
+                            task.inputs = inputs;
+
+                            return callback(err);
                         });
                     },
                     function(callback) {
-                        async.map(taskDto.output.conditions, function(condition, conditionSaved) {
-                            return new ConditionRepository(user).save(condition, conditionSaved);
-                        }, function(err, conditions) {
-                            task.output.conditions = Enumerable.from(conditions).select(function(condition) {
-                                return condition.id;
-                            }).toArray();
-                            return callback();
+                        return async.map(taskDto.outputs, function(output, outputCallback) {
+                            return async.map(output.conditions, function(condition, conditionCallback) {
+                                return new ConditionRepository(user).save(condition, conditionCallback);
+                            }, function(err, conditions) {
+                                if (err) return outputCallback(err);
+
+                                return outputCallback(err, {
+                                    conditions: Enumerable.from(conditions).select(function(condition) {
+                                        return condition.id;
+                                    }).toArray()
+                                });
+                            });
+                        }, function(err, outputs) {
+                            if (err) return callback(err);
+
+                            task.outputs = outputs;
+
+                            return callback(err);
                         });
                     }
-                ], function() {
+                ], function(err) {
+                    if (err) return done(err);
+
                     return task.save(function (err) {
                         if (err) return done(err);
 

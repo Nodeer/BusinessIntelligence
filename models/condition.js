@@ -31,6 +31,7 @@ conditionSchema.methods.toDto = function() {
     
     return {
         id: this.id,
+        name: this.name,
         condition_type: this.condition_type,
         setting: this.setting,
         description: this.description,

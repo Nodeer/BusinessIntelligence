@@ -9,12 +9,12 @@ var taskSchema = new Schema({
         availability_type: Number,
         partners: [ { type: String, index: 1 } ]
     },
-    input: {
+    inputs: [{
         conditions: [ { type: Schema.Types.ObjectId, ref: 'Condition', index: 1 } ]
-    },
-    output: {
+    }],
+    outputs: [{
         conditions: [ { type: Schema.Types.ObjectId, ref: 'Condition', index: 1 } ]
-    },
+    }],
     audit: {
         modified_date: { type: Date, default: Date.now },
         modified_by: { type: String, default: '' },

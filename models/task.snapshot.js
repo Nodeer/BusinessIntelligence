@@ -11,6 +11,12 @@ var taskSnapshotSchema = new Schema({
         availability_type: Number,
         partners: [ { type: String } ]
     },
+    inputs: [{
+        conditions: [ { type: Schema.Types.ObjectId, ref: 'Condition'} ]
+    }],
+    outputs: [{
+        conditions: [ { type: Schema.Types.ObjectId, ref: 'Condition'} ]
+    }],
     audit: {
         modified_date: { type: Date, default: Date.now },
         modified_by: { type: String, default: '' },
@@ -31,6 +37,8 @@ taskSnapshotSchema.statics.create = function(task) {
             availability_type: task.availability.availability_type,
             partners: task.availability.partners
         },
+        inputs: task.inputs,
+        outputs: task.outputs,
         audit: {
             modified_date: task.audit.modified_date,
             modified_by: task.audit.modified_by,

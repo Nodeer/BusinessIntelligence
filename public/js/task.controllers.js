@@ -15,38 +15,62 @@ taskControllers.controller('CreateUpdateTaskCtrl', ['$scope', 'TaskFactory', 'Co
                         availability_type: 0,
                         partners: []
                     },
-                    input: {
-                        conditions: [],
-                        createUpdateCondition: function(condition) {
-                            return $scope.task.createUpdateCondition($scope.task.input, condition, {
+                    inputs: [],
+                    $input: {
+                        getOrder: function(input) {
+                            return String.fromCharCode(97 + $scope.task.inputs.indexOf(input)).toUpperCase();
+                        },
+                        add: function() {
+                            return $scope.task.inputs.push({
+                                conditions: []
+                            });
+                        },
+                        remove: function(input) {
+                            var index = $scope.task.inputs.indexOf(input);
+                            return $scope.task.inputs.splice(index, 1);
+                        },
+                        createUpdateCondition: function(input, condition) {
+                            return $scope.task.createUpdateCondition(input, condition, {
                                     input: 1
                                 });
                         },
-                        pushCondition: function(condition) {
-                            $scope.task.input.findConditionCriteria = '';
+                        pushCondition: function(input, condition) {
+                            input.findConditionCriteria = '';
 
                             if (condition.id) {
-                                return $scope.task.input.conditions.push(ConditionBuilder.build(condition));
+                                return input.conditions.push(condition);
                             }
 
-                            return $scope.task.input.createUpdateCondition();
+                            return $scope.task.$input.createUpdateCondition(input, condition);
                         },
                     },
-                    output: {
-                        conditions: [],
-                        createUpdateCondition: function(condition) {
-                            return $scope.task.createUpdateCondition($scope.task.output, condition, {
+                    outputs: [],
+                    $output: {
+                        getOrder: function(output) {
+                            return String.fromCharCode(97 + $scope.task.outputs.indexOf(output)).toUpperCase();
+                        },
+                        add: function() {
+                            return $scope.task.outputs.push({
+                                conditions: []
+                            });
+                        },
+                        remove: function(input) {
+                            var index = $scope.task.outputs.indexOf(input);
+                            return $scope.task.outputs.splice(index, 1);
+                        },
+                        createUpdateCondition: function(output, condition) {
+                            return $scope.task.createUpdateCondition(output, condition, {
                                     output: 1
                                 });
                         },
-                        pushCondition: function(condition) {
-                            $scope.task.output.findConditionCriteria = '';
+                        pushCondition: function(output, condition) {
+                            output.findConditionCriteria = '';
 
                             if (condition.id) {
-                                return $scope.task.output.conditions.push(ConditionBuilder.build(condition));
+                                return output.conditions.push(condition);
                             }
 
-                            return $scope.task.output.createUpdateCondition();
+                            return $scope.task.$output.createUpdateCondition(output, condition);
                         }
                     },
                     createUpdateCondition: function(scope, condition, mode) {
@@ -84,7 +108,8 @@ taskControllers.controller('CreateUpdateTaskCtrl', ['$scope', 'TaskFactory', 'Co
                                 return ConditionBuilder.build(condition);
                             }).toArray();
                             conditions.push({
-                                name: '* Create a new one'
+                                name: sprintf('Create new Condition "%s"', criteria),
+                                preferred_name: criteria
                             });
                             return conditions;
                         });
@@ -95,18 +120,7 @@ taskControllers.controller('CreateUpdateTaskCtrl', ['$scope', 'TaskFactory', 'Co
                 TaskFactory.get({
                     id: id
                 }, function(task) {
-                   $.extend(true, $scope.task, task, {
-                       input: {
-                           conditions: Enumerable.from(task.input.conditions).select(function(condition) {
-                               return ConditionBuilder.build(condition);
-                           }).toArray()
-                       },
-                       output: {
-                           conditions: Enumerable.from(task.output.conditions).select(function(condition) {
-                               return ConditionBuilder.build(condition);
-                           }).toArray()
-                       }
-                   });
+                   $.extend(true, $scope.task, task);
                 });
             }
         };
@@ -186,6 +200,11 @@ taskControllers.controller('CreateUpdateConditionCtrl', ['$scope', 'ConditionsFa
                     return [];
                 }
             },
+        }, {
+            setting: {
+                name: condition.preferred_name
+            },
+            description: condition.preferred_name
         }, condition);
 
         $scope.mode = mode;
