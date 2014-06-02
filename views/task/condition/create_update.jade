@@ -1,76 +1,75 @@
-﻿div
-    .modal-header
-        h3.modal-title
-            span.glyphicon.glyphicon-import
-            |  Add / Update Condition
-    .modal-body
-        form.form-horizontal(role="form")
-            .form-group
-                label.col-sm-4.control-label(for="condition-type") Condition Type:
-                    span.required  *
-                .col-sm-8
-                    select#condition-type.form-control.nya-selectpicker.show-tick.show-menu-arrow(ng-model="condition.condition_type", required="required")
-                        option(data-icon="glyphicon glyphicon-wrench") Setting
-                        option(data-icon="glyphicon glyphicon-flash") Event
-                        option(data-icon="glyphicon glyphicon-floppy-disk") File/Data
-                        option(data-icon="glyphicon glyphicon-pushpin") State
-                        option(data-icon="glyphicon glyphicon-transfer") Request
-            div(ng-switch="condition.condition_type")
-                div(ng-switch-when="Setting")
-                    .well
-                        .form-group
-                            label.col-sm-4.control-label(for="setting-name") Name:
-                                span.required  *
-                            .col-sm-8
-                                input#setting-name.form-control(ng-model="condition.setting.name", typeahead="settingName for settingName in condition.getValues('setting.name', $viewValue)", required="required")
-                        .form-group
-                            label.col-sm-4.control-label(for="setting-level") Level:
-                                span.required  *
-                            .col-sm-8
-                                select#setting-level.form-control.nya-selectpicker.show-tick.show-menu-arrow(ng-model="condition.setting.level", required="required")
-                                    option(data-icon="glyphicon glyphicon-hdd") Database
-                                    option(data-icon="glyphicon glyphicon-globe") TPA Setup
-                                    option(data-icon="glyphicon glyphicon-tower") Administrator
-                                    option(data-icon="glyphicon glyphicon-cutlery") Employer
-                                    option(data-icon="glyphicon glyphicon-user") Consumer
-                                    option(data-icon="glyphicon glyphicon-file") Plan
-                                    option(data-icon="glyphicon glyphicon-shopping-cart") Enrollment
-                        .form-group
-                            label.col-sm-4.control-label(for="setting-value") Value:
-                                span.required  *
-                            .col-sm-8
-                                input#setting-value.form-control(ng-model="condition.setting.value", typeahead="settingValue for settingValue in condition.getValues('setting.value', $viewValue)")
-                div(ng-switch-default)
-                    .well
-                        .form-group
-                            label.col-sm-4.control-label(for="event-description") Description:
-                                span.required  *
-                            .col-sm-8
-                                input#event-description.form-control(ng-model="condition.description", typeahead="descriptionValue for descriptionValue in condition.getValues('description', $viewValue)", required="required")
-            .form-group(ng-if="mode.input")
-                label.col-sm-4.control-label(for="enterFromUI") Enter from UI:
-                    span.required-one-of  *
-                .col-sm-8
-                    input#enterFromUI.form-control(ng-model="condition.ui.input", typeahead="value for value in condition.getValues('ui.input', $viewValue)")
-            .form-group(ng-if="mode.input")
-                label.col-sm-4.control-label(for="enterFromAPI") Enter from API:
-                    span.required-one-of  *
-                .col-sm-8
-                    input#enterFromAPI.form-control(ng-model="condition.api.input", typeahead="value for value in condition.getValues('api.input', $viewValue)")
-            .form-group(ng-if="mode.output")
-                label.col-sm-4.control-label(for="enterFromUI") Displayed on UI:
-                    span.required-one-of  *
-                .col-sm-8
-                    input#enterFromUI.form-control(ng-model="condition.ui.output", typeahead="value for value in condition.getValues('ui.output', $viewValue)")
-            .form-group(ng-if="mode.output")
-                label.col-sm-4.control-label(for="enterFromAPI") Used in API:
-                    span.required-one-of  *
-                .col-sm-8
-                    input#enterFromAPI.form-control(ng-model="condition.api.output", typeahead="value for value in condition.getValues('api.output', $viewValue)")
-            .form-group
-                label.col-sm-4.control-label(for="note") Note:
-                .col-sm-8
-                    textarea#note.form-control(ng-model="condition.note")
-    .modal-footer
-        button.btn.btn-primary(ng-click="submit()", ng-disabled="!condition.validate()") Submit
-        button.btn.btn-default(ng-click="cancel()") Cancel
+﻿.modal-header
+    h3.modal-title
+        span.glyphicon.glyphicon-import
+        |  Add / Update Condition
+.modal-body
+    form.form-horizontal(role="form")
+        .form-group
+            label.col-sm-4.control-label(for="condition-type") Condition Type:
+                span.required  *
+            .col-sm-8
+                select#condition-type.form-control.nya-selectpicker.show-tick.show-menu-arrow(ng-model="condition.condition_type", required="required")
+                    option(data-icon="glyphicon glyphicon-wrench") Setting
+                    option(data-icon="glyphicon glyphicon-flash") Event
+                    option(data-icon="glyphicon glyphicon-floppy-disk") File/Data
+                    option(data-icon="glyphicon glyphicon-pushpin") State
+                    option(data-icon="glyphicon glyphicon-transfer") Request
+        div(ng-switch="condition.condition_type")
+            div(ng-switch-when="Setting")
+                .well
+                    .form-group
+                        label.col-sm-4.control-label(for="setting-name") Name:
+                            span.required  *
+                        .col-sm-8
+                            input#setting-name.form-control(ng-model="condition.setting.name", typeahead="settingName for settingName in condition.getValues('setting.name', $viewValue)", required="required")
+                    .form-group
+                        label.col-sm-4.control-label(for="setting-level") Level:
+                            span.required  *
+                        .col-sm-8
+                            select#setting-level.form-control.nya-selectpicker.show-tick.show-menu-arrow(ng-model="condition.setting.level", required="required")
+                                option(data-icon="glyphicon glyphicon-hdd") Database
+                                option(data-icon="glyphicon glyphicon-globe") TPA Setup
+                                option(data-icon="glyphicon glyphicon-tower") Administrator
+                                option(data-icon="glyphicon glyphicon-cutlery") Employer
+                                option(data-icon="glyphicon glyphicon-user") Consumer
+                                option(data-icon="glyphicon glyphicon-file") Plan
+                                option(data-icon="glyphicon glyphicon-shopping-cart") Enrollment
+                    .form-group
+                        label.col-sm-4.control-label(for="setting-value") Value:
+                            span.required  *
+                        .col-sm-8
+                            input#setting-value.form-control(ng-model="condition.setting.value", typeahead="settingValue for settingValue in condition.getValues('setting.value', $viewValue)")
+            div(ng-switch-default)
+                .well
+                    .form-group
+                        label.col-sm-4.control-label(for="description") Description:
+                            span.required  *
+                        .col-sm-8
+                            input#description.form-control(ng-model="condition.description", typeahead="descriptionValue for descriptionValue in condition.getValues('description', $viewValue)", required="required")
+        .form-group(ng-if="mode.input")
+            label.col-sm-4.control-label(for="enterFromUI") Enter from UI:
+                span.required-one-of  *
+            .col-sm-8
+                input#enterFromUI.form-control(ng-model="condition.ui.input", typeahead="value for value in condition.getValues('ui.input', $viewValue)")
+        .form-group(ng-if="mode.input")
+            label.col-sm-4.control-label(for="enterFromAPI") Enter from API:
+                span.required-one-of  *
+            .col-sm-8
+                input#enterFromAPI.form-control(ng-model="condition.api.input", typeahead="value for value in condition.getValues('api.input', $viewValue)")
+        .form-group(ng-if="mode.output")
+            label.col-sm-4.control-label(for="enterFromUI") Displayed on UI:
+                span.required-one-of  *
+            .col-sm-8
+                input#enterFromUI.form-control(ng-model="condition.ui.output", typeahead="value for value in condition.getValues('ui.output', $viewValue)")
+        .form-group(ng-if="mode.output")
+            label.col-sm-4.control-label(for="enterFromAPI") Used in API:
+                span.required-one-of  *
+            .col-sm-8
+                input#enterFromAPI.form-control(ng-model="condition.api.output", typeahead="value for value in condition.getValues('api.output', $viewValue)")
+        .form-group
+            label.col-sm-4.control-label(for="note") Note:
+            .col-sm-8
+                textarea#note.form-control(ng-model="condition.note")
+.modal-footer
+    button.btn.btn-primary(ng-click="submit()", ng-disabled="!condition.validate()") Submit
+    button.btn.btn-default(ng-click="cancel()") Cancel

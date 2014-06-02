@@ -10,6 +10,11 @@ taskServices.factory('PartnersFactory', ['$resource',
         return $resource('/task/partners.json/:name');
     }]);
 
+taskServices.factory('ConditionFactory', ['$resource',
+    function ($resource) {
+        return $resource('/task/condition.json/:id');
+    }]);
+
 taskServices.factory('ConditionsFactory', ['$resource',
     function ($resource) {
         return $resource('/task/conditions.json/:name/:value');

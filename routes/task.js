@@ -14,14 +14,14 @@ exports.register = function (app) {
     app.get('/task/create', route.private({ 'task': ['create'] }), exports.create);
     app.get('/task/update/:id', route.private({ 'task': ['update'] }), exports.update);
     app.get('/task/view/:id', route.private({ 'task': ['read'] }), exports.view);
-    app.get('/task/view/:id/popup', route.private({ 'task': ['read'] }), exports.viewInPopup);
 
-    app.get('/task/condition/create/update', route.private({ 'task': ['create'] }), exports.createUpdateInput);
+    app.get('/task/condition/create/update', route.private({ 'task': ['create'] }), exports.createUpdateCondition);
+    app.get('/task/condition/view', route.private({ 'task': ['read'] }), exports.viewCondition);
 
     app.get('/task/task.json/:id', route.private({ 'task': ['read'] }), exports.getTask);
     app.post('/task/task.json', route.private({ 'task': ['create'] }), exports.saveTask);
 
-    app.get('/task/conditions.json/unused/:id', route.private({ 'task': ['read']}), exports.getConditionById);
+    app.get('/task/condition.json/:id', route.private({ 'task': ['read']}), exports.getConditionById);
 
     app.get('/task/partners.json/:name', route.private({ 'task': ['read']}), exports.getPartners);
 
@@ -64,21 +64,17 @@ exports.view = function (req, res, next) {
     });
 };
 
-exports.viewInPopup = function (req, res, next) {
-    ///<summary>View task</summary>
-
-    var view = new View('task/view_popup');
+exports.createUpdateCondition = function (req, res, next) {
+    var view = new View('task/condition/create_update');
     return view.render(req, res, next, {
-        title: "Task | View",
-        id: req.params.id
+        title: "Task | Add Condition",
     });
 };
 
-exports.createUpdateInput = function (req, res, next) {
-    var view = new View('task/condition/create_update');
+exports.viewCondition = function(req, res, next) {
+    var view = new View('task/condition/view');
     return view.render(req, res, next, {
-        title: "Task | Add Input",
-        id: ''
+        title: "Task | View Condition"
     });
 };
 
@@ -104,28 +100,13 @@ exports.saveTask = function (req, res) {
     });
 };
 
-exports.getConditionById = function (req, res) {
+exports.getConditionById = function (req, res, next) {
     ///<summary>Loads a condition by id</summary>
 
-    return new TaskService(req.user).getConditionById(req.params.id, function(condition, tasks) {
-        return {
-                id: condition.id,
-                text: condition.name,
-                ui: condition.ui,
-                api: condition.api,
-                dependencies: Enumerable.from(tasks).select(function(task) {
-                    return {
-                        id: task.id,
-                        text: task.name
-                    };
-                }).toArray()
-            };
+    return new ConditionService(req.user).getById(req.params.id, function(condition) {
+        return condition.toDto();
     }, function(err, condition) {
-        if (err) {
-            logger.error(err);
-
-            return res.send(500);
-        }
+        if (err) return next();
 
         return res.json(condition);
     });

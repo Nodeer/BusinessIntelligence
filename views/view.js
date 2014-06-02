@@ -12,7 +12,9 @@ module.exports = klass(function (viewPath) {
             ///<param name="params">Parameters</param>
             
             var extendedParams = extend({
-            }, params || {}, req.flash('alert')[0] || {});
+            }, params || {}, req.flash('alert')[0] || {}, {
+                id: (params || {}).id || ''
+            });
 
             if (req.user) {
                 extend(extendedParams, {

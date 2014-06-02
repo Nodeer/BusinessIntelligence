@@ -3,8 +3,25 @@
     'models'
 ]);
 
-taskControllers.controller('TaskCtrl', ['$scope',
-    function ($scope) {
+taskControllers.controller('TaskCtrl', ['$scope', 'DependencyFactory',
+    function ($scope, DependencyFactory) {
+        $scope.getGeneratedByTasks = function(condition) {
+            if (!condition.generatedByTasks) {
+                condition.generatedByTasks = [];
+                if (condition.id) {
+                    return DependencyFactory.query({
+                        name: 'condition',
+                        id: condition.id,
+                        type: 'generatedByTasks'
+                    }).$promise.then(function(tasks) {
+                        condition.generatedByTasks = tasks;
+                        condition.generatedByTasksLoaded = true;
+                    });
+                }
+            }
+
+            return condition.generatedByTasks;
+        };
     }]);
 
 taskControllers.controller('CreateUpdateTaskCtrl', ['$scope', 'TaskFactory', 'ConditionsFactory', 'PartnersFactory', 'ConditionBuilder', 'DependencyFactory', '$window', '$modal',
@@ -65,24 +82,6 @@ taskControllers.controller('CreateUpdateTaskCtrl', ['$scope', 'TaskFactory', 'Co
                             }
 
                             return $scope.task.$output.createUpdateCondition(output, condition);
-                        }
-                    },
-                    $condition: {
-                        getGeneratedByTasks: function(condition) {
-                            if (!condition.generatedByTasks) {
-                                condition.generatedByTasks = [];
-                                if (condition.id) {
-                                    return DependencyFactory.query({
-                                        name: 'condition',
-                                        id: condition.id,
-                                        type: 'generatedByTasks'
-                                    }).$promise.then(function(tasks) {
-                                        condition.generatedByTasks = tasks;
-                                    });
-                                }
-                            }
-
-                            return condition.generatedByTasks;
                         }
                     },
                     createUpdateCondition: function(scope, condition, mode) {
@@ -159,18 +158,6 @@ taskControllers.controller('CreateUpdateTaskCtrl', ['$scope', 'TaskFactory', 'Co
             }
         };
 
-        $scope.viewTask = function(task) {
-            var modalInstance = $modal.open({
-                templateUrl: sprintf('/task/view/%s/popup', task.id),
-                controller: 'ViewTaskPopupCtrl',
-                size: 'lg',
-                resolve: function() {}
-            });
-
-            modalInstance.result.then(function (resultCondition) {
-            });
-        };
-
         $scope.submit = function() {
             $scope.saving = 1;
             TaskFactory.save($scope.task, function(task) {
@@ -181,8 +168,8 @@ taskControllers.controller('CreateUpdateTaskCtrl', ['$scope', 'TaskFactory', 'Co
         };
     }]);
 
-taskControllers.controller('ViewTaskCtrl', ['$scope', 'TaskFactory',
-    function ($scope, TaskFactory) {
+taskControllers.controller('ViewTaskCtrl', ['$scope', 'TaskFactory', '$modal',
+    function ($scope, TaskFactory, $modal) {
         
         $scope.init = function(id) {
             return TaskFactory.get({
@@ -191,12 +178,26 @@ taskControllers.controller('ViewTaskCtrl', ['$scope', 'TaskFactory',
                 $scope.task = task;
             });
         };
+
+        $scope.viewCondition = function(condition) {
+            $modal.open({
+                templateUrl: '/task/condition/view',
+                controller: 'ViewConditionCtrl',
+                resolve: {
+                    condition: function() {
+                        return $.extend(true, {}, condition);
+                    }
+                }
+            });
+        };
     }]);
 
-taskControllers.controller('ViewTaskPopupCtrl', ['$scope', '$modalInstance',
-    function ($scope, $modalInstance) {
+taskControllers.controller('ViewConditionCtrl', ['$scope', '$modalInstance', 'condition',
+    function ($scope, $modalInstance, condition) {
 
-        $scope.close = function () {
+        $scope.condition = condition;
+
+        $scope.close = function() {
             return $modalInstance.dismiss();
         };
     }]);

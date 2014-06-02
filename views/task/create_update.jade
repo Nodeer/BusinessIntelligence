@@ -63,8 +63,8 @@ block task-content
                                     td
                                         | {{condition.api.input}}
                                     td
-                                        img(src="/public/images/loader.gif", ng-show="!condition.generatedByTasks")
-                                        a(ng-repeat="producerTask in task.$condition.getGeneratedByTasks(condition)", ng-click="viewTask(producerTask)") {{producerTask.name}}
+                                        img(src="/public/images/loader.gif", ng-show="!condition.generatedByTasksLoaded")
+                                        a(ng-repeat="producerTask in getGeneratedByTasks(condition)", ng-href="/task/view/{{producerTask.id}}", target="_blank") {{producerTask.name}}
                                     td
                                         span(popover="{{condition.note}}", popover-trigger="mouseenter", popover-popup-delay="300") {{trimText(condition.note, 25)}}
                                     td.col-td-min
