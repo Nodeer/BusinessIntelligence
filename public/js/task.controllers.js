@@ -7,8 +7,8 @@ taskControllers.controller('TaskCtrl', ['$scope',
     function ($scope) {
     }]);
 
-taskControllers.controller('CreateUpdateTaskCtrl', ['$scope', 'TaskFactory', 'ConditionsFactory', 'PartnersFactory', 'ConditionBuilder', '$window', '$modal',
-    function ($scope, TaskFactory, ConditionsFactory, PartnersFactory, ConditionBuilder, $window, $modal) {
+taskControllers.controller('CreateUpdateTaskCtrl', ['$scope', 'TaskFactory', 'ConditionsFactory', 'PartnersFactory', 'ConditionBuilder', 'DependencyFactory', '$window', '$modal',
+    function ($scope, TaskFactory, ConditionsFactory, PartnersFactory, ConditionBuilder, DependencyFactory, $window, $modal) {
         $scope.init = function(id) {
             $scope.task = {
                     availability: {
@@ -80,6 +80,22 @@ taskControllers.controller('CreateUpdateTaskCtrl', ['$scope', 'TaskFactory', 'Co
                                 return sprintf('%s..', note.substring(0, 25));
                             }
                             return note;
+                        },
+                        getGeneratedByTasks: function(condition) {
+                            if (!condition.generatedByTasks) {
+                                condition.generatedByTasks = [];
+                                if (condition.id) {
+                                    return DependencyFactory.query({
+                                        name: 'condition',
+                                        id: condition.id,
+                                        type: 'generatedByTasks'
+                                    }).$promise.then(function(tasks) {
+                                        condition.generatedByTasks = tasks;
+                                    });
+                                }
+                            }
+
+                            return condition.generatedByTasks;
                         }
                     },
                     createUpdateCondition: function(scope, condition, mode) {
@@ -131,6 +147,9 @@ taskControllers.controller('CreateUpdateTaskCtrl', ['$scope', 'TaskFactory', 'Co
                 }, function(task) {
                    $.extend(true, $scope.task, task);
                 });
+            } else {
+                $scope.task.$input.add();
+                $scope.task.$output.add();
             }
         };
 
@@ -153,6 +172,18 @@ taskControllers.controller('CreateUpdateTaskCtrl', ['$scope', 'TaskFactory', 'Co
             }
         };
 
+        $scope.viewTask = function(task) {
+            var modalInstance = $modal.open({
+                templateUrl: sprintf('/task/view/%s/popup', task.id),
+                controller: 'ViewTaskPopupCtrl',
+                size: 'lg',
+                resolve: function() {}
+            });
+
+            modalInstance.result.then(function (resultCondition) {
+            });
+        };
+
         $scope.submit = function() {
             $scope.saving = 1;
             TaskFactory.save($scope.task, function(task) {
@@ -172,6 +203,14 @@ taskControllers.controller('ViewTaskCtrl', ['$scope', 'TaskFactory',
             }, function(task) {
                 $scope.task = task;
             });
+        };
+    }]);
+
+taskControllers.controller('ViewTaskPopupCtrl', ['$scope', '$modalInstance',
+    function ($scope, $modalInstance) {
+
+        $scope.close = function () {
+            return $modalInstance.dismiss();
         };
     }]);
 

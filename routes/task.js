@@ -14,6 +14,7 @@ exports.register = function (app) {
     app.get('/task/create', route.private({ 'task': ['create'] }), exports.create);
     app.get('/task/update/:id', route.private({ 'task': ['update'] }), exports.update);
     app.get('/task/view/:id', route.private({ 'task': ['read'] }), exports.view);
+    app.get('/task/view/:id/popup', route.private({ 'task': ['read'] }), exports.viewInPopup);
 
     app.get('/task/condition/create/update', route.private({ 'task': ['create'] }), exports.createUpdateInput);
 
@@ -27,7 +28,7 @@ exports.register = function (app) {
     app.get('/task/conditions.json/:name', route.private({ 'task': ['read']}), exports.getConditionsByName);
     app.get('/task/conditions.json/:name/:value', route.private({ 'task': ['read']}), exports.getConditionValues);
 
-    app.get('/task/dependencies.json', route.private({ 'task': ['read']}), exports.getDependencies);
+    app.get('/task/dependency.json/condition/:id/generatedByTasks', route.private({ 'task': ['read']}), exports.getProducerTasksByCondition);
 
 
     return this;
@@ -57,6 +58,16 @@ exports.view = function (req, res, next) {
     ///<summary>View task</summary>
 
     var view = new View('task/view');
+    return view.render(req, res, next, {
+        title: "Task | View",
+        id: req.params.id
+    });
+};
+
+exports.viewInPopup = function (req, res, next) {
+    ///<summary>View task</summary>
+
+    var view = new View('task/view_popup');
     return view.render(req, res, next, {
         title: "Task | View",
         id: req.params.id
@@ -172,22 +183,13 @@ exports.getConditionValues = function (req, res, next) {
     });
 };
 
-exports.getDependencies = function (req, res) {
-    ///<summary>Loads list of dependencies</summary>
+exports.getProducerTasksByCondition = function (req, res, next) {
+    ///<summary>Gets collection of Tasks with condition in input collection</summary>
     
-    var params = req.query;
-
-    return new TaskService(req.user).findTasksByName(params.term, function(task) {
-        return {
-                id: task.id,
-                text: task.name
-            };
+    return new TaskService(req.user).findProducerTasksByCondition(req.params.id, function(task) {
+        return task.toDto();
     }, function(err, tasks) {
-        if (err) {
-            logger.error(err);
-
-            return res.send(500);
-        }
+        if (err) return next();
 
         return res.json(tasks);
     });
