@@ -18,7 +18,8 @@ var ConditionService = Base.extend(function (user) {
             ///<param name="map">Map function</param>
             ///<param name="done">Done callback</param>
 
-          return new ConditionRepository().findByName(name, function(err, conditions) {
+          var user = this.user;
+          return new ConditionRepository(user).findByName(name, function(err, conditions) {
               if (err) return done(err);
 
               return done(err, Enumerable.from(conditions).select(map).toArray());

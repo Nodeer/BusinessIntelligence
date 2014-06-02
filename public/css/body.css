@@ -114,3 +114,7 @@
 .icon-set-icon {
     padding-right: 3px;
 }
+
+.no-wrap {
+    white-space: nowrap;
+}

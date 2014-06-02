@@ -89,6 +89,16 @@ var TaskService = Base.extend(function (user) {
               return done(err, Enumerable.from(tasks).select(map).toArray());
           });
         },
+
+        findProducerTasksByCondition: function(conditionId, map, done) {
+            ///<summary>Finds tasks which produce the condition</summary>
+
+            return new TaskRepository(this.user).findProducerTasksByCondition(conditionId, function(err, tasks) {
+                  if (err) return done(err);
+
+                  return done(err, Enumerable.from(tasks).select(map).toArray());
+              });
+        }
     });
 
 module.exports = TaskService;

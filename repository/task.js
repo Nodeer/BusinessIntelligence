@@ -117,7 +117,9 @@ var TaskRepository = Base.extend(function (user) {
 
                 return async.parallel([
                     function(callback) {
-                        return async.map(taskDto.inputs, function(input, inputCallback) {
+                        return async.map(Enumerable.from(taskDto.inputs).where(function(input) {
+                            return input.conditions.length;
+                        }).toArray(), function(input, inputCallback) {
                             return async.map(input.conditions, function(condition, conditionCallback) {
                                 return new ConditionRepository(user).save(condition, conditionCallback);
                             }, function(err, conditions) {
@@ -138,7 +140,9 @@ var TaskRepository = Base.extend(function (user) {
                         });
                     },
                     function(callback) {
-                        return async.map(taskDto.outputs, function(output, outputCallback) {
+                        return async.map(Enumerable.from(taskDto.outputs).where(function(output) {
+                            return output.conditions.length;
+                        }).toArray(), function(output, outputCallback) {
                             return async.map(output.conditions, function(condition, conditionCallback) {
                                 return new ConditionRepository(user).save(condition, conditionCallback);
                             }, function(err, conditions) {
@@ -211,6 +215,12 @@ var TaskRepository = Base.extend(function (user) {
                 return done(err, tasks);
             });
         },
+
+        findProducerTasksByCondition: function(conditionId, done) {
+            ///<summary>Finds tasks which produce the condition</summary>
+            
+            return Task.find({ 'outputs.conditions' : conditionId }, done);
+        }
     });
 
 module.exports = TaskRepository;

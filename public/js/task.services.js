@@ -14,3 +14,8 @@ taskServices.factory('ConditionsFactory', ['$resource',
     function ($resource) {
         return $resource('/task/conditions.json/:name/:value');
     }]);
+
+taskServices.factory('DependencyFactory', ['$resource',
+    function ($resource) {
+        return $resource('/task/dependency.json/:name/:id/:type');
+    }]);
