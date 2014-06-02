@@ -28,7 +28,8 @@ exports.register = function (app) {
     app.get('/task/conditions.json/:name', route.private({ 'task': ['read']}), exports.getConditionsByName);
     app.get('/task/conditions.json/:name/:value', route.private({ 'task': ['read']}), exports.getConditionValues);
 
-    app.get('/task/dependency.json/condition/:id/generatedByTasks', route.private({ 'task': ['read']}), exports.getProducerTasksByCondition);
+    app.get('/task/dependency.json/condition/:id/producerTasks', route.private({ 'task': ['read']}), exports.getProducerTasksByCondition);
+    app.get('/task/dependency.json/condition/:id/consumerTasks', route.private({ 'task': ['read']}), exports.getConsumerTasksByCondition);
 
 
     return this;
@@ -165,9 +166,19 @@ exports.getConditionValues = function (req, res, next) {
 };
 
 exports.getProducerTasksByCondition = function (req, res, next) {
-    ///<summary>Gets collection of Tasks with condition in input collection</summary>
-    
+
     return new TaskService(req.user).findProducerTasksByCondition(req.params.id, function(task) {
+        return task.toDto();
+    }, function(err, tasks) {
+        if (err) return next();
+
+        return res.json(tasks);
+    });
+};
+
+exports.getConsumerTasksByCondition = function (req, res, next) {
+
+    return new TaskService(req.user).findConsumerTasksByCondition(req.params.id, function(task) {
         return task.toDto();
     }, function(err, tasks) {
         if (err) return next();

@@ -220,6 +220,12 @@ var TaskRepository = Base.extend(function (user) {
             ///<summary>Finds tasks which produce the condition</summary>
             
             return Task.find({ 'outputs.conditions' : conditionId }, done);
+        },
+
+        findConsumerTasksByCondition: function(conditionId, done) {
+            ///<summary>Finds tasks which consume the condition</summary>
+            
+            return Task.find({ 'inputs.conditions' : conditionId }, done);
         }
     });
 

@@ -5,22 +5,40 @@
 
 taskControllers.controller('TaskCtrl', ['$scope', 'DependencyFactory',
     function ($scope, DependencyFactory) {
-        $scope.getGeneratedByTasks = function(condition) {
-            if (!condition.generatedByTasks) {
-                condition.generatedByTasks = [];
+        $scope.getProducerTasks = function(condition) {
+            if (!condition.producerTasks) {
+                condition.producerTasks = [];
                 if (condition.id) {
                     return DependencyFactory.query({
                         name: 'condition',
                         id: condition.id,
-                        type: 'generatedByTasks'
+                        type: 'producerTasks'
                     }).$promise.then(function(tasks) {
-                        condition.generatedByTasks = tasks;
-                        condition.generatedByTasksLoaded = true;
+                        condition.producerTasks = tasks;
+                        condition.producerTasksLoaded = true;
                     });
                 }
             }
 
-            return condition.generatedByTasks;
+            return condition.producerTasks;
+        };
+
+        $scope.getConsumerTasks = function(condition) {
+            if (!condition.consumerTasks) {
+                condition.consumerTasks = [];
+                if (condition.id) {
+                    return DependencyFactory.query({
+                        name: 'condition',
+                        id: condition.id,
+                        type: 'consumerTasks'
+                    }).$promise.then(function(tasks) {
+                        condition.consumerTasks = tasks;
+                        condition.consumerTasksLoaded = true;
+                    });
+                }
+            }
+
+            return condition.consumerTasks;
         };
     }]);
 

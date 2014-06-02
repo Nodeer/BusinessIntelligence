@@ -98,6 +98,16 @@ var TaskService = Base.extend(function (user) {
 
                   return done(err, Enumerable.from(tasks).select(map).toArray());
               });
+        },
+
+        findConsumerTasksByCondition: function(conditionId, map, done) {
+            ///<summary>Finds tasks which consume the condition</summary>
+
+            return new TaskRepository(this.user).findConsumerTasksByCondition(conditionId, function(err, tasks) {
+                  if (err) return done(err);
+
+                  return done(err, Enumerable.from(tasks).select(map).toArray());
+              });
         }
     });
 
