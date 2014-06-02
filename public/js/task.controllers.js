@@ -17,9 +17,6 @@ taskControllers.controller('CreateUpdateTaskCtrl', ['$scope', 'TaskFactory', 'Co
                     },
                     inputs: [],
                     $input: {
-                        getOrder: function(input) {
-                            return String.fromCharCode(97 + $scope.task.inputs.indexOf(input)).toUpperCase();
-                        },
                         add: function() {
                             return $scope.task.inputs.push({
                                 conditions: []
@@ -46,9 +43,6 @@ taskControllers.controller('CreateUpdateTaskCtrl', ['$scope', 'TaskFactory', 'Co
                     },
                     outputs: [],
                     $output: {
-                        getOrder: function(output) {
-                            return String.fromCharCode(97 + $scope.task.outputs.indexOf(output)).toUpperCase();
-                        },
                         add: function() {
                             return $scope.task.outputs.push({
                                 conditions: []
@@ -74,13 +68,6 @@ taskControllers.controller('CreateUpdateTaskCtrl', ['$scope', 'TaskFactory', 'Co
                         }
                     },
                     $condition: {
-                        trimNote: function(note) {
-                            note = note || '';
-                            if (note.length > 25) {
-                                return sprintf('%s..', note.substring(0, 25));
-                            }
-                            return note;
-                        },
                         getGeneratedByTasks: function(condition) {
                             if (!condition.generatedByTasks) {
                                 condition.generatedByTasks = [];

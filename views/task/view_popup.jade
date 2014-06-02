@@ -6,6 +6,9 @@ block content
             span.glyphicon.glyphicon-th-list
             |  View Task
     .modal-body
-        include partial_task_view
+        div(ng-controller="ViewTaskCtrl", ng-init="init('#{id}')")
+            form(role="form")
+                .well
+                    include partial_task_view_general
     .modal-footer
         button.btn.btn-default(ng-click="close()") Close

@@ -118,3 +118,7 @@
 .no-wrap {
     white-space: nowrap;
 }
+
+a {
+    cursor: pointer;
+}

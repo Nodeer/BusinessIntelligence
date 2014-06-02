@@ -15,6 +15,19 @@ controllers.controller('ApplicationCtrl', ['$scope', 'Application',
                 $scope.user = user;
             });
         });
+
+        $scope.trimText = function(text, length) {
+            text = text || '';
+            if (text.length > length) {
+                return sprintf('%s..', text.substring(0, length));
+            }
+
+            return text;
+        };
+
+        $scope.alphaOrder = function(collection, item) {
+            return String.fromCharCode(65 + collection.indexOf(item));
+        };
     }]);
 
 controllers.controller('NavbarCtrl', ['$scope', '$window', 'Application',

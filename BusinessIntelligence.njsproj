@@ -105,7 +105,9 @@
     <Content Include="views\task\partial_condition_icon.jade" />
     <Content Include="views\task\layout.jade" />
     <Content Include="views\task\create_update.jade" />
-    <Content Include="views\task\partial_task_view.jade" />
+    <Content Include="views\task\partial_task_view_general.jade" />
+    <Content Include="views\task\partial_task_view_inputs.jade" />
+    <Content Include="views\task\partial_task_view_outputs.jade" />
     <Content Include="views\task\view.jade" />
     <Content Include="views\task\view_popup.jade" />
     <Content Include="views\version.jade" />
