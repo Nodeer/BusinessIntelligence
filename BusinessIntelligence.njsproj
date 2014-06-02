@@ -70,7 +70,6 @@
     <Compile Include="services\condition.js" />
     <Compile Include="services\task.js" />
     <Compile Include="services\user.js" />
-    <Content Include="public\images\loader.gif" />
     <Content Include="public\images\knowledgeBase48x48.png" />
     <Content Include="views\alert.jade" />
     <Content Include="views\context.jade" />
