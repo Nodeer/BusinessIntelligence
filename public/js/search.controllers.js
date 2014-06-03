@@ -20,11 +20,12 @@ searchControllers.controller('SearchCtrl', ['$scope', 'TaskSearchFactory', '$sce
         $scope.search = function() {
             ///<summary>Submits user profile</summary>
             if ($scope.search.criteria.length >= 3) {
-
+                $scope.searching = 1;
                 TaskSearchFactory.query({
                     criteria: $scope.search.criteria
                 }, function(tasks) {
                     $scope.search.tasks = tasks;
+                    $scope.searching = 0;
                 });
             } else {
                 $scope.search.tasks = [];

@@ -1,8 +1,9 @@
 ﻿div(ng-controller="SearchCtrl")
     .input-group
         span.input-group-btn
-            button.btn.btn-default(type="button", ng-click="search()")
-                span.glyphicon.glyphicon-search
+            button.btn.btn-default(type="button", ng-click="search()", style="width:40px;")
+                span.glyphicon.glyphicon-search(ng-show="!searching")
+                img.loader(src="/public/images/loader.gif", ng-show="searching")
         input.form-control(placeholder="Search criteria", ng-model="search.criteria", ng-change="search()")
     br
     table.table.table-striped
