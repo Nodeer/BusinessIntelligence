@@ -12,6 +12,17 @@ var ConditionService = Base.extend(function (user) {
         this.user = user;
     })
     .methods({
+        getById: function(id, map, done) {
+            ///<summary>Gets condition by id</summary>
+            
+            var user = this.user;
+            return new ConditionRepository(user).getById(function(err, condition) {
+                if (err) return done(err);
+
+                return done(err, map(condition));
+            });
+        },
+
         findConditionsByName: function(name, map, done) {
             ///<summary>Finds conditions by name</summary>
             ///<param name="name">Name of a conditions</param>

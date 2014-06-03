@@ -41,7 +41,9 @@ var ConditionRepository = Base.extend(function (user) {
         save: function(conditionDto, done) {
             var user = this.user;
             return Condition.findById(conditionDto.id, function(err, condition) {
-                condition = condition || new Condition();
+                condition = condition || new Condition({
+                    _id: conditionDto.id
+                });
 
                 extend(condition, conditionDto, {
                     audit: {

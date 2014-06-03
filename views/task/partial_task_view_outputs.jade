@@ -1,0 +1,32 @@
+﻿.well(ng-show="task.outputs.length")
+    label Outputs:
+    .well(ng-repeat="output in task.outputs")
+        .form-group
+            label Output {{alphaOrder(task.outputs, output)}}:
+            table.table.table-striped
+                thead
+                    th Condition
+                    th Affects Task
+                    th Affect Description
+                    th Displayed on UI
+                    th Used in API
+                    th Used as Input for Task
+                    th Note
+                tbody
+                    tr(ng-repeat="condition in output.conditions")
+                        td
+                            include partial_condition_icon
+                            |  
+                            a(ng-click="viewCondition(condition)") {{condition.name}}
+                        td
+                        td
+                        td
+                            | {{condition.ui.output}}
+                        td
+                            | {{condition.api.output}}
+                        td
+                            img.loader(src="/public/images/loader.gif", ng-show="!condition.consumerTasksLoaded")
+                            div(ng-repeat="consumerTask in getConsumerTasks(condition)")
+                                a(ng-href="/task/view/{{consumerTask.id}}") {{consumerTask.name}}
+                        td
+                            span(popover="{{condition.note}}", popover-trigger="mouseenter", popover-popup-delay="300") {{trimText(condition.note, 25)}}

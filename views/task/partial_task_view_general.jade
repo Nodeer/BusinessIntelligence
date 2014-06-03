@@ -1,0 +1,30 @@
+﻿.well
+    .form-group
+        .row
+            .col-md-9
+                label(for="name") Task Name:
+                p.form-control-static {{task.name}}
+            .col-md-3.text-right
+                div(ng-show="user.access.taskUpdate").no-wrap
+                    span.glyphicon.glyphicon-pencil
+                    |  
+                    a(ng-href="/task/update/{{task.id}}") Update Task
+    .form-group
+        label(for="description") Task Description:
+        p.form-control-static {{task.description}}
+    .form-group
+        .row
+            .col-md-3
+                label(for="external_id") Feature TFS ID:
+                p.form-control-static {{task.external_id}}
+            .col-md-9
+                label(for="availability") Availability:
+                .row
+                    .col-md-12
+                        p.form-control-static {{task.availability.availability_type == 0 ? '✓' : '✘'}} General
+                .row
+                    .col-md-3
+                        p.form-control-static {{task.availability.availability_type == 1 ? '✓' : '✘'}} Partner Specific
+                    .col-md-9
+                        p.form-control-static
+                            span.label.label-default(ng-repeat="partner in task.availability.partners") {{partner}}

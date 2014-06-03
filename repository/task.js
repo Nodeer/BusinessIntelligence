@@ -37,7 +37,9 @@ var TaskRepository = Base.extend(function (user) {
                                 if (err) return inputCallback(err);
 
                                 return inputCallback(err, {
-                                    conditions: Enumerable.from(conditions).select(function(condition) {
+                                    conditions: Enumerable.from(conditions).orderBy(function(condition) {
+                                        return condition.id;
+                                    }).select(function(condition) {
                                         return condition.toDto();
                                     }).toArray()
                                 });
@@ -56,7 +58,9 @@ var TaskRepository = Base.extend(function (user) {
                                 if (err) return outputCallback(err);
 
                                 return outputCallback(err, {
-                                    conditions: Enumerable.from(conditions).select(function(condition) {
+                                    conditions: Enumerable.from(conditions).orderBy(function(condition) {
+                                        return condition.id;
+                                    }).select(function(condition) {
                                         return condition.toDto();
                                     }).toArray()
                                 });
@@ -115,12 +119,12 @@ var TaskRepository = Base.extend(function (user) {
                     }
                 });
 
-                return async.parallel([
+                return async.series([
                     function(callback) {
-                        return async.map(Enumerable.from(taskDto.inputs).where(function(input) {
+                        return async.mapSeries(Enumerable.from(taskDto.inputs).where(function(input) {
                             return input.conditions.length;
                         }).toArray(), function(input, inputCallback) {
-                            return async.map(input.conditions, function(condition, conditionCallback) {
+                            return async.mapSeries(input.conditions, function(condition, conditionCallback) {
                                 return new ConditionRepository(user).save(condition, conditionCallback);
                             }, function(err, conditions) {
                                 if (err) return inputCallback(err);
@@ -140,10 +144,10 @@ var TaskRepository = Base.extend(function (user) {
                         });
                     },
                     function(callback) {
-                        return async.map(Enumerable.from(taskDto.outputs).where(function(output) {
+                        return async.mapSeries(Enumerable.from(taskDto.outputs).where(function(output) {
                             return output.conditions.length;
                         }).toArray(), function(output, outputCallback) {
-                            return async.map(output.conditions, function(condition, conditionCallback) {
+                            return async.mapSeries(output.conditions, function(condition, conditionCallback) {
                                 return new ConditionRepository(user).save(condition, conditionCallback);
                             }, function(err, conditions) {
                                 if (err) return outputCallback(err);
@@ -220,6 +224,12 @@ var TaskRepository = Base.extend(function (user) {
             ///<summary>Finds tasks which produce the condition</summary>
             
             return Task.find({ 'outputs.conditions' : conditionId }, done);
+        },
+
+        findConsumerTasksByCondition: function(conditionId, done) {
+            ///<summary>Finds tasks which consume the condition</summary>
+            
+            return Task.find({ 'inputs.conditions' : conditionId }, done);
         }
     });
 

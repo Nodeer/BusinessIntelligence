@@ -40,6 +40,7 @@
     <Compile Include="models\user.snapshot.js" />
     <Compile Include="public\js\components\bootstrap.file-input.js" />
     <Compile Include="public\js\components\linq.min.js" />
+    <Compile Include="public\js\components\objectId.js" />
     <Compile Include="public\js\directives.js" />
     <Compile Include="public\js\management.controllers.js" />
     <Compile Include="public\js\management.services.js" />
@@ -70,7 +71,6 @@
     <Compile Include="services\condition.js" />
     <Compile Include="services\task.js" />
     <Compile Include="services\user.js" />
-    <Content Include="public\images\loader.gif" />
     <Content Include="public\images\knowledgeBase48x48.png" />
     <Content Include="views\alert.jade" />
     <Content Include="views\context.jade" />
@@ -102,12 +102,14 @@
     <Content Include="views\home\index.jade" />
     <Content Include="views\profile\index.jade" />
     <Content Include="views\task\condition\create_update.jade" />
+    <Content Include="views\task\condition\view.jade" />
     <Content Include="views\task\partial_condition_icon.jade" />
     <Content Include="views\task\layout.jade" />
     <Content Include="views\task\create_update.jade" />
-    <Content Include="views\task\partial_task_view.jade" />
+    <Content Include="views\task\partial_task_view_general.jade" />
+    <Content Include="views\task\partial_task_view_inputs.jade" />
+    <Content Include="views\task\partial_task_view_outputs.jade" />
     <Content Include="views\task\view.jade" />
-    <Content Include="views\task\view_popup.jade" />
     <Content Include="views\version.jade" />
   </ItemGroup>
   <ItemGroup>
