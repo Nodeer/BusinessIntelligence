@@ -96,7 +96,9 @@ var TaskService = Base.extend(function (user) {
             return new TaskRepository(this.user).findProducerTasksByCondition(conditionId, function(err, tasks) {
                   if (err) return done(err);
 
-                  return done(err, Enumerable.from(tasks).select(map).toArray());
+                  return done(err, Enumerable.from(tasks).orderBy(function(task) {
+                      return task.id;
+                  }).select(map).toArray());
               });
         },
 
@@ -106,7 +108,9 @@ var TaskService = Base.extend(function (user) {
             return new TaskRepository(this.user).findConsumerTasksByCondition(conditionId, function(err, tasks) {
                   if (err) return done(err);
 
-                  return done(err, Enumerable.from(tasks).select(map).toArray());
+                  return done(err, Enumerable.from(tasks).orderBy(function(task) {
+                      return task.id;
+                  }).select(map).toArray());
               });
         }
     });

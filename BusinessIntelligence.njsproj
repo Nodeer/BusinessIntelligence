@@ -40,6 +40,7 @@
     <Compile Include="models\user.snapshot.js" />
     <Compile Include="public\js\components\bootstrap.file-input.js" />
     <Compile Include="public\js\components\linq.min.js" />
+    <Compile Include="public\js\components\objectId.js" />
     <Compile Include="public\js\directives.js" />
     <Compile Include="public\js\management.controllers.js" />
     <Compile Include="public\js\management.services.js" />

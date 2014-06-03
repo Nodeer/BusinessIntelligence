@@ -93,10 +93,12 @@ exports.getTask = function (req, res, next) {
     });
 };
 
-exports.saveTask = function (req, res) {
+exports.saveTask = function (req, res, next) {
     var taskDto = req.body;
 
     return new TaskService(req.user).saveTask(taskDto, function(err, task) {
+        if (err) return next(err);
+
         return res.json(task);
     });
 };

@@ -37,12 +37,14 @@ block task-content
             .well
                 label Inputs:
                     span.required  *
-                .well(ng-repeat="input in task.inputs")
+                .well(ng-repeat="input in task.inputs track by $index")
                     .form-group
                         .row
-                            .col-md-10
+                            .col-md-6
                                 label Input {{alphaOrder(task.inputs, input)}}:
-                            .col-md-2.text-right
+                            .col-md-6.text-right
+                                a(ng-click="task.$input.copy(input)") Copy
+                                |  |  
                                 a(ng-click="task.$input.remove(input)") Remove Input
                         table.table.table-striped(style="margin-bottom: 0px")
                             thead
@@ -53,7 +55,7 @@ block task-content
                                 th Note
                                 th
                             tbody
-                                tr(ng-repeat="condition in input.conditions")
+                                tr(ng-repeat="condition in input.conditions track by $index")
                                     td
                                         include partial_condition_icon
                                         |  
@@ -64,7 +66,8 @@ block task-content
                                         | {{condition.api.input}}
                                     td
                                         img.loader(src="/public/images/loader.gif", ng-show="!condition.producerTasksLoaded")
-                                        a(ng-repeat="producerTask in getProducerTasks(condition)", ng-href="/task/view/{{producerTask.id}}", target="_blank") {{producerTask.name}}
+                                        div(ng-repeat="producerTask in getProducerTasks(condition)")
+                                            a(ng-href="/task/view/{{producerTask.id}}", target="_blank") {{producerTask.name}}
                                     td
                                         span(popover="{{condition.note}}", popover-trigger="mouseenter", popover-popup-delay="300") {{trimText(condition.note, 25)}}
                                     td.col-td-min
@@ -82,12 +85,14 @@ block task-content
             .well
                 label Outputs:
                     span.required  *
-                .well(ng-repeat="output in task.outputs")
+                .well(ng-repeat="output in task.outputs track by $index")
                     .form-group
                         .row
-                            .col-md-10
+                            .col-md-6
                                 label Output {{alphaOrder(task.outputs, output)}}:
-                            .col-md-2.text-right
+                            .col-md-6.text-right
+                                a(ng-click="task.$output.copy(output)") Copy
+                                |  |  
                                 a(ng-click="task.$output.remove(output)") Remove Output
                         table.table.table-striped
                             thead
@@ -100,7 +105,7 @@ block task-content
                                 th Note
                                 th
                             tbody
-                                tr(ng-repeat="condition in output.conditions")
+                                tr(ng-repeat="condition in output.conditions track by $index")
                                     td
                                         include partial_condition_icon
                                         |  
@@ -113,7 +118,8 @@ block task-content
                                         | {{condition.api.output}}
                                     td
                                         img.loader(src="/public/images/loader.gif", ng-show="!condition.consumerTasksLoaded")
-                                        a(ng-repeat="consumerTask in getConsumerTasks(condition)", ng-href="/task/view/{{consumerTask.id}}", target="_blank") {{consumerTask.name}}
+                                        div(ng-repeat="consumerTask in getConsumerTasks(condition)")
+                                            a(ng-href="/task/view/{{consumerTask.id}}", target="_blank") {{consumerTask.name}}
                                     td
                                         span(popover="{{condition.note}}", popover-trigger="mouseenter", popover-popup-delay="300") {{trimText(condition.note, 25)}}
                                     td.col-td-min

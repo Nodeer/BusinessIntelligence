@@ -57,6 +57,13 @@ taskControllers.controller('CreateUpdateTaskCtrl', ['$scope', 'TaskFactory', 'Co
                                 conditions: []
                             });
                         },
+                        copy: function(input) {
+                            var copy = {
+                                conditions: $.extend([], input.conditions)
+                            };
+
+                            return $scope.task.inputs.push(copy);
+                        },
                         remove: function(input) {
                             var index = $scope.task.inputs.indexOf(input);
                             return $scope.task.inputs.splice(index, 1);
@@ -83,8 +90,15 @@ taskControllers.controller('CreateUpdateTaskCtrl', ['$scope', 'TaskFactory', 'Co
                                 conditions: []
                             });
                         },
-                        remove: function(input) {
-                            var index = $scope.task.outputs.indexOf(input);
+                        copy: function(output) {
+                            var copy = {
+                                conditions: $.extend([], output.conditions)
+                            };
+
+                            return $scope.task.outputs.push(copy);
+                        },
+                        remove: function(output) {
+                            var index = $scope.task.outputs.indexOf(output);
                             return $scope.task.outputs.splice(index, 1);
                         },
                         createUpdateCondition: function(output, condition) {
@@ -120,6 +134,8 @@ taskControllers.controller('CreateUpdateTaskCtrl', ['$scope', 'TaskFactory', 'Co
                             if (condition.id) {
                                 return $.extend(true, condition, ConditionBuilder.build(resultCondition));
                             } else {
+                                resultCondition.id = ObjectId();
+
                                 return scope.conditions.push(ConditionBuilder.build(resultCondition));
                             }
                         });
@@ -135,6 +151,17 @@ taskControllers.controller('CreateUpdateTaskCtrl', ['$scope', 'TaskFactory', 'Co
                         }).$promise.then(function(conditions) {
                             conditions = Enumerable.from(conditions).select(function(condition) {
                                 return ConditionBuilder.build(condition);
+                            });
+
+                            var taskConditions = [];
+                            $scope._iterateTaskConditions($scope.task, function(condition) {
+                                taskConditions.push(condition);
+                            });
+
+                            conditions = conditions.union(taskConditions).distinct(function(condition) {
+                                return condition.id;
+                            }).where(function(condition) {
+                                return condition.name.toLowerCase().indexOf(criteria.toLowerCase()) > -1;
                             }).toArray();
                             conditions.push({
                                 name: sprintf('Create new Condition "%s"', criteria),
@@ -149,12 +176,47 @@ taskControllers.controller('CreateUpdateTaskCtrl', ['$scope', 'TaskFactory', 'Co
                 TaskFactory.get({
                     id: id
                 }, function(task) {
-                   $.extend(true, $scope.task, task);
+                    $.extend(true, $scope.task, task);
+
+                    var conditions = [];
+
+                    $scope._iterateTaskConditions($scope.task, function(condition) {
+                        conditions.push(condition);
+                    });
+
+                    var conditionsPull = Enumerable.from(conditions).distinct(function(condition) {
+                        return condition.id;
+                    });
+
+                    Enumerable.from($scope.task.inputs).forEach(function(input) {
+                        input.conditions = conditionsPull.intersect(input.conditions, function(condition) {
+                            return condition.id;
+                        }).toArray();
+                    });
+
+                    Enumerable.from($scope.task.outputs).forEach(function(output) {
+                        output.conditions = conditionsPull.intersect(output.conditions, function(condition) {
+                            return condition.id;
+                        }).toArray();
+                    });
                 });
             } else {
                 $scope.task.$input.add();
                 $scope.task.$output.add();
             }
+        };
+
+        $scope._iterateConditions = function(iConditionableCollection, iterator) {
+            Enumerable.from(iConditionableCollection).forEach(function(iConditionable) {
+                Enumerable.from(iConditionable.conditions).forEach(function(condition) {
+                    iterator(condition);
+                });
+            });
+        };
+
+        $scope._iterateTaskConditions = function(task, iterator) {
+            $scope._iterateConditions(task.inputs, iterator);
+            $scope._iterateConditions(task.outputs, iterator);
         };
 
         $scope.ui = {
@@ -203,7 +265,7 @@ taskControllers.controller('ViewTaskCtrl', ['$scope', 'TaskFactory', '$modal',
                 controller: 'ViewConditionCtrl',
                 resolve: {
                     condition: function() {
-                        return $.extend(true, {}, condition);
+                        return condition;
                     }
                 }
             });

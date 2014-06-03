@@ -24,15 +24,18 @@ exports.register = function (app, passport) {
 
     // Handle 500
     app.use(function (error, req, res, next) {
+        if (error) {
+            logger.error(error);
 
-        logger.error(error);
-
-        res.status(500);
-        var view = new View('error/500');
-        return view.render(req, res, next, {
-            title: "500: Internal Server Error",
-            error: error
-        });
+            res.status(500);
+            var view = new View('error/500');
+            return view.render(req, res, next, {
+                title: "500: Internal Server Error",
+                error: error
+            });
+        } else {
+            return next();
+        }
     });
 
     return this;
