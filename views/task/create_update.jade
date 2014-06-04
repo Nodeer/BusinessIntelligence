@@ -38,7 +38,7 @@ block task-content
                 label Inputs:
                     span.required  *
                 .well(ng-repeat="input in task.inputs track by $index")
-                    .form-group(id="input{{$index}}")
+                    .form-group(id="input{{$index + 1}}")
                         .row
                             .col-md-6
                                 label Input {{alphaOrder(task.inputs, input)}}:
@@ -67,9 +67,9 @@ block task-content
                                     td
                                         img.loader(src="/public/images/loader.gif", ng-show="!condition.producerTasksLoaded")
                                         div(ng-repeat="producerTask in getProducerTasks(condition)")
-                                            a(ng-href="/task/view/{{producerTask.id}}", target="_blank") {{producerTask.name}}
+                                            a(ng-href="/task/view/{{producerTask.id}}", target="_blank", popover="{{producerTask.description}}", popover-trigger="mouseenter", popover-popup-delay="300", popover-placement="right") {{producerTask.name}}
                                     td
-                                        span(popover="{{condition.note}}", popover-trigger="mouseenter", popover-popup-delay="300") {{trimText(condition.note, 25)}}
+                                        span(popover="{{condition.note}}", popover-trigger="mouseenter", popover-popup-delay="300", popover-placement="right") {{trimText(condition.note, 25)}}
                                     td.col-td-min
                                         a(ng-click="task.removeCondition(input.conditions, condition)")
                                             span.glyphicon.glyphicon-remove
@@ -86,7 +86,7 @@ block task-content
                 label Outputs:
                     span.required  *
                 .well(ng-repeat="output in task.outputs track by $index")
-                    .form-group(id="output{{$index}}")
+                    .form-group(id="output{{$index + 1}}")
                         .row
                             .col-md-6
                                 label Output {{alphaOrder(task.outputs, output)}}:
@@ -98,7 +98,6 @@ block task-content
                             thead
                                 th Condition
                                 th Affects Task
-                                th Affect Description
                                 th Displayed on UI
                                 th Used in API
                                 th Used as Input for Task
@@ -112,16 +111,15 @@ block task-content
                                         a(ng-click="task.$output.createUpdateCondition(output, condition)") {{condition.name}}
                                     td
                                     td
-                                    td
                                         | {{condition.ui.output}}
                                     td
                                         | {{condition.api.output}}
                                     td
                                         img.loader(src="/public/images/loader.gif", ng-show="!condition.consumerTasksLoaded")
                                         div(ng-repeat="consumerTask in getConsumerTasks(condition)")
-                                            a(ng-href="/task/view/{{consumerTask.id}}", target="_blank") {{consumerTask.name}}
+                                            a(ng-href="/task/view/{{consumerTask.id}}", target="_blank", popover="{{consumerTask.description}}", popover-trigger="mouseenter", popover-popup-delay="300", popover-placement="right") {{consumerTask.name}}
                                     td
-                                        span(popover="{{condition.note}}", popover-trigger="mouseenter", popover-popup-delay="300") {{trimText(condition.note, 25)}}
+                                        span(popover="{{condition.note}}", popover-trigger="mouseenter", popover-popup-delay="300", popover-placement="right") {{trimText(condition.note, 25)}}
                                     td.col-td-min
                                         a(ng-click="task.removeCondition(output.conditions, condition)")
                                             span.glyphicon.glyphicon-remove
@@ -136,5 +134,5 @@ block task-content
                     |  
                     a(ng-click="task.$output.add()") Add Output
             br
-            input(type="submit", value="Submit").btn.btn-primary
+            input(type="submit", value="Submit", ng-disabled="!validate()").btn.btn-primary
             a.btn.btn-default(type="button", href="/") Cancel

@@ -10,8 +10,8 @@
                     a.navbar-brand(href="/")
                         span.glyphicon.glyphicon-home
             .navbar-collapse.collapse
+                #navigation-bar
                 if user
-                    #navigation-bar
                         ul.nav.navbar-nav(ng-repeat="group in navigation.groups", ng-switch on="group.type")
                             li.dropdown(ng-switch-when="dropdown", ng-class="{ active: isActive(group.path)}")
                                 a(href="#", data-toggle="dropdown", id="{{group.id || group.name}}").dropdown-toggle
