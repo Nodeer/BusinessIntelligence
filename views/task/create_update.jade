@@ -38,15 +38,15 @@ block task-content
                 label Inputs:
                     span.required  *
                 .well(ng-repeat="input in task.inputs track by $index")
-                    .form-group
+                    .form-group(id="input{{$index}}")
                         .row
                             .col-md-6
                                 label Input {{alphaOrder(task.inputs, input)}}:
                             .col-md-6.text-right
-                                a(ng-click="task.$input.copy(input)") Copy
+                                a(ng-href="#input{{task.inputs.length}}", ng-click="task.$input.copy(input)") Copy
                                 |  |  
-                                a(ng-click="task.$input.remove(input)") Remove Input
-                        table.table.table-striped(style="margin-bottom: 0px")
+                                a(ng-href="#input{{task.inputs.length - 1}}", ng-click="task.$input.remove(input)") Remove Input
+                        table.table.table-striped(style="margin-bottom: 0px;")
                             thead
                                 th Condition
                                 th Enter from UI
@@ -86,14 +86,14 @@ block task-content
                 label Outputs:
                     span.required  *
                 .well(ng-repeat="output in task.outputs track by $index")
-                    .form-group
+                    .form-group(id="output{{$index}}")
                         .row
                             .col-md-6
                                 label Output {{alphaOrder(task.outputs, output)}}:
                             .col-md-6.text-right
-                                a(ng-click="task.$output.copy(output)") Copy
+                                a(ng-href="#output{{task.outputs.length}}", ng-click="task.$output.copy(output)") Copy
                                 |  |  
-                                a(ng-click="task.$output.remove(output)") Remove Output
+                                a(ng-href="#output{{task.outputs.length - 1}}", ng-click="task.$output.remove(output)") Remove Output
                         table.table.table-striped
                             thead
                                 th Condition
