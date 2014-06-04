@@ -23,8 +23,9 @@ var conditionSnapshotSchema = new Schema({
     note: String,
     affects: [ { type: Schema.Types.ObjectId, ref: 'Affect', index: 1 } ],
     audit: {
+        created_by: { type: Schema.Types.ObjectId, ref: 'User' },
+        modified_by: { type: Schema.Types.ObjectId, ref: 'User' },
         modified_date: Date,
-        modified_by: String,
         revision: Number
     }
 });

@@ -23,13 +23,11 @@ exports.index = function (req, res, next) {
     });
 };
 
-exports.getUsers = function (req, res) {
+exports.getUsers = function (req, res, next) {
     ///<summary>Gets list of users</summary>
 
     return new UserService().getUsersDto(function(err, users) {
-        if (err) {
-            return res.status(500).end();
-        }
+        if (err) return next(err);
 
         return res.json(users);
     });

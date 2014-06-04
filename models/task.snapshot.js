@@ -18,33 +18,26 @@ var taskSnapshotSchema = new Schema({
         conditions: [ { type: Schema.Types.ObjectId, ref: 'Condition'} ]
     }],
     audit: {
-        modified_date: { type: Date, default: Date.now },
-        modified_by: { type: String, default: '' },
+        created_by: { type: Schema.Types.ObjectId, ref: 'User' },
+        modified_by: { type: Schema.Types.ObjectId, ref: 'User' },
+        modified_date: Date,
         revision: Number
     }
 });
 
 taskSnapshotSchema.statics.create = function(task) {
     ///<summary>Creates from Task</summary>
-    ///<param name="task">Task</param>
-    
-    return new TaskSnapshot(extend({}, {
+
+    return new TaskSnapshot({
         taskId: task.id,
         name: task.name,
         description: task.description,
         external_id: task.external_id,
-        availability: {
-            availability_type: task.availability.availability_type,
-            partners: task.availability.partners
-        },
+        availability: task.availability,
         inputs: task.inputs,
         outputs: task.outputs,
-        audit: {
-            modified_date: task.audit.modified_date,
-            modified_by: task.audit.modified_by,
-            revision: task.audit.revision
-        }
-    }));
+        audit: task.audit
+    });
 };
 
 module.exports = TaskSnapshot = mongoose.model('TaskSnapshot', taskSnapshotSchema);

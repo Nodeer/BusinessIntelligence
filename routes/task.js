@@ -85,9 +85,7 @@ exports.getTask = function (req, res, next) {
     var id = req.params.id;
 
     return new TaskService(req.user).getTaskById(id, function(err, task) {
-        if (err) {
-            next();
-        }
+        if (err) return next(err);
 
         return res.json(task);
     });
@@ -109,13 +107,13 @@ exports.getConditionById = function (req, res, next) {
     return new ConditionService(req.user).getById(req.params.id, function(condition) {
         return condition.toDto();
     }, function(err, condition) {
-        if (err) return next();
+        if (err) return next(err);
 
         return res.json(condition);
     });
 };
 
-exports.getPartners = function (req, res) {
+exports.getPartners = function (req, res, next) {
     ///<summary>Loads list of partners</summary>
 
     return new TaskService(req.user).findPartnersByName(req.params.name, function(partner) {
@@ -124,11 +122,7 @@ exports.getPartners = function (req, res) {
                 text: partner
             };
     }, function(err, partners) {
-        if (err) {
-            logger.error(err);
-
-            return res.send(500);
-        }
+        if (err) return next(err);
 
         partners.splice(0, 0, {
             id: req.params.name,
@@ -139,16 +133,12 @@ exports.getPartners = function (req, res) {
     });
 };
 
-exports.getConditionsByName = function (req, res) {
+exports.getConditionsByName = function (req, res, next) {
 
     return new ConditionService(req.user).findConditionsByName(req.params.name, function(condition) {
         return condition.toDto();
     }, function(err, conditions) {
-        if (err) {
-            logger.error(err);
-
-            return res.send(500);
-        }
+        if (err) return next(err);
 
         return res.json(conditions);
     });
@@ -161,7 +151,7 @@ exports.getConditionValues = function (req, res, next) {
             value: value
         };
     }, function(err, values) {
-        if (err) return next();
+        if (err) return next(err);
 
         return res.json(values);
     });
@@ -172,7 +162,7 @@ exports.getProducerTasksByCondition = function (req, res, next) {
     return new TaskService(req.user).findProducerTasksByCondition(req.params.id, function(task) {
         return task.toDto();
     }, function(err, tasks) {
-        if (err) return next();
+        if (err) return next(err);
 
         return res.json(tasks);
     });
@@ -183,7 +173,7 @@ exports.getConsumerTasksByCondition = function (req, res, next) {
     return new TaskService(req.user).findConsumerTasksByCondition(req.params.id, function(task) {
         return task.toDto();
     }, function(err, tasks) {
-        if (err) return next();
+        if (err) return next(err);
 
         return res.json(tasks);
     });

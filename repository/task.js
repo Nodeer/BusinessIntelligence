@@ -101,7 +101,11 @@ var TaskRepository = Base.extend(function (user) {
             var user = this.user;
             
             return Task.findById(taskDto.id, function(err, task) {
-                task = task || new Task();
+                task = task || new Task({
+                    audit: {
+                        created_by: user.id
+                    }
+                });
 
                 extend(task, {
                     id: taskDto.id,
@@ -113,8 +117,8 @@ var TaskRepository = Base.extend(function (user) {
                         partners: taskDto.availability.partners
                     },
                     audit: {
+                        modified_by: user.id,
                         modified_date: new Date(),
-                        modified_by: user.getIdentity(),
                         revision: task.audit.revision + 1
                     }
                 });
