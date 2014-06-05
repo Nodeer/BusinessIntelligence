@@ -129,7 +129,9 @@ exports.getPartners = function (req, res, next) {
             text: req.params.name
         });
 
-        return res.json(partners);
+        return res.json(Enumerable.from(partners).distinct(function(partner) {
+            return partner.id;
+        }).toArray());
     });
 };
 
