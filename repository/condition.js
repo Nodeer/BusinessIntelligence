@@ -42,13 +42,16 @@ var ConditionRepository = Base.extend(function (user) {
             var user = this.user;
             return Condition.findById(conditionDto.id, function(err, condition) {
                 condition = condition || new Condition({
-                    _id: conditionDto.id
+                    _id: conditionDto.id,
+                    audit: {
+                        created_by: user.id
+                    }
                 });
 
                 extend(condition, conditionDto, {
                     audit: {
+                        modified_by: user.id,
                         modified_date: new Date(),
-                        modified_by: user.getIdentity(),
                         revision: condition.audit.revision + 1
                     }
                 });

@@ -21,9 +21,7 @@ exports._authenticate = function(passport) {
     
     return function (req, res, next) {
         passport.authenticate('local', function (err, user) {
-            if (err) {
-                return next(err);
-            }
+            if (err) return next(err);
             
             if (user) {
                 return req.logIn(user, function () {

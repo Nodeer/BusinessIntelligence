@@ -25,7 +25,7 @@ exports.tasks = function (req, res, next) {
             description: task.description
         };
     }, function(err, tasks) {
-        if (err) return next();
+        if (err) return next(err);
 
         return res.json(tasks);
     });
