@@ -103,7 +103,8 @@ var TaskRepository = Base.extend(function (user) {
             return Task.findById(taskDto.id, function(err, task) {
                 task = task || new Task({
                     audit: {
-                        created_by: user.id
+                        created_by: user.id,
+                        created_date: new Date()
                     }
                 });
 
@@ -116,11 +117,11 @@ var TaskRepository = Base.extend(function (user) {
                         availability_type: taskDto.availability.availability_type,
                         partners: taskDto.availability.partners
                     },
-                    audit: {
+                    audit: extend(true, {}, task.audit, {
                         modified_by: user.id,
                         modified_date: new Date(),
                         revision: task.audit.revision + 1
-                    }
+                    })
                 });
 
                 return async.series([
@@ -234,6 +235,16 @@ var TaskRepository = Base.extend(function (user) {
             ///<summary>Finds tasks which consume the condition</summary>
             
             return Task.find({ 'inputs.conditions' : conditionId }, done);
+        },
+
+        findTasksCreatedAfter: function(date, done) {
+            ///<summary>Finds tasks created after certain date</summary>
+            
+            return Task.find({
+                'audit.created_date': {
+                    $gt: date
+                }
+            }, done);
         }
     });
 

@@ -112,6 +112,19 @@ var TaskService = Base.extend(function (user) {
                       return task.id;
                   }).select(map).toArray());
               });
+        },
+
+        calculateMetrics: function(done) {
+            ///<summary>Calculates metrics</summary>
+            
+            var user = this.user;
+            return new TaskRepository(user).findTasksCreatedAfter(user.metrics.previous_login_date, function(err, tasks) {
+                if (err) return done(err);
+                
+                return done(err, {
+                    newly_added_tasks_count: tasks.length
+                });
+            });
         }
     });
 

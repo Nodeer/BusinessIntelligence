@@ -180,7 +180,8 @@ var UserService = Base.extend(function () { })
                 if (user) {
 
                     extend(user.metrics, {
-                        last_login_date: new Date()
+                        previous_login_date: user.metrics.current_login_date,
+                        current_login_date: new Date(),
                     });
 
                     return new UserRepository().updateMetrics(user, done);

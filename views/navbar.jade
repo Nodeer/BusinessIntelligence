@@ -25,7 +25,9 @@
                                             |  {{item.name}}
                             li(ng-switch-when="button", ng-class="{ active: isActive(group.path)}")
                                 a(href="{{group.path}}", id="{{group.id || group.name}}")
-                                            span(class="{{group.icon}}")
-                                            |  {{group.name}}
+                                    span(class="{{group.icon}}")
+                                    |  {{group.name}}
+                                    |  
+                                    span.badge(ng-show="group.badge") {{group.badge.text}}
                 ul.nav.navbar-nav.navbar-right
                     include profile

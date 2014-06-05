@@ -75,7 +75,8 @@ var UserRepository = Base.extend(function () { })
             return User.findByIdAndUpdate(user.id, {
                 $set: {
                     metrics: {
-                        last_login_date: user.metrics.last_login_date
+                        previous_login_date: user.metrics.previous_login_date,
+                        current_login_date: user.metrics.current_login_date
                     }
                 }
             }, done);

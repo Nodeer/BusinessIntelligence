@@ -19,6 +19,7 @@ var taskSnapshotSchema = new Schema({
     }],
     audit: {
         created_by: { type: Schema.Types.ObjectId, ref: 'User' },
+        created_date: Date,
         modified_by: { type: Schema.Types.ObjectId, ref: 'User' },
         modified_date: Date,
         revision: Number

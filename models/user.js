@@ -16,7 +16,8 @@ var userSchema = new Schema({
         revision: { type: Number, default: 1 }
     },
     metrics: {
-        last_login_date: { type: Date, default: Date.now }
+        previous_login_date: { type: Date, default: Date.now },
+        current_login_date: { type: Date, default: Date.now }
     }
 });
 

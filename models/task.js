@@ -17,6 +17,7 @@ var taskSchema = new Schema({
     }],
     audit: {
         created_by: { type: Schema.Types.ObjectId, ref: 'User', index: 1 },
+        created_date: { type: Date, default: Date.now },
         modified_by: { type: Schema.Types.ObjectId, ref: 'User', index: 1 },
         modified_date: { type: Date, default: Date.now },
         revision: { type: Number, default: 1 }

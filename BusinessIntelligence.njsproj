@@ -60,6 +60,7 @@
     <Compile Include="repository\user.snapshot.js" />
     <Compile Include="routes\index.js" />
     <Compile Include="routes\management.js" />
+    <Compile Include="routes\metrics.js" />
     <Compile Include="routes\profile.js" />
     <Compile Include="routes\route.js" />
     <Compile Include="routes\context.js" />
