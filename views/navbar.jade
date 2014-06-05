@@ -31,3 +31,7 @@
                                     span.badge(ng-show="group.badge") {{group.badge.text}}
                 ul.nav.navbar-nav.navbar-right
                     include profile
+                script.
+                    $('li.dropdown').click(function() {
+                        $(this).removeClass('open')
+                    });
