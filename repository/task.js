@@ -205,13 +205,9 @@ var TaskRepository = Base.extend(function (user) {
 
             return async.parallel({
                 byName: function(callback){
-                    var findCriteria  = {};
-                    if (criteria.date) {
-                        $.extend(findCriteria, {
-                            date: criteria.date
-                        });
-                    }
-                    Task.find(findCriteria, callback);
+                    Task.find({
+                        name: new RegExp(criteria, 'i')
+                    }, callback);
                 },
                 byDescription: function(callback){
                     Task.find({
