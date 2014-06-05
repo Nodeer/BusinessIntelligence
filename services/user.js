@@ -178,7 +178,12 @@ var UserService = Base.extend(function () { })
             
             return new UserService().findByEmailPassword(email, password, function (err, user) {
                 if (user) {
-                    return done(err, user);
+
+                    extend(user.metrics, {
+                        last_login_date: new Date()
+                    });
+
+                    return new UserRepository().updateMetrics(user, done);
                 }
 
                 return done(null, false);

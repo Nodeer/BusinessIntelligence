@@ -69,6 +69,18 @@ var UserRepository = Base.extend(function () { })
             }, done);
         },
 
+        updateMetrics: function(user, done) {
+            ///<summary>Updates metrics</summary>
+
+            return User.findByIdAndUpdate(user.id, {
+                $set: {
+                    metrics: {
+                        last_login_date: user.metrics.last_login_date
+                    }
+                }
+            }, done);
+        },
+
         findByEmailPassword: function (email, password, done) {
             ///<summary>Finds user by email and password. Password must by hashed already.</summary>
             ///<param name="email">Email of a user</param>
