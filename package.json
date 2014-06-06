@@ -16,6 +16,7 @@
     "async": "^0.7.0",
     "linq": "^3.0.4-beta",
     "node-uuid": "^1.4.1",
-    "multer": "0.0.6"
+    "multer": "0.0.6",
+    "lodash": "^2.4.1"
   }
 }

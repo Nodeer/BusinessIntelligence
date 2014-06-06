@@ -19,7 +19,6 @@ var conditionSchema = new Schema({
         output: { type: String, index: 1, default: '' }
     },
     note: String,
-    affects: [ { type: Schema.Types.ObjectId, ref: 'Affect', index: 1 } ],
     audit: {
         created_by: { type: Schema.Types.ObjectId, ref: 'User', index: 1 },
         modified_by: { type: Schema.Types.ObjectId, ref: 'User', index: 1 },

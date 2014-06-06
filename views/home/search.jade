@@ -16,6 +16,5 @@
                 p(ng-bind-html="highlight(task.description)")
             td.col-td-min
                 div(ng-show="user.access.taskUpdate").no-wrap
-                    span.glyphicon.glyphicon-pencil
-                    |  
-                    a(ng-href="/task/update/{{task.id}}") Update Task
+                    a(ng-href="/task/update/{{task.id}}")
+                        span.glyphicon.glyphicon-pencil

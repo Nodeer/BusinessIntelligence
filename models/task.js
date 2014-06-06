@@ -26,7 +26,6 @@ var taskSchema = new Schema({
 
 taskSchema.methods.toDto = function() {
     ///<summary>Converts to DTO</summary>
-    
     return {
         id: this.id,
         name: this.name,

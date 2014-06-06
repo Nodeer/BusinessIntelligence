@@ -21,7 +21,6 @@ var conditionSnapshotSchema = new Schema({
         output: String
     },
     note: String,
-    affects: [ { type: Schema.Types.ObjectId, ref: 'Affect', index: 1 } ],
     audit: {
         created_by: { type: Schema.Types.ObjectId, ref: 'User' },
         modified_by: { type: Schema.Types.ObjectId, ref: 'User' },
@@ -42,6 +41,21 @@ conditionSnapshotSchema.statics.create = function(condition) {
         note: condition.note,
         audit: condition.audit
     });
+};
+
+conditionSnapshotSchema.methods.toDto = function() {
+    ///<summary>Converts to DTO</summary>
+    
+    return {
+        conditionId: this.conditionId,
+        name: this.name,
+        condition_type: this.condition_type,
+        setting: this.setting,
+        description: this.description,
+        ui: this.ui,
+        api: this.api,
+        note: this.note
+    };
 };
 
 module.exports = ConditionSnapshot = mongoose.model('ConditionSnapshot', conditionSnapshotSchema);

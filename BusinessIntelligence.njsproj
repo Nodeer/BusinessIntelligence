@@ -29,7 +29,6 @@
     <Content Include=".git\ms-persist.xml" />
     <Compile Include="gruntfile.js" />
     <Compile Include="logger.js" />
-    <Compile Include="models\affect.js" />
     <Compile Include="models\condition.js" />
     <Compile Include="models\condition.snapshot.js" />
     <Compile Include="models\group.js" />
@@ -38,6 +37,7 @@
     <Compile Include="models\task.snapshot.js" />
     <Compile Include="models\user.js" />
     <Compile Include="models\user.snapshot.js" />
+    <Compile Include="modules\obj.js" />
     <Compile Include="public\js\components\bootstrap.file-input.js" />
     <Compile Include="public\js\components\linq.min.js" />
     <Compile Include="public\js\components\objectId.js" />
@@ -117,6 +117,7 @@
   <ItemGroup>
     <Folder Include=".git" />
     <Folder Include="models" />
+    <Folder Include="modules\" />
     <Folder Include="public\js\components\" />
     <Folder Include="repository\scripts\" />
     <Folder Include="tests\" />

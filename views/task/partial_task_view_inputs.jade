@@ -25,4 +25,4 @@
                             div(ng-repeat="producerTask in getProducerTasks(condition)")
                                 a(ng-href="/task/view/{{producerTask.id}}", popover="{{producerTask.description}}", popover-trigger="mouseenter", popover-popup-delay="300", popover-placement="right") {{producerTask.name}}
                         td
-                            span(popover="{{condition.note}}", popover-trigger="mouseenter", popover-popup-delay="300") {{trimText(condition.note, 25)}}
+                            span(popover="{{condition.note}}", popover-trigger="mouseenter", popover-popup-delay="300", popover-placement="right") {{trimText(condition.note, 25)}}
