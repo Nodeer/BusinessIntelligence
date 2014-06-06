@@ -4,7 +4,8 @@
     ConditionRepository = require('./condition'),
     Enumerable = require('linq'),
     async = require('async'),
-    extend = require('extend');
+    extend = require('extend'),
+    obj = require('../modules/obj');
 
 var TaskRepository = Base.extend(function (user) {
         this.user = user;
@@ -37,6 +38,7 @@ var TaskRepository = Base.extend(function (user) {
                                 if (err) return inputCallback(err);
 
                                 return inputCallback(err, {
+                                    id: input.id,
                                     conditions: Enumerable.from(conditions).orderBy(function(condition) {
                                         return condition.id;
                                     }).select(function(condition) {
@@ -58,6 +60,7 @@ var TaskRepository = Base.extend(function (user) {
                                 if (err) return outputCallback(err);
 
                                 return outputCallback(err, {
+                                    id: output.id,
                                     conditions: Enumerable.from(conditions).orderBy(function(condition) {
                                         return condition.id;
                                     }).select(function(condition) {
@@ -98,7 +101,8 @@ var TaskRepository = Base.extend(function (user) {
             ///<param name="taskDto">Task DTO</param>
             ///<param name="done">Done callback</param>
             
-            var user = this.user;
+            var user = this.user,
+                taskRepository = this;
             
             return Task.findById(taskDto.id, function(err, task) {
                 task = task || new Task({
@@ -135,6 +139,7 @@ var TaskRepository = Base.extend(function (user) {
                                 if (err) return inputCallback(err);
 
                                 return inputCallback(err, {
+                                    _id: input.id,
                                     conditions: Enumerable.from(conditions).select(function(condition) {
                                         return condition.id;
                                     }).toArray()
@@ -158,6 +163,7 @@ var TaskRepository = Base.extend(function (user) {
                                 if (err) return outputCallback(err);
 
                                 return outputCallback(err, {
+                                    _id: output.id,
                                     conditions: Enumerable.from(conditions).select(function(condition) {
                                         return condition.id;
                                     }).toArray()
@@ -177,7 +183,7 @@ var TaskRepository = Base.extend(function (user) {
                     return task.save(function (err) {
                         if (err) return done(err);
 
-                        return TaskSnapshot.create(task).save(function(err) {
+                        return taskRepository._createSnapshot(task, function(err) {
                             return done(err, task);
                         });
                     });
@@ -245,6 +251,26 @@ var TaskRepository = Base.extend(function (user) {
                     $gt: date
                 }
             }, done);
+        },
+
+        _createSnapshot: function(task, done) {
+            ///<summary>Creates snapshot</summary>
+
+            return TaskSnapshot.findOne({taskId: task.id}, {}, {
+                sort: {
+                    _id: -1
+                }
+            }, function(err, oldestTaskSnapshot) {
+                if (err) return done(err);
+
+                var newestTaskSnapshot = TaskSnapshot.create(task);
+
+                if (!oldestTaskSnapshot || !obj.isEqual(oldestTaskSnapshot.toDto(), newestTaskSnapshot.toDto())) {
+                    return newestTaskSnapshot.save(done);
+                } else {
+                    return done();
+                }
+            });
         }
     });
 

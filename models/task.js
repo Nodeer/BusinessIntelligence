@@ -1,6 +1,14 @@
 ﻿var mongoose = require('mongoose'),
     Schema = mongoose.Schema;
 
+var Input = new Schema({
+    conditions: [ { type: Schema.Types.ObjectId, ref: 'Condition', index: 1 } ]
+});
+
+var Output = new Schema({
+    conditions: [ { type: Schema.Types.ObjectId, ref: 'Condition', index: 1 } ]
+});
+
 var taskSchema = new Schema({
     name: { type: String, required: 1, index: 1 },
     description: { type: String, index: 1, default: '' },
@@ -9,12 +17,8 @@ var taskSchema = new Schema({
         availability_type: Number,
         partners: [ { type: String, index: 1 } ]
     },
-    inputs: [{
-        conditions: [ { type: Schema.Types.ObjectId, ref: 'Condition', index: 1 } ]
-    }],
-    outputs: [{
-        conditions: [ { type: Schema.Types.ObjectId, ref: 'Condition', index: 1 } ]
-    }],
+    inputs: [Input],
+    outputs: [Output],
     audit: {
         created_by: { type: Schema.Types.ObjectId, ref: 'User', index: 1 },
         created_date: { type: Date, default: Date.now },

@@ -81,15 +81,19 @@ var ConditionRepository = Base.extend(function (user) {
         _createSnapshot: function(condition, done) {
             ///<summary>Creates snapshot</summary>
             
-            return ConditionSnapshot.findOne({conditionId: condition.id}, {}, { sort: { '_id' : 1 } }, function(err, oldestConditionSnapshot) {
+            return ConditionSnapshot.findOne({conditionId: condition.id}, {}, {
+                sort: {
+                    _id: -1
+                }
+            }, function(err, oldestConditionSnapshot) {
                 if (err) return done(err);
 
                 var newestConditionSnapshot = ConditionSnapshot.create(condition);
 
-                if (!obj.isEqual(oldestConditionSnapshot.toDto(), newestConditionSnapshot.toDto())) {
+                if (!oldestConditionSnapshot || !obj.isEqual(oldestConditionSnapshot.toDto(), newestConditionSnapshot.toDto())) {
                     return newestConditionSnapshot.save(done);
                 } else {
-                    done();
+                    return done();
                 }
             });
         }
