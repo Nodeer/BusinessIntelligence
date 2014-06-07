@@ -90,6 +90,14 @@ var TaskService = Base.extend(function (user) {
           });
         },
 
+        findTasks: function(taskCriteria, map, done) {
+            return new TaskRepository(this.user).findAllTasks(taskCriteria, function(err, tasks) {
+                if (err) return done(err);
+                
+                return done(err, Enumerable.from(tasks).select(map).toArray());
+            });
+        },
+
         findProducerTasksByCondition: function(conditionId, map, done) {
             ///<summary>Finds tasks which produce the condition</summary>
 
