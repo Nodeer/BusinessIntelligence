@@ -31,6 +31,8 @@ exports.register = function (app) {
     app.get('/task/dependency.json/condition/:id/producerTasks', route.private({ 'task': ['read']}), exports.getProducerTasksByCondition);
     app.get('/task/dependency.json/condition/:id/consumerTasks', route.private({ 'task': ['read']}), exports.getConsumerTasksByCondition);
 
+    app.get('/task/all', route.private({ 'task': ['read']}), exports.viewTasks);
+    app.get('/task/getTasks.json', route.private({ 'task': ['read']}), exports.getTasks);
 
     return this;
 };
@@ -65,6 +67,15 @@ exports.view = function (req, res, next) {
     });
 };
 
+exports.viewTasks = function (req, res, next) {
+    ///<summary>View all tasks</summary>
+    
+    var view = new View('task/all');
+    return view.render(req, res, next, {
+        title: "Task | All"
+    });
+};
+
 exports.createUpdateCondition = function (req, res, next) {
     var view = new View('task/condition/create_update');
     return view.render(req, res, next, {
@@ -88,6 +99,21 @@ exports.getTask = function (req, res, next) {
         if (err) return next(err);
 
         return res.json(task);
+    });
+};
+
+exports.getTasks = function (req, res, next) {
+
+    var taskCriteria = {};
+
+    return new TaskService(req.user).findTasks(taskCriteria, function(task) {
+        var taskDto = task.toDto();
+        taskDto.audit = task.audit;
+        return taskDto;
+    }, function(err, tasks) {
+        if (err) return next(err);
+
+        return res.json(tasks);
     });
 };
 
@@ -129,7 +155,9 @@ exports.getPartners = function (req, res, next) {
             text: req.params.name
         });
 
-        return res.json(partners);
+        return res.json(Enumerable.from(partners).distinct(function(partner) {
+            return partner.id;
+        }).toArray());
     });
 };
 

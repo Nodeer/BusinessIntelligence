@@ -25,6 +25,6 @@
                         td
                             img.loader(src="/public/images/loader.gif", ng-show="!condition.consumerTasksLoaded")
                             div(ng-repeat="consumerTask in getConsumerTasks(condition)")
-                                a(ng-href="/task/view/{{consumerTask.id}}") {{consumerTask.name}}
+                                a(ng-href="/task/view/{{consumerTask.id}}", popover="{{consumerTask.description}}", popover-trigger="mouseenter", popover-popup-delay="300", popover-placement="right") {{consumerTask.name}}
                         td
-                            span(popover="{{condition.note}}", popover-trigger="mouseenter", popover-popup-delay="300") {{trimText(condition.note, 25)}}
+                            span(popover="{{condition.note}}", popover-trigger="mouseenter", popover-popup-delay="300", popover-placement="right") {{trimText(condition.note, 25)}}

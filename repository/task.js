@@ -4,7 +4,8 @@
     ConditionRepository = require('./condition'),
     Enumerable = require('linq'),
     async = require('async'),
-    extend = require('extend');
+    extend = require('extend'),
+    obj = require('../modules/obj');
 
 var TaskRepository = Base.extend(function (user) {
         this.user = user;
@@ -37,6 +38,7 @@ var TaskRepository = Base.extend(function (user) {
                                 if (err) return inputCallback(err);
 
                                 return inputCallback(err, {
+                                    id: input.id,
                                     conditions: Enumerable.from(conditions).orderBy(function(condition) {
                                         return condition.id;
                                     }).select(function(condition) {
@@ -58,6 +60,7 @@ var TaskRepository = Base.extend(function (user) {
                                 if (err) return outputCallback(err);
 
                                 return outputCallback(err, {
+                                    id: output.id,
                                     conditions: Enumerable.from(conditions).orderBy(function(condition) {
                                         return condition.id;
                                     }).select(function(condition) {
@@ -98,12 +101,14 @@ var TaskRepository = Base.extend(function (user) {
             ///<param name="taskDto">Task DTO</param>
             ///<param name="done">Done callback</param>
             
-            var user = this.user;
+            var user = this.user,
+                taskRepository = this;
             
             return Task.findById(taskDto.id, function(err, task) {
                 task = task || new Task({
                     audit: {
-                        created_by: user.id
+                        created_by: user.id,
+                        created_date: new Date()
                     }
                 });
 
@@ -116,11 +121,11 @@ var TaskRepository = Base.extend(function (user) {
                         availability_type: taskDto.availability.availability_type,
                         partners: taskDto.availability.partners
                     },
-                    audit: {
+                    audit: extend(true, {}, task.audit, {
                         modified_by: user.id,
                         modified_date: new Date(),
                         revision: task.audit.revision + 1
-                    }
+                    })
                 });
 
                 return async.series([
@@ -134,6 +139,7 @@ var TaskRepository = Base.extend(function (user) {
                                 if (err) return inputCallback(err);
 
                                 return inputCallback(err, {
+                                    _id: input.id,
                                     conditions: Enumerable.from(conditions).select(function(condition) {
                                         return condition.id;
                                     }).toArray()
@@ -157,6 +163,7 @@ var TaskRepository = Base.extend(function (user) {
                                 if (err) return outputCallback(err);
 
                                 return outputCallback(err, {
+                                    _id: output.id,
                                     conditions: Enumerable.from(conditions).select(function(condition) {
                                         return condition.id;
                                     }).toArray()
@@ -176,7 +183,7 @@ var TaskRepository = Base.extend(function (user) {
                     return task.save(function (err) {
                         if (err) return done(err);
 
-                        return TaskSnapshot.create(task).save(function(err) {
+                        return taskRepository._createSnapshot(task, function(err) {
                             return done(err, task);
                         });
                     });
@@ -224,6 +231,10 @@ var TaskRepository = Base.extend(function (user) {
             });
         },
 
+        findAllTasks: function(taskCriteria, done) {
+            return Task.find(taskCriteria, done);
+        },
+
         findProducerTasksByCondition: function(conditionId, done) {
             ///<summary>Finds tasks which produce the condition</summary>
             
@@ -234,6 +245,36 @@ var TaskRepository = Base.extend(function (user) {
             ///<summary>Finds tasks which consume the condition</summary>
             
             return Task.find({ 'inputs.conditions' : conditionId }, done);
+        },
+
+        findTasksCreatedAfter: function(date, done) {
+            ///<summary>Finds tasks created after certain date</summary>
+            
+            return Task.find({
+                'audit.created_date': {
+                    $gt: date
+                }
+            }, done);
+        },
+
+        _createSnapshot: function(task, done) {
+            ///<summary>Creates snapshot</summary>
+
+            return TaskSnapshot.findOne({taskId: task.id}, {}, {
+                sort: {
+                    _id: -1
+                }
+            }, function(err, oldestTaskSnapshot) {
+                if (err) return done(err);
+
+                var newestTaskSnapshot = TaskSnapshot.create(task);
+
+                if (!oldestTaskSnapshot || !obj.isEqual(oldestTaskSnapshot.toDto(), newestTaskSnapshot.toDto())) {
+                    return newestTaskSnapshot.save(done);
+                } else {
+                    return done();
+                }
+            });
         }
     });
 

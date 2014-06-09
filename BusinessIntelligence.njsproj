@@ -29,7 +29,6 @@
     <Content Include=".git\ms-persist.xml" />
     <Compile Include="gruntfile.js" />
     <Compile Include="logger.js" />
-    <Compile Include="models\affect.js" />
     <Compile Include="models\condition.js" />
     <Compile Include="models\condition.snapshot.js" />
     <Compile Include="models\group.js" />
@@ -38,6 +37,7 @@
     <Compile Include="models\task.snapshot.js" />
     <Compile Include="models\user.js" />
     <Compile Include="models\user.snapshot.js" />
+    <Compile Include="modules\obj.js" />
     <Compile Include="public\js\components\bootstrap.file-input.js" />
     <Compile Include="public\js\components\linq.min.js" />
     <Compile Include="public\js\components\objectId.js" />
@@ -60,6 +60,7 @@
     <Compile Include="repository\user.snapshot.js" />
     <Compile Include="routes\index.js" />
     <Compile Include="routes\management.js" />
+    <Compile Include="routes\metrics.js" />
     <Compile Include="routes\profile.js" />
     <Compile Include="routes\route.js" />
     <Compile Include="routes\context.js" />
@@ -102,6 +103,7 @@
     <Content Include="views\error\error.jade" />
     <Content Include="views\home\index.jade" />
     <Content Include="views\profile\index.jade" />
+    <Content Include="views\task\all.jade" />
     <Content Include="views\task\condition\create_update.jade" />
     <Content Include="views\task\condition\view.jade" />
     <Content Include="views\task\partial_condition_icon.jade" />
@@ -116,6 +118,7 @@
   <ItemGroup>
     <Folder Include=".git" />
     <Folder Include="models" />
+    <Folder Include="modules\" />
     <Folder Include="public\js\components\" />
     <Folder Include="repository\scripts\" />
     <Folder Include="tests\" />

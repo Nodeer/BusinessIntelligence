@@ -14,6 +14,10 @@ var userSchema = new Schema({
     audit: {
         modified_date: { type: Date, default: Date.now },
         revision: { type: Number, default: 1 }
+    },
+    metrics: {
+        previous_login_date: { type: Date, default: Date.now },
+        current_login_date: { type: Date, default: Date.now }
     }
 });
 
@@ -32,7 +36,8 @@ userSchema.methods.toDto = function() {
         first_name: this.first_name,
         last_name: this.last_name,
         avatar: this.avatar,
-        access: this.access
+        access: this.access,
+        metrics: this.metrics
     };
 };
 

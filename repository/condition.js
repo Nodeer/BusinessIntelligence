@@ -2,7 +2,8 @@
     Condition = require('../models/condition'),
     ConditionSnapshot = require('../models/condition.snapshot'),
     Enumerable = require('linq'),
-    extend = require('extend');
+    extend = require('extend'),
+    obj = require('../modules/obj');
 
 var ConditionRepository = Base.extend(function (user) {
         this.user = user;
@@ -39,7 +40,8 @@ var ConditionRepository = Base.extend(function (user) {
         },
 
         save: function(conditionDto, done) {
-            var user = this.user;
+            var user = this.user,
+                conditionRepository = this;
             return Condition.findById(conditionDto.id, function(err, condition) {
                 condition = condition || new Condition({
                     _id: conditionDto.id,
@@ -59,9 +61,9 @@ var ConditionRepository = Base.extend(function (user) {
                 return condition.save(function (err) {
                     if (err) return done(err);
 
-                    return ConditionSnapshot.create(condition).save(function(err) {
+                    return conditionRepository._createSnapshot(condition, function(err) {
                         return done(err, condition);
-                    });
+                    }); 
                 });
             });
         },
@@ -73,6 +75,26 @@ var ConditionRepository = Base.extend(function (user) {
                 return done(err, Enumerable.from(values).where(function(singleValue) {
                     return singleValue.match(new RegExp(value, 'i'));
                 }).toArray());
+            });
+        },
+
+        _createSnapshot: function(condition, done) {
+            ///<summary>Creates snapshot</summary>
+            
+            return ConditionSnapshot.findOne({conditionId: condition.id}, {}, {
+                sort: {
+                    _id: -1
+                }
+            }, function(err, oldestConditionSnapshot) {
+                if (err) return done(err);
+
+                var newestConditionSnapshot = ConditionSnapshot.create(condition);
+
+                if (!oldestConditionSnapshot || !obj.isEqual(oldestConditionSnapshot.toDto(), newestConditionSnapshot.toDto())) {
+                    return newestConditionSnapshot.save(done);
+                } else {
+                    return done();
+                }
             });
         }
     });

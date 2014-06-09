@@ -3,8 +3,8 @@
     'models'
 ]);
 
-taskControllers.controller('TaskCtrl', ['$scope', 'DependencyFactory',
-    function ($scope, DependencyFactory) {
+taskControllers.controller('TaskCtrl', ['$scope', 'TasksFactory', 'DependencyFactory',
+    function ($scope, TasksFactory, DependencyFactory) {
         $scope.getProducerTasks = function(condition) {
             if (!condition.producerTasks) {
                 condition.producerTasks = [];
@@ -40,6 +40,9 @@ taskControllers.controller('TaskCtrl', ['$scope', 'DependencyFactory',
 
             return condition.consumerTasks;
         };
+
+        $scope.tasks = TasksFactory.query();
+        
     }]);
 
 taskControllers.controller('CreateUpdateTaskCtrl', ['$scope', 'TaskFactory', 'ConditionsFactory', 'PartnersFactory', 'ConditionBuilder', 'DependencyFactory', '$window', '$modal',

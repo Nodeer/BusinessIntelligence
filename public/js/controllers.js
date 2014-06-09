@@ -30,9 +30,9 @@ controllers.controller('ApplicationCtrl', ['$scope', 'Application',
         };
     }]);
 
-controllers.controller('NavbarCtrl', ['$scope', '$window', 'Application',
+controllers.controller('NavbarCtrl', ['$scope', '$window', 'Application', 'MetricsFactory',
     ///<summary>Navigation controller</summary>
-    function ($scope, $window, Application) {
+    function ($scope, $window, Application, MetricsFactory) {
         Application.then(function(user) {
             $scope.navigation = {
                 groups: []
@@ -48,6 +48,15 @@ controllers.controller('NavbarCtrl', ['$scope', '$window', 'Application',
                 });
             }
 
+            var allTasks = {
+                id: 'AllTasks',
+                name: 'ALL TASKS',
+                type: 'button',
+                path: '/task/all'
+            };
+
+            $scope.navigation.groups.push(allTasks);
+
             if (user.access.manageUsers) {
                 $scope.navigation.groups.push({
                     name: 'MANAGEMENT',
@@ -59,6 +68,16 @@ controllers.controller('NavbarCtrl', ['$scope', '$window', 'Application',
                         path: '/management/users',
                         icon: 'glyphicon glyphicon-user'
                     }]
+                });
+            }
+
+            if (user.id) {
+                MetricsFactory.tasks.get({}, function(metrics) {
+                    if (metrics.newly_added_tasks_count) {
+                        allTasks.badge = {
+                            text: metrics.newly_added_tasks_count
+                        };
+                    }
                 });
             }
         });
