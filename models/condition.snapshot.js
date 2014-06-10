@@ -54,7 +54,8 @@ conditionSnapshotSchema.methods.toDto = function() {
         description: this.description,
         ui: this.ui,
         api: this.api,
-        note: this.note
+        note: this.note,
+        affects: this.affects
     };
 };
 

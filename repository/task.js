@@ -40,7 +40,7 @@ var TaskRepository = Base.extend(function (user) {
                                 return inputCallback(err, {
                                     id: input.id,
                                     conditions: Enumerable.from(conditions).orderBy(function(condition) {
-                                        return condition.id;
+                                        return condition.name;
                                     }).select(function(condition) {
                                         return condition.toDto();
                                     }).toArray()
@@ -62,7 +62,7 @@ var TaskRepository = Base.extend(function (user) {
                                 return outputCallback(err, {
                                     id: output.id,
                                     conditions: Enumerable.from(conditions).orderBy(function(condition) {
-                                        return condition.id;
+                                        return condition.name;
                                     }).select(function(condition) {
                                         return condition.toDto();
                                     }).toArray()

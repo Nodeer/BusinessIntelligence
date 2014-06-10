@@ -14,7 +14,7 @@
                 if user
                         ul.nav.navbar-nav(ng-repeat="group in navigation.groups", ng-switch on="group.type")
                             li.dropdown(ng-switch-when="dropdown", ng-class="{ active: isActive(group.path)}")
-                                a(href="#", data-toggle="dropdown", id="{{group.id || group.name}}").dropdown-toggle
+                                a(ng-href="#", data-toggle="dropdown", id="{{group.id || group.name}}").dropdown-toggle
                                     span(class="{{group.icon}}")
                                     |  {{group.name}} 
                                     b.caret
@@ -31,7 +31,3 @@
                                     span.badge(ng-show="group.badge") {{group.badge.text}}
                 ul.nav.navbar-nav.navbar-right
                     include profile
-                script.
-                    $('li.dropdown').click(function() {
-                        $(this).removeClass('open')
-                    });

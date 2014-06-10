@@ -66,6 +66,9 @@
                 span.required-one-of  *
             .col-sm-8
                 input#enterFromAPI.form-control(ng-model="condition.api.output", typeahead="value for value in condition.getValues('api.output', $viewValue)")
+        .well
+            .form-group
+                    include partial_create_update_affects
         .form-group
             label.col-sm-4.control-label(for="note") Note:
             .col-sm-8

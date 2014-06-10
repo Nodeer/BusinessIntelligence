@@ -80,6 +80,10 @@ controllers.controller('NavbarCtrl', ['$scope', '$window', 'Application', 'Metri
                     }
                 });
             }
+
+            $('li.dropdown').click(function() {
+                $(this).removeClass('open');
+            });
         });
 
         $scope.signin = function() {
