@@ -231,6 +231,10 @@ var TaskRepository = Base.extend(function (user) {
             });
         },
 
+        findAllTasks: function(taskCriteria, done) {
+            return Task.find(taskCriteria, done);
+        },
+
         findProducerTasksByCondition: function(conditionId, done) {
             ///<summary>Finds tasks which produce the condition</summary>
             

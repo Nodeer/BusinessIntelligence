@@ -5,6 +5,11 @@ taskServices.factory('TaskFactory', ['$resource',
         return $resource('/task/task.json/:id');
     }]);
 
+taskServices.factory('TasksFactory', ['$resource',
+    function ($resource) {
+        return $resource('/task/getTasks.json');
+    }]);
+
 taskServices.factory('PartnersFactory', ['$resource',
     function ($resource) {
         return $resource('/task/partners.json/:name');
