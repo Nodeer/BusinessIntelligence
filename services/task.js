@@ -1,12 +1,14 @@
 ﻿var Task = require('../models/task'),
     Condition = require('../models/condition'),
     ConditionRepository = require('../repository/condition'),
+    UserRepository = require( '../repository/user' );
     TaskRepository = require('../repository/task'),
     Base = require('./base'),
     klass = require('klass'),
     extend = require('extend'),
     logger = require('../logger').getLogger('services/task'),
     util = require('util'),
+async = require( 'async' ),
     Enumerable = require('linq');
 
 
@@ -90,11 +92,31 @@ var TaskService = Base.extend(function (user) {
           });
         },
 
-        findTasks: function(taskCriteria, map, done) {
-            return new TaskRepository(this.user).findAllTasks(taskCriteria, function(err, tasks) {
+        findTasks: function (taskCriteria, map, done) {
+            return new TaskRepository(this.user).findAllTasks(taskCriteria, function (err, tasks) {
                 if (err) return done(err);
-                
-                return done(err, Enumerable.from(tasks).select(map).toArray());
+
+                var userRepository = new UserRepository();
+                return async.map(tasks, function (task, callback) {
+                    return userRepository.getById(task.audit.created_by, function (error, user) {
+                        if (error) return callback(error);
+                         
+                        var owner = (user != null) ? util.format('%s/%s %s', user.email, user.first_name, user.last_name) : "System";
+                            
+                        return callback(error, {
+                            task: task,
+                            params: {
+                                owner : owner,
+                                created_date : task.audit.created_date 
+                            }
+                        });
+                    });
+
+                }, function (error, results) {
+                        return done(error, Enumerable.from(results).select(function(result) {
+                            return map(result.task, result.params);
+                        }).toArray());
+                   });
             });
         },
 

@@ -106,9 +106,10 @@ exports.getTasks = function (req, res, next) {
 
     var taskCriteria = {};
 
-    return new TaskService(req.user).findTasks(taskCriteria, function(task) {
+    return new TaskService(req.user).findTasks(taskCriteria, function(task, params) {
         var taskDto = task.toDto();
-        taskDto.audit = task.audit;
+        taskDto.params = params;
+        
         return taskDto;
     }, function(err, tasks) {
         if (err) return next(err);

@@ -5,10 +5,10 @@ block task-content
         table.table.table-striped(style="margin-bottom: 0px")
             thead 
                 th DATE
-                th CREATED BY
+                th ADDED BY
                 th TASK NAME
             tbody
                 tr(ng-repeat="task in tasks")
-                    td {{ task.audit.created_date | date:'yyyy-MM-dd' }}
-                    td {{ task.audit.created_by }}
+                    td {{ task.params.created_date | date:'yyyy-MM-dd' }}
+                    td {{ task.params.owner }}
                     td {{ task.name }}
