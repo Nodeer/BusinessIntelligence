@@ -110,6 +110,8 @@ block task-content
                                         |  
                                         a(ng-click="task.$output.createUpdateCondition(output, condition)") {{condition.name}}
                                     td
+                                        div(ng-repeat="affect in condition.affects")
+                                            a(ng-href="/task/view/{{affect.task.id}}", target="_blank", popover="{{affect.description}}", popover-trigger="mouseenter", popover-popup-delay="300", popover-placement="right") {{affect.task.name}}
                                     td
                                         | {{condition.ui.output}}
                                     td

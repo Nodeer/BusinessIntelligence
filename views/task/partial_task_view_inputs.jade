@@ -15,7 +15,7 @@
                         td
                             include partial_condition_icon
                             |  
-                            a(ng-click="viewCondition(condition)") {{condition.name}}
+                            a(ng-click="viewCondition(condition, {input: 1})") {{condition.name}}
                         td
                             | {{condition.ui.input}}
                         td

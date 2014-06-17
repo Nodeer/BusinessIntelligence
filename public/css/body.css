@@ -125,3 +125,7 @@ a {
 
 .loader {
 }
+
+.form-group-well {
+    padding-bottom: 0px;
+}

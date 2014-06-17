@@ -26,7 +26,8 @@ var TaskRepository = Base.extend(function (user) {
             ///<param name="id">Task identifier</param>
             ///<param name="done">Done callback</param>
 
-            var user = this.user;
+            var user = this.user,
+                taskRepository = this;
             return Task.findById(id, function(err, task) {
                 if (err) return done(err);
 
@@ -55,17 +56,37 @@ var TaskRepository = Base.extend(function (user) {
                         });
                     },
                     function(callback) {
-                        return async.map(task.outputs, function(output, outputCallback) {
+                        return async.map(task.outputs, function(output, outputProcessedCallback) {
                             return new ConditionRepository(user).getByIds(output.conditions, function(err, conditions) {
-                                if (err) return outputCallback(err);
+                                if (err) return outputProcessedCallback(err);
 
-                                return outputCallback(err, {
-                                    id: output.id,
-                                    conditions: Enumerable.from(conditions).orderBy(function(condition) {
-                                        return condition.name;
-                                    }).select(function(condition) {
-                                        return condition.toDto();
-                                    }).toArray()
+                                return async.map(conditions, function(condition, conditionProcessedCallback) {
+                                    return async.map(condition.affects, function(affect, affectProcessedCallback) {
+                                        return Task.findById(affect.task, function(err, task) {
+                                            if (err) return affectProcessedCallback(err);
+
+                                            return affectProcessedCallback(err, {
+                                                id: affect.id,
+                                                task: task.toDto(),
+                                                description: affect.description
+                                            });
+                                        });
+                                    }, function(err, affects) {
+                                        if (err) return conditionProcessedCallback(err);
+
+                                        condition = extend(condition.toDto(), {
+                                            affects: affects
+                                        });
+
+                                        return conditionProcessedCallback(err, condition);
+                                    });
+                                }, function(err, conditions) {
+                                    return outputProcessedCallback(err, {
+                                        id: output.id,
+                                        conditions: Enumerable.from(conditions).orderBy(function(condition) {
+                                            return condition.name;
+                                        }).toArray()
+                                    });
                                 });
                             });
                         }, function(err, outputs) {

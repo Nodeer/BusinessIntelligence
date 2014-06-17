@@ -7,7 +7,6 @@ var Affect = new Schema({
     description: String
 });
 
-
 var conditionSchema = new Schema({
     name: { type: String, required: 1, index: 1},
     condition_type: { type: String, required: 1 },
@@ -47,12 +46,7 @@ conditionSchema.methods.toDto = function() {
         ui: this.ui,
         api: this.api,
         note: this.note,
-        affects: Enumerable.from(this.affects).select(function(affect) {
-            return {
-                id: affect.id,
-                description: affect.description
-            };
-        }).toArray()
+        affects: this.affects
     };
 };
 

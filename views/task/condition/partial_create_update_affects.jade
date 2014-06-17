@@ -3,6 +3,12 @@
         th Affects Task
         th Affect Description
     tbody
-        tr
+        tr(ng-repeat="affect in condition.affects")
             td
+                p.form-control-static {{affect.task.name}}
             td
+                input.form-control(ng-model="affect.description")
+            td.col-td-min
+                a(ng-click="removeAffect(affect)")
+                    span.glyphicon.glyphicon-remove
+input.form-control(ng-model="condition.searchAffectTask", typeahead="task as task.name for task in searchTasks($viewValue)", typeahead-on-select="pushAffect($item)", placeholder="Search for task")

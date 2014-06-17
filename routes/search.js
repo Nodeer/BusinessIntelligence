@@ -19,11 +19,7 @@ exports.tasks = function (req, res, next) {
     var criteria = req.params.criteria;
 
     return new TaskService(req.user).searchTasks(criteria, function(task) {
-        return {
-            id: task.id,
-            name: task.name,
-            description: task.description
-        };
+        return task.toDto();
     }, function(err, tasks) {
         if (err) return next(err);
 

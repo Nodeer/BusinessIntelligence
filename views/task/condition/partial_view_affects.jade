@@ -1,0 +1,10 @@
+﻿table.table.table-striped
+    thead
+        th Affects Task
+        th Affect Description
+    tbody
+        tr(ng-repeat="affect in condition.affects")
+            td
+                p.form-control-static {{affect.task.name}}
+            td
+                p.form-control-static {{affect.description}}

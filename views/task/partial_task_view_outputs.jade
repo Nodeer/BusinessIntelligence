@@ -16,8 +16,10 @@
                         td
                             include partial_condition_icon
                             |  
-                            a(ng-click="viewCondition(condition)") {{condition.name}}
+                            a(ng-click="viewCondition(condition, {output: 1})") {{condition.name}}
                         td
+                            div(ng-repeat="affect in condition.affects")
+                                a(ng-href="/task/view/{{affect.task.id}}", popover="{{affect.description}}", popover-trigger="mouseenter", popover-popup-delay="300", popover-placement="right") {{affect.task.name}}
                         td
                             | {{condition.ui.output}}
                         td

@@ -98,7 +98,7 @@ controllers.controller('NavbarCtrl', ['$scope', '$window', 'Application', 'Metri
         };
 
         $scope.isActive = function (viewLocation) {
-            return $window.location.pathname.contains(viewLocation);
+            return $window.location.pathname.indexOf(viewLocation) > -1;
         };
     }]);
 
