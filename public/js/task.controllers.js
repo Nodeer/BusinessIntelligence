@@ -41,8 +41,9 @@ taskControllers.controller('TaskCtrl', ['$scope', 'TasksFactory', 'DependencyFac
             return condition.consumerTasks;
         };
 
-        // TODO : Remove this
-        $scope.tasks = TasksFactory.query();
+        $scope.getTasks = function() {
+            return TasksFactory.query();
+        };
         
     }]);
 
