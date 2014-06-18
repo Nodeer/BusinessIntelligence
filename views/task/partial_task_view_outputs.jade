@@ -21,9 +21,11 @@
                             div(ng-repeat="affect in condition.affects")
                                 a(ng-href="/task/view/{{affect.task.id}}", popover="{{affect.description}}", popover-trigger="mouseenter", popover-popup-delay="300", popover-placement="right") {{affect.task.name}}
                         td
-                            | {{condition.ui.output}}
+                            div(ng-repeat="output in condition.ui.output track by $index")
+                                | {{output}}
                         td
-                            | {{condition.api.output}}
+                            div(ng-repeat="output in condition.api.output track by $index")
+                                | {{output}}
                         td
                             img.loader(src="/public/images/loader.gif", ng-show="!condition.consumerTasksLoaded")
                             div(ng-repeat="consumerTask in getConsumerTasks(condition)")

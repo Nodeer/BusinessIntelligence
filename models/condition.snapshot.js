@@ -18,12 +18,12 @@ var conditionSnapshotSchema = new Schema({
     },
     description: String,
     ui: {
-        input: String,
-        output: String
+        input: [String],
+        output: [String]
     },
     api: {
-        input: String,
-        output: String
+        input: [String],
+        output: [String]
     },
     note: String,
     affects: [Affect],

@@ -17,9 +17,11 @@
                             |  
                             a(ng-click="viewCondition(condition, {input: 1})") {{condition.name}}
                         td
-                            | {{condition.ui.input}}
+                            div(ng-repeat="input in condition.ui.input track by $index")
+                                | {{input}}
                         td
-                            | {{condition.api.input}}
+                            div(ng-repeat="input in condition.api.input track by $index")
+                                | {{input}}
                         td
                             img.loader(src="/public/images/loader.gif", ng-show="!condition.producerTasksLoaded")
                             div(ng-repeat="producerTask in getProducerTasks(condition)")

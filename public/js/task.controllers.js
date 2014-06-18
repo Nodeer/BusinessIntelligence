@@ -345,12 +345,12 @@ taskControllers.controller('CreateUpdateConditionCtrl', ['$scope', 'ConditionsFa
             },
             description: '',
             ui: {
-                input: '',
-                output: ''
+                input: [],
+                output: []
             },
             api: {
-                input: '',
-                output: ''
+                input: [],
+                output: []
             },
             affects: [],
             getValues: function(name, value) {
@@ -374,6 +374,38 @@ taskControllers.controller('CreateUpdateConditionCtrl', ['$scope', 'ConditionsFa
             },
             description: condition.preferred_name
         }, condition);
+
+        $scope.ui = {
+            values: {
+                select : function(name) {
+                    return {
+                        minimumInputLength: 3,
+                        multiple: true,
+                        query: function(query) {
+                            return ConditionsFactory
+                            .query({
+                                name: name,
+                                value: query.term
+                            }, function(values) {
+                                var results = Enumerable.from(values).union([
+                                {
+                                    value: query.term
+                                }]).distinct(function(settingValue) {
+                                    return settingValue.value;
+                                }).select(function(settingValue) {
+                                        return {
+                                            id: settingValue.value,
+                                            text: settingValue.value
+                                        };
+                                    }).toArray();
+                                return query.callback({ results: results });
+                            });
+                        },
+                        simple_tags: true
+                    };
+                }
+            }
+        };
 
         $scope.searchTasks = function(criteria) {
             if (criteria.length >= 3) {

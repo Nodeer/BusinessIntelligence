@@ -17,17 +17,18 @@ var conditionSchema = new Schema({
     },
     description: { type: String, index: 1},
     ui: {
-        input: { type: String, index: 1, default: '' },
-        output: { type: String, index: 1, default: '' }
+        input: [{ type: String, index: 1, default: '' }],
+        output: [{ type: String, index: 1, default: '' }]
     },
     api: {
-        input: { type: String, index: 1, default: '' },
-        output: { type: String, index: 1, default: '' }
+        input: [{ type: String, index: 1, default: '' }],
+        output: [{ type: String, index: 1, default: '' }]
     },
     note: String,
     affects: [Affect],
     audit: {
         created_by: { type: Schema.Types.ObjectId, ref: 'User', index: 1 },
+        created_date: { type: Date, default: Date.now },
         modified_by: { type: Schema.Types.ObjectId, ref: 'User', index: 1 },
         modified_date: { type: Date, default: Date.now },
         revision: { type: Number, default: 1 }

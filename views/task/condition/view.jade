@@ -35,19 +35,19 @@
                 .form-group(ng-if="mode.input")
                     label.col-sm-4.control-label(for="enterFromUI") Enter from UI:
                     .col-sm-8
-                        p#enterFromUI.form-control-static {{condition.ui.input}}
+                        p#enterFromUI.form-control-static {{condition.ui.input.join(' ')}}
                 .form-group(ng-if="mode.input")
                     label.col-sm-4.control-label(for="enterFromAPI") Enter from API:
                     .col-sm-8
-                        p#enterFromAPI.form-control-static {{condition.api.input}}
+                        p#enterFromAPI.form-control-static {{condition.api.input.join(' ')}}
                 .form-group(ng-if="mode.output")
                     label.col-sm-4.control-label(for="enterFromUI") Displayed on UI:
                     .col-sm-8
-                        p#enterFromUI.form-control-static {{condition.ui.output}}
+                        p#enterFromUI.form-control-static {{condition.ui.output.join(' ')}}
                 .form-group(ng-if="mode.output")
                     label.col-sm-4.control-label(for="enterFromAPI") Used in API:
                     .col-sm-8
-                        p#enterFromAPI.form-control-static {{condition.api.output}}
+                        p#enterFromAPI.form-control-static {{condition.api.output.join(' ')}}
                 .form-group
                     label.col-sm-4.control-label(for="note") Note:
                     .col-sm-8

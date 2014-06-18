@@ -53,22 +53,22 @@
                     label.col-sm-4.control-label(for="enterFromUI") Enter from UI:
                         span.required-one-of  *
                     .col-sm-8
-                        input#enterFromUI.form-control(ng-model="condition.ui.input", typeahead="value for value in condition.getValues('ui.input', $viewValue)")
+                        input#enterFromUI.form-control(type="hidden", ui-select2="ui.values.select('ui.input')", ng-model="condition.ui.input")
                 .form-group(ng-if="mode.input")
                     label.col-sm-4.control-label(for="enterFromAPI") Enter from API:
                         span.required-one-of  *
                     .col-sm-8
-                        input#enterFromAPI.form-control(ng-model="condition.api.input", typeahead="value for value in condition.getValues('api.input', $viewValue)")
+                        input#enterFromUI.form-control(type="hidden", ui-select2="ui.values.select('api.input')", ng-model="condition.api.input")
                 .form-group(ng-if="mode.output")
                     label.col-sm-4.control-label(for="enterFromUI") Displayed on UI:
                         span.required-one-of  *
                     .col-sm-8
-                        input#enterFromUI.form-control(ng-model="condition.ui.output", typeahead="value for value in condition.getValues('ui.output', $viewValue)")
+                        input#enterFromUI.form-control(type="hidden", ui-select2="ui.values.select('ui.output')", ng-model="condition.ui.output")
                 .form-group(ng-if="mode.output")
                     label.col-sm-4.control-label(for="enterFromAPI") Used in API:
                         span.required-one-of  *
                     .col-sm-8
-                        input#enterFromAPI.form-control(ng-model="condition.api.output", typeahead="value for value in condition.getValues('api.output', $viewValue)")
+                        input#enterFromUI.form-control(type="hidden", ui-select2="ui.values.select('api.output')", ng-model="condition.api.output")
                 .form-group
                     label.col-sm-4.control-label(for="note") Note:
                     .col-sm-8

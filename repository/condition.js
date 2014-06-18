@@ -51,7 +51,7 @@ var ConditionRepository = Base.extend(function (user) {
                     }
                 });
 
-                extend(condition, conditionDto, {
+                _.merge(condition, conditionDto, {
                     affects: Enumerable.from(conditionDto.affects).select(function(affect) {
                         return {
                             _id: affect.id,
@@ -81,7 +81,7 @@ var ConditionRepository = Base.extend(function (user) {
                 if (err) return done(err);
 
                 return done(err, Enumerable.from(values).where(function(singleValue) {
-                    return singleValue.match(new RegExp(value, 'i'));
+                    return singleValue && singleValue.match(new RegExp(value, 'i'));
                 }).toArray());
             });
         },
