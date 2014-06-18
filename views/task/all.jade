@@ -8,7 +8,7 @@ block task-content
                 th ADDED BY
                 th TASK NAME
             tbody
-                tr(ng-repeat="task in getTasks()")
+                tr(ng-repeat="task in tasks")
                     td {{ task.params.created_date | date:'yyyy-MM-dd' }}
                     td {{ task.params.owner }}
                     td {{ task.name }}

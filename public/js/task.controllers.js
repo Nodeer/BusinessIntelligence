@@ -41,10 +41,7 @@ taskControllers.controller('TaskCtrl', ['$scope', 'TasksFactory', 'DependencyFac
             return condition.consumerTasks;
         };
 
-        $scope.getTasks = function() {
-            return TasksFactory.query();
-        };
-        
+        $scope.tasks = [];
     }]);
 
 taskControllers.controller('CreateUpdateTaskCtrl', ['$scope', 'TaskFactory', 'ConditionsFactory', 'PartnersFactory', 'ConditionBuilder', 'DependencyFactory', '$window', '$modal',
